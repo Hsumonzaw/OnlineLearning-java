@@ -1,0 +1,13 @@
+package com.companyname.one.service;
+
+import java.util.List;
+
+import com.companyname.one.dto.UserAccountDto;
+
+public interface UserAccountService {
+
+	List<UserAccountDto> getUserAccounts(String userType);
+
+	int saveUserAccounts(UserAccountDto dto);
+
+}
