@@ -14,8 +14,9 @@ public class UserAccountDaoImpl implements UserAccountDao{
 	SessionFactory sessionFactory;
 	@Override
 	public UserAccount getUserAccountsById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Auto-generated method stub\
+		Session session = sessionFactory.getCurrentSession();
+		return session.find(UserAccount.class, userId);
 	}
 
 	@Override
@@ -38,6 +39,20 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
+	}
+
+	@Override
+	public void updateUserAccount(UserAccount user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.update(user);
+	}
+
+	@Override
+	public void deleteUserAccounts(int userAccountId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(new UserAccount(userAccountId));
 	}
 
 }

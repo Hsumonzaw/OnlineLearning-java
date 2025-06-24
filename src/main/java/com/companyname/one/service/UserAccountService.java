@@ -10,4 +10,8 @@ public interface UserAccountService {
 
 	int saveUserAccounts(UserAccountDto dto);
 
+	int updateUserAccounts(UserAccountDto dto);
+
+	int deleteUserAccounts(int userAccountId);
+
 }

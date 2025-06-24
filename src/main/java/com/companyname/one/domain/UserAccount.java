@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.companyname.one.dto.UserAccountDto;
 import com.companyname.one.util.Cryption;
+import com.companyname.one.util.User;
 @Entity
 @Table(name = "useraccount")
 public class UserAccount implements UserDetails  {
@@ -59,7 +60,12 @@ public class UserAccount implements UserDetails  {
 		this.photo = dto.getPhoto();
 		this.status = 1;//dto.getStatus();
 		this.userType = dto.getUserType();
-		this.date = new Date();
+		if(this.userAccountId==0) {
+			this.date = new Date();
+		}else {
+			this.date = dto.getDate();
+		}
+		
 		this.address = dto.getAddress();
 		this.nrc = dto.getNrc();
 		this.email = dto.getEmail();
@@ -70,6 +76,12 @@ public class UserAccount implements UserDetails  {
 		this.modifiedDate = new Date(); 
 		this.userName = dto.getUserName();
 		this.encryptPassword = Cryption.encryption(dto.getPassword());
+		this.createId = 1;//User.getUserId();
+	}
+
+	public UserAccount(int userAccountId) {
+		// TODO Auto-generated constructor stub
+		this.userAccountId = userAccountId;
 	}
 
 	public int getUserAccountId() {

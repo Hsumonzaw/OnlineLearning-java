@@ -10,4 +10,8 @@ public interface UserAccountDao {
 	List<UserAccount> getUserAccounts(String userType);
 
 	void saveUserAccounts(UserAccount user);
+
+	void updateUserAccount(UserAccount user);
+
+	void deleteUserAccounts(int userAccountId);
 }

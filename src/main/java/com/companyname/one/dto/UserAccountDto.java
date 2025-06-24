@@ -81,5 +81,6 @@ public class UserAccountDto{
 		this.phonenum = user.getPhonenum();
 		this.degree = user.getDegree();
 		this.file = user.getFile();
+		this.userName = user.getUserName();
 	}
 }

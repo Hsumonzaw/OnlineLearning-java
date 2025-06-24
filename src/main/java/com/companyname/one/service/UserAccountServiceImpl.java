@@ -1,6 +1,7 @@
 package com.companyname.one.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.companyname.one.dao.UserAccountDao;
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.UserAccountDto;
+import com.companyname.one.util.Cryption;
+import com.companyname.one.util.User;
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService{
@@ -39,6 +42,44 @@ public class UserAccountServiceImpl implements UserAccountService{
 		user.setPassword(passEncoder.encode(dto.getPassword().toString().trim()));
 		userDao.saveUserAccounts(user);
 		return user.getUserAccountId();
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int updateUserAccounts(UserAccountDto dto) {
+		// TODO Auto-generated method stub
+		
+		UserAccount user = userDao.getUserAccountsById(dto.getUserAccountId());
+		user.setName(dto.getName());
+		user.setAge(dto.getAge());
+		user.setType(dto.getType());
+		user.setStatus(1);
+		user.setUserType(dto.getUserType());
+		user.setAddress(dto.getAddress());
+		user.setNrc(dto.getNrc());
+		user.setEmail(dto.getEmail());
+		user.setPhonenum(dto.getPhonenum());
+		user.setDegree(dto.getDegree());
+		user.setStartDate(dto.getStartDate());
+		user.setModifiedDate(new Date());
+		user.setUserName(dto.getUserName());
+		user.setPassword(passEncoder.encode(dto.getPassword().toString().trim()));
+		user.setEncryptPassword(Cryption.encryption(dto.getPassword()));
+		user.setCreateId(User.getUserId());
+//		UserAccount user = new UserAccount(dto);
+//		user.setPassword(passEncoder.encode(dto.getPassword().toString().trim()));
+//		userDao.updateUserAccount(user);
+		return dto.getUserAccountId();
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int deleteUserAccounts(int userAccountId) {
+		// TODO Auto-usergenerated method stub
+		UserAccount user = userDao.getUserAccountsById(userAccountId);
+		user.setStatus(0);
+		//userDao.deleteUserAccounts(userAccountId);
+		return userAccountId;
 	}
 
 }
