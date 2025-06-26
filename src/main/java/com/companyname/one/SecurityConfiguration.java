@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 		.antMatchers("/static/**","/api/v1/user/login",
-				"/api/v1/free/**","/api/v1/productfile/**","/api/v1/productphoto/**","/api/v1/brandphoto/**","/api/v1/newsphoto/**")//,"/*"
+				"/api/v1/free/**","/api/v1/productfile/**","/api/v1/userphoto/**")//,"/*"
 		.permitAll();
 		//.antMatchers("/api/v1/**").hasAnyRole("ADMIN","ACCOUNTANT","FINANCE","BRANCHADMIN","DELIVERY","OPERATION","CS");
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

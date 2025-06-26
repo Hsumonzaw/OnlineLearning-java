@@ -83,4 +83,11 @@ public class UserAccountDto{
 		this.file = user.getFile();
 		this.userName = user.getUserName();
 	}
+
+
+
+	public UserAccountDto(String userName) {
+		// TODO Auto-generated constructor stub
+		this.name = userName;
+	}
 }

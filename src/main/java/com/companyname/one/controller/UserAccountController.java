@@ -69,4 +69,15 @@ UserAccountService userService;
 		}
 		
 	}
+	@PutMapping("useraccounts/{userAccountId}/photo")
+	public int updatePhoto(@PathVariable("userAccountId")int userAccountId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+			return userService.updatePhoto(userAccountId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
+	}
 }

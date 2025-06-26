@@ -1,0 +1,11 @@
+package com.companyname.one.dao;
+
+import java.util.List;
+
+import com.companyname.one.domain.Lessons;
+
+public interface LessonsDao {
+
+	List<Object[]> getLessons(String freeVideo);
+
+}

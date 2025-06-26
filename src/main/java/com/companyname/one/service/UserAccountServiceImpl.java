@@ -1,5 +1,7 @@
 package com.companyname.one.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dao.UserAccountDao;
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.UserAccountDto;
+import com.companyname.one.util.ConvertDate;
 import com.companyname.one.util.Cryption;
 import com.companyname.one.util.User;
-
 @Service
 public class UserAccountServiceImpl implements UserAccountService{
 	@Autowired
@@ -79,6 +82,41 @@ public class UserAccountServiceImpl implements UserAccountService{
 		UserAccount user = userDao.getUserAccountsById(userAccountId);
 		user.setStatus(0);
 		//userDao.deleteUserAccounts(userAccountId);
+		return userAccountId;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int updatePhoto(int userAccountId, MultipartFile file) {
+		// TODO Auto-generated method stub
+		String oldPhoto = "";
+		UserAccount ua = userDao.getUserAccountsById(userAccountId);
+		oldPhoto = ua.getPhoto();
+		String photo = ConvertDate.convertyymmddhhmmss(new Date());
+		ua.setPhoto(photo);
+		
+		String pwd=new File("").getAbsolutePath();
+		if(oldPhoto!=null) {
+			File deleteFile=new File(pwd+"/userphoto/"+oldPhoto+".png");
+			deleteFile.delete();
+		}
+		
+		
+		File dir=new File(pwd+"/userphoto/");
+		String outPath=pwd+"/userphoto/"+photo+".png";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		return userAccountId;
 	}
 
