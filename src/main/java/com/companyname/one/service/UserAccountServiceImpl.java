@@ -55,7 +55,6 @@ public class UserAccountServiceImpl implements UserAccountService{
 		UserAccount user = userDao.getUserAccountsById(dto.getUserAccountId());
 		user.setName(dto.getName());
 		user.setAge(dto.getAge());
-		user.setType(dto.getType());
 		user.setStatus(1);
 		user.setUserType(dto.getUserType());
 		user.setAddress(dto.getAddress());

@@ -1,4 +1,4 @@
-//package com.companyname.learn;
+//package com.companyname.one.domain;
 //
 //import java.io.Serializable;
 //import java.util.Date;
@@ -25,14 +25,11 @@
 //	/** useraccount. */
 //	private Useraccount studentiduseraccount;
 //
-//	/** languagesId. */
-//	private Integer languagesid;
+//	/** languages. */
+//	private Languages languages;
 //
-//	/** courseName. */
-//	private String coursename;
-//
-//	/** video. */
-//	private String video;
+//	/** type. */
+//	private Object type;
 //
 //	/** amount. */
 //	private Integer amount;
@@ -46,18 +43,14 @@
 //	/** modifiedDate. */
 //	private Date modifieddate;
 //
-//	/** The set of exam. */
-//	private Set<Exam> examSet;
-//
-//	/** The set of languages. */
-//	private Set<Languages> languagesSet;
+//	/** The set of examAns. */
+//	private Set<Examans> examansSet;
 //
 //	/**
 //	 * Constructor.
 //	 */
 //	public Courses() {
-//		this.examSet = new HashSet<Exam>();
-//		this.languagesSet = new HashSet<Languages>();
+//		this.examansSet = new HashSet<Examans>();
 //	}
 //
 //	/**
@@ -118,60 +111,41 @@
 //	}
 //
 //	/**
-//	 * Set the languagesId.
+//	 * Set the languages.
 //	 * 
-//	 * @param languagesid
-//	 *            languagesId
+//	 * @param languages
+//	 *            languages
 //	 */
-//	public void setLanguagesid(Integer languagesid) {
-//		this.languagesid = languagesid;
+//	public void setLanguages(Languages languages) {
+//		this.languages = languages;
 //	}
 //
 //	/**
-//	 * Get the languagesId.
+//	 * Get the languages.
 //	 * 
-//	 * @return languagesId
+//	 * @return languages
 //	 */
-//	public Integer getLanguagesid() {
-//		return this.languagesid;
+//	public Languages getLanguages() {
+//		return this.languages;
 //	}
 //
 //	/**
-//	 * Set the courseName.
+//	 * Set the type.
 //	 * 
-//	 * @param coursename
-//	 *            courseName
+//	 * @param type
+//	 *            type
 //	 */
-//	public void setCoursename(String coursename) {
-//		this.coursename = coursename;
+//	public void setType(Object type) {
+//		this.type = type;
 //	}
 //
 //	/**
-//	 * Get the courseName.
+//	 * Get the type.
 //	 * 
-//	 * @return courseName
+//	 * @return type
 //	 */
-//	public String getCoursename() {
-//		return this.coursename;
-//	}
-//
-//	/**
-//	 * Set the video.
-//	 * 
-//	 * @param video
-//	 *            video
-//	 */
-//	public void setVideo(String video) {
-//		this.video = video;
-//	}
-//
-//	/**
-//	 * Get the video.
-//	 * 
-//	 * @return video
-//	 */
-//	public String getVideo() {
-//		return this.video;
+//	public Object getType() {
+//		return this.type;
 //	}
 //
 //	/**
@@ -251,61 +225,32 @@
 //	}
 //
 //	/**
-//	 * Set the set of the exam.
+//	 * Set the set of the examAns.
 //	 * 
-//	 * @param examSet
-//	 *            The set of exam
+//	 * @param examansSet
+//	 *            The set of examAns
 //	 */
-//	public void setExamSet(Set<Exam> examSet) {
-//		this.examSet = examSet;
+//	public void setExamansSet(Set<Examans> examansSet) {
+//		this.examansSet = examansSet;
 //	}
 //
 //	/**
-//	 * Add the exam.
+//	 * Add the examAns.
 //	 * 
-//	 * @param exam
-//	 *            exam
+//	 * @param examans
+//	 *            examAns
 //	 */
-//	public void addExam(Exam exam) {
-//		this.examSet.add(exam);
+//	public void addExamans(Examans examans) {
+//		this.examansSet.add(examans);
 //	}
 //
 //	/**
-//	 * Get the set of the exam.
+//	 * Get the set of the examAns.
 //	 * 
-//	 * @return The set of exam
+//	 * @return The set of examAns
 //	 */
-//	public Set<Exam> getExamSet() {
-//		return this.examSet;
-//	}
-//
-//	/**
-//	 * Set the set of the languages.
-//	 * 
-//	 * @param languagesSet
-//	 *            The set of languages
-//	 */
-//	public void setLanguagesSet(Set<Languages> languagesSet) {
-//		this.languagesSet = languagesSet;
-//	}
-//
-//	/**
-//	 * Add the languages.
-//	 * 
-//	 * @param languages
-//	 *            languages
-//	 */
-//	public void addLanguages(Languages languages) {
-//		this.languagesSet.add(languages);
-//	}
-//
-//	/**
-//	 * Get the set of the languages.
-//	 * 
-//	 * @return The set of languages
-//	 */
-//	public Set<Languages> getLanguagesSet() {
-//		return this.languagesSet;
+//	public Set<Examans> getExamansSet() {
+//		return this.examansSet;
 //	}
 //
 //	/**
