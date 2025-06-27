@@ -1,3 +1,4 @@
+
 package com.companyname.one.domain;
 
 import java.io.Serializable;
@@ -117,3 +118,6 @@ public class Courses  {
 	
 	
 }
+
+
+

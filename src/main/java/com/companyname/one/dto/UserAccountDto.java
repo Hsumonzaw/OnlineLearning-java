@@ -40,7 +40,6 @@ public class UserAccountDto{
 	private Integer createId;
 	private String name;
 	private int age;
-	private String type;
 	private String photo;
 	private int status;
 	private String userType;
@@ -70,7 +69,6 @@ public class UserAccountDto{
 		this.userAccountId = user.getUserAccountId();
 		this.name = user.getName();
 		this.age = user.getAge();
-		this.type = user.getType();
 		this.photo = user.getPhoto();
 		this.status = user.getStatus();
 		this.userType = user.getUserType();

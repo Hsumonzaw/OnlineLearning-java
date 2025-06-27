@@ -28,7 +28,6 @@ public class UserAccount implements UserDetails  {
 	private Integer createId;
 	private String name;
 	private int age;
-	private String type;
 	private String photo;
 	private int status;
 	private String userType;
@@ -56,7 +55,6 @@ public class UserAccount implements UserDetails  {
 		this.userAccountId = dto.getUserAccountId();
 		this.name = dto.getName();
 		this.age = dto.getAge();
-		this.type = dto.getType();
 		this.photo = dto.getPhoto();
 		this.status = 1;//dto.getStatus();
 		this.userType = dto.getUserType();
@@ -116,13 +114,7 @@ public class UserAccount implements UserDetails  {
 		this.age = age;
 	}
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public String getPhoto() {
 		return photo;
