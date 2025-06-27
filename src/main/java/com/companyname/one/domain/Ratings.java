@@ -1,6 +1,7 @@
-//package com.companyname.learn;
+//package com.companyname.one.domain;
 //
 //import java.io.Serializable;
+//import java.util.Date;
 //
 ///**
 // * Model class of ratings.
@@ -24,6 +25,12 @@
 //
 //	/** rate. */
 //	private Integer rate;
+//
+//	/** date. */
+//	private Date date;
+//
+//	/** modifiedDate. */
+//	private Date modifieddate;
 //
 //	/**
 //	 * Constructor.
@@ -105,6 +112,44 @@
 //	 */
 //	public Integer getRate() {
 //		return this.rate;
+//	}
+//
+//	/**
+//	 * Set the date.
+//	 * 
+//	 * @param date
+//	 *            date
+//	 */
+//	public void setDate(Date date) {
+//		this.date = date;
+//	}
+//
+//	/**
+//	 * Get the date.
+//	 * 
+//	 * @return date
+//	 */
+//	public Date getDate() {
+//		return this.date;
+//	}
+//
+//	/**
+//	 * Set the modifiedDate.
+//	 * 
+//	 * @param modifieddate
+//	 *            modifiedDate
+//	 */
+//	public void setModifieddate(Date modifieddate) {
+//		this.modifieddate = modifieddate;
+//	}
+//
+//	/**
+//	 * Get the modifiedDate.
+//	 * 
+//	 * @return modifiedDate
+//	 */
+//	public Date getModifieddate() {
+//		return this.modifieddate;
 //	}
 //
 //	/**

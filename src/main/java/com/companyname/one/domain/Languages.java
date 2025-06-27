@@ -10,10 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "useraccount")
-public class Languages  {
+import com.companyname.one.dto.LanguagesDto;
 
+@Entity
+@Table(name = "languages")
+public class Languages  {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int languagesId;
@@ -22,48 +23,74 @@ public class Languages  {
 
 	private int amount;
 
-	private int coursesId;
+	private String examLink;
 
-	private int studentId;
+	private int examFee;
+
+	
+	public Languages() {
+		super();
+	}
+
+
+	public Languages(LanguagesDto dto) {
+		// TODO Auto-generated constructor stub
+		this.languagesId = dto.getLanguagesId();
+		this.name = dto.getName();
+		this.amount = dto.getAmount();
+		this.examLink = dto.getExamLink();
+		this.examFee = dto.getExamFee();
+	}
+
 
 	public int getLanguagesId() {
 		return languagesId;
 	}
 
-	public void setLanguagesId(int languagesId) {
-		this.languagesId = languagesId;
-	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public int getAmount() {
 		return amount;
 	}
 
+
+	public String getExamLink() {
+		return examLink;
+	}
+
+
+	public int getExamFee() {
+		return examFee;
+	}
+
+
+	public void setLanguagesId(int languagesId) {
+		this.languagesId = languagesId;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-	public int getCoursesId() {
-		return coursesId;
+
+	public void setExamLink(String examLink) {
+		this.examLink = examLink;
 	}
 
-	public void setCoursesId(int coursesId) {
-		this.coursesId = coursesId;
-	}
 
-	public int getStudentId() {
-		return studentId;
+	public void setExamFee(int examFee) {
+		this.examFee = examFee;
 	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
+	
 	
 }

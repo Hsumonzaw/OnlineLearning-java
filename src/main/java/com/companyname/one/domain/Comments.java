@@ -1,6 +1,7 @@
-//package com.companyname.learn;
+//package com.companyname.one.domain;
 //
 //import java.io.Serializable;
+//import java.util.Date;
 //
 ///**
 // * Model class of comments.
@@ -25,8 +26,11 @@
 //	/** message. */
 //	private String message;
 //
-//	/** address. */
-//	private String address;
+//	/** date. */
+//	private Date date;
+//
+//	/** modifiedDate. */
+//	private Date modifieddate;
 //
 //	/**
 //	 * Constructor.
@@ -111,22 +115,41 @@
 //	}
 //
 //	/**
-//	 * Set the address.
+//	 * Set the date.
 //	 * 
-//	 * @param address
-//	 *            address
+//	 * @param date
+//	 *            date
 //	 */
-//	public void setAddress(String address) {
-//		this.address = address;
+//	public void setDate(Date date) {
+//		this.date = date;
 //	}
 //
 //	/**
-//	 * Get the address.
+//	 * Get the date.
 //	 * 
-//	 * @return address
+//	 * @return date
 //	 */
-//	public String getAddress() {
-//		return this.address;
+//	public Date getDate() {
+//		return this.date;
+//	}
+//
+//	/**
+//	 * Set the modifiedDate.
+//	 * 
+//	 * @param modifieddate
+//	 *            modifiedDate
+//	 */
+//	public void setModifieddate(Date modifieddate) {
+//		this.modifieddate = modifieddate;
+//	}
+//
+//	/**
+//	 * Get the modifiedDate.
+//	 * 
+//	 * @return modifiedDate
+//	 */
+//	public Date getModifieddate() {
+//		return this.modifieddate;
 //	}
 //
 //	/**

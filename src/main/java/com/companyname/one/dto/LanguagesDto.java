@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.companyname.one.domain.Languages;
 import com.companyname.one.util.DateFormatDeserializer;
 import com.companyname.one.util.DateTimeFormatDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,10 +28,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LanguagesDto {
 
-	public LanguagesDto(String lanName, int amount) {
+	public LanguagesDto(Languages language) {
 		// TODO Auto-generated constructor stub
-		this.name =  lanName;
-		this.amount = amount;
+		this.languagesId = language.getLanguagesId();
+		this.name = language.getName();
+		this.amount = language.getAmount();
+		this.examLink = language.getExamLink();
+		this.examFee = language.getExamFee();
+	}
+
+	public LanguagesDto(int languagesId, String languagesName) {
+		// TODO Auto-generated constructor stub
+		this.languagesId = languagesId;
+		this.name = languagesName;
 	}
 
 	private int languagesId;
@@ -38,9 +49,9 @@ public class LanguagesDto {
 
 	private int amount;
 
-	private int coursesId;
+	private String examLink;
 
-	private int studentId;
+	private int examFee;
 
 	
 }
