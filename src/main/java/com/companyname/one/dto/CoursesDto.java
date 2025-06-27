@@ -1,0 +1,54 @@
+package com.companyname.one.dto;
+
+import java.util.Date;
+
+import com.companyname.one.util.DateFormatDeserializer;
+import com.companyname.one.util.DateFormatSerializer;
+import com.companyname.one.util.DateTimeFormatDeserializer;
+import com.companyname.one.util.DateTimeFormatSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@JsonInclude(value = Include.USE_DEFAULTS)
+@NoArgsConstructor
+@AllArgsConstructor
+public class CoursesDto {
+	public CoursesDto(int coursesId, String type, int amount, Date receivedDate, Date date, Date modifiedDate) {
+		// TODO Auto-generated constructor stub
+		this.coursesId = coursesId;
+		this.type = type;
+		this.amount = amount;
+		this.receivedDate = receivedDate;
+		this.date = date;
+		this.modifiedDate = modifiedDate;
+		
+	}
+
+	private int coursesId;
+
+	private UserAccountDto userAccountDto;
+	
+	private UserAccountDto studentDto;
+
+	private LanguagesDto languagesDto;
+
+	private String type;
+
+	private int amount;
+	@JsonSerialize(using = DateFormatSerializer.class)
+	@JsonDeserialize(using = DateFormatDeserializer.class)
+	private Date receivedDate;
+	@JsonSerialize(using = DateTimeFormatSerializer.class)
+	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+	private Date date;
+	@JsonSerialize(using = DateTimeFormatSerializer.class)
+	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+	private Date modifiedDate;
+}

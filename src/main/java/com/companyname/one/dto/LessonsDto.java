@@ -33,7 +33,7 @@ public class LessonsDto {
 		// TODO Auto-generated constructor stub
 		this.lessonsId = lessonsId;
 		this.userAccount = new UserAccountDto(userName);
-		this.languages = new LanguagesDto(lanName,amount);
+//		this.languages = new LanguagesDto(lanName,amount);
 		this.youtube = youtube;
 		this.pdf = pdf;
 	}

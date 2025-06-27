@@ -90,4 +90,10 @@ public class UserAccountDto{
 		// TODO Auto-generated constructor stub
 		this.name = userName;
 	}
+
+	public UserAccountDto(int userAccountId, String userAccountName) {
+		// TODO Auto-generated constructor stub
+		this.userAccountId = userAccountId;
+		this.userName = userAccountName;
+	}
 }
