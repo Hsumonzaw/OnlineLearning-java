@@ -8,4 +8,6 @@ public interface LessonsService {
 
 	List<LessonsDto> getLessons(String freeVideo);
 
+	LessonsDto addLessons(LessonsDto dto);
+
 }

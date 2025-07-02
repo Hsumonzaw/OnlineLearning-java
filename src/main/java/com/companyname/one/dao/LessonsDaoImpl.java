@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.companyname.one.domain.Examans;
+import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.domain.UserAccount;
 
@@ -26,5 +28,12 @@ public class LessonsDaoImpl implements LessonsDao{
 				.setParameter("freeVideo", freeVideo).getResultList();
 		return lessList;
 	}
+	@Override
+	public void addLessons(Lessons lessons) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.save(lessons);
+	}
+
 
 }

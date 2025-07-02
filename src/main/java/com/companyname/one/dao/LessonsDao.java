@@ -8,4 +8,6 @@ public interface LessonsDao {
 
 	List<Object[]> getLessons(String freeVideo);
 
+	 void addLessons(Lessons lessons);
+
 }

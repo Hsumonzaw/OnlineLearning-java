@@ -42,22 +42,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     
     @Transactional(readOnly = true)
     public LoginDto loginAccount(LoginDto loginDto) {
-//    	UserAccount userAccount = userAccountDao.getLoginAccount(loginDto.getUserName(),loginDto.getPassword());
-//    	
-//    	if(userAccount == null) {
-//    		throw new UsernameNotFoundException("User not found \"" + loginDto.getUserName()+ "\"");
-//    	}
-//    	//String password1 = passEncoder.encode(loginDto.getPassword());
-//    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userAccount.getUserAccountId()+"", loginDto.getPassword());
-//    	Authentication authentication = authenticationManager.authenticate(token);
-//    	SecurityContextHolder.getContext().setAuthentication(authentication);
-//		String jwtToken = jwtTokenProvider.generateToken(authentication,loginDto.getPassword());// Cryption.encryption(
-//		loginDto.setPassword(jwtToken);
-//		loginDto.setRole(userAccount.getUserType());
-//		loginDto.setUserName(userAccount.getUsername());
-//		loginDto.setProfileName(userAccount.getProfileName());
-//		loginDto.setUserId(userAccount.getUserAccountId());
-//		loginDto.setDomain(staticUi);
+    	UserAccount userAccount = userAccountDao.getLoginAccount(loginDto.getUserName(),loginDto.getPassword());
+    	
+    	if(userAccount == null) {
+    		throw new UsernameNotFoundException("User not found \"" + loginDto.getUserName()+ "\"");
+    	}
+    	//String password1 = passEncoder.encode(loginDto.getPassword());
+    	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userAccount.getUserAccountId()+"", loginDto.getPassword());
+    	Authentication authentication = authenticationManager.authenticate(token);
+    	SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwtToken = jwtTokenProvider.generateToken(authentication,loginDto.getPassword());// Cryption.encryption(
+		loginDto.setPassword(jwtToken);
+		loginDto.setRole(userAccount.getUserType());
+		loginDto.setUserName(userAccount.getUsername());
+		loginDto.setProfileName(userAccount.getName());
+		loginDto.setUserId(userAccount.getUserAccountId());
+		loginDto.setDomain(staticUi);
 		return loginDto;
     }
 }

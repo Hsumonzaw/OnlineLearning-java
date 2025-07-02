@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.companyname.one.dao.LessonsDao;
+import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.dto.LessonsDto;
 
@@ -40,9 +41,20 @@ public class LessonsServiceImpl implements LessonsService{
 			if(obj[6]!=null)
 					amount = Integer.parseInt(obj[6].toString());
 			LessonsDto dto = new LessonsDto(lessonsId,userName,lanName,youtube,pdf,amount);
+			
 			dtoList.add(dto);
 		}
 		return dtoList;
 	}
+	@Transactional(readOnly=false)
+	@Override
+	public LessonsDto addLessons(LessonsDto dto) {
+		// TODO Auto-generated method stub
+		Lessons lessons =new Lessons(dto);
+		lessons.setDate(new Date());      
+		lessons.setModifiedDate(new Date()); 
+		lessDao.addLessons(lessons);
+		dto.setLessonsId(lessons.getLessonsId());
+		return dto;	}
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.companyname.one.dto.LessonsDto;
+
 @Entity
 @Table(name = "lessons")
 public class Lessons {
@@ -32,6 +34,11 @@ public class Lessons {
 	public Lessons() {
 		super();
 	}
+	
+	public Lessons(LessonsDto dto) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getLessonsId() {
 		return lessonsId;
 	}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.util.Cryption;
 @Repository
 public class UserAccountDaoImpl implements UserAccountDao{
 	@Autowired
@@ -53,6 +54,21 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(new UserAccount(userAccountId));
+	}
+
+	@Override
+	public UserAccount getLoginAccount(String userName, String password) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String encryPassword = Cryption.encryption(password);
+		List<UserAccount> list = session.createQuery("SELECT ac FROM UserAccount ac WHERE  ac.userName=:userName  AND ac.encryptPassword =:encryPassword AND ac.status = 1  ")
+				.setParameter("userName", userName)
+				.setParameter("encryPassword", encryPassword)
+				.getResultList();
+		if(list.size()>0) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 }

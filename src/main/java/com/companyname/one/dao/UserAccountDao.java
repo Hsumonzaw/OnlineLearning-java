@@ -2,6 +2,7 @@ package com.companyname.one.dao;
 
 import java.util.List;
 
+import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.UserAccount;
 
 public interface UserAccountDao {
@@ -14,4 +15,7 @@ public interface UserAccountDao {
 	void updateUserAccount(UserAccount user);
 
 	void deleteUserAccounts(int userAccountId);
+
+	UserAccount getLoginAccount(String userName, String password);
+
 }

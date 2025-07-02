@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dto.UserAccountDto;
+import com.companyname.one.security.CustomUserDetailsService;
+import com.companyname.one.security.LoginDto;
 import com.companyname.one.service.UserAccountService;
-
 @RestController
 @RequestMapping("/api/v1/")
 public class UserAccountController {
 @Autowired
 UserAccountService userService;
+@Autowired 
+CustomUserDetailsService customUserDetailService;
 	@GetMapping("useraccounts")
 	public List<UserAccountDto> getUserAccounts(@RequestParam(value = "userType",defaultValue = "ALL") String userType){
 		try {
@@ -79,5 +82,19 @@ UserAccountService userService;
 			throw new RuntimeException("SAVE,News Error!", e);
 		}
 		
+	}
+	@GetMapping("useraccounts/login")
+	public LoginDto login(@RequestParam("userName")String userName,@RequestParam("password")String password) {
+
+		try {
+				LoginDto loginDto = new LoginDto();
+				loginDto.setUserName(userName.trim());
+				loginDto.setPassword(password.toLowerCase().trim());
+				LoginDto login = customUserDetailService.loginAccount(loginDto);
+				return login;
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("UserName and Password is wrong!", e);
+		}
 	}
 }

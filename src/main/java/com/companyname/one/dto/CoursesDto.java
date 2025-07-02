@@ -21,17 +21,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CoursesDto {
 	public CoursesDto(int coursesId, String type, int amount, Date receivedDate, Date date, Date modifiedDate) {
+	    // TODO Auto-generated constructor stub
+	    this.coursesId = coursesId;
+	    this.type = type;
+	    this.amount = amount;
+	    this.receivedDate = receivedDate;
+	    this.date = date;
+	    this.modifiedDate = modifiedDate;
+	    
+	  }
+	
+
+	
+	public CoursesDto(int languagesId) {
 		// TODO Auto-generated constructor stub
-		this.coursesId = coursesId;
-		this.type = type;
-		this.amount = amount;
-		this.receivedDate = receivedDate;
-		this.date = date;
-		this.modifiedDate = modifiedDate;
-		
+		this.languagesId = languagesId;
 	}
 
+
+
 	private int coursesId;
+	private int languagesId;
+
 
 	private UserAccountDto userAccountDto;
 	
