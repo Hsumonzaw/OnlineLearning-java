@@ -45,6 +45,13 @@ public class LanguagesDto {
 
 	
 
+//	public LanguagesDto(String lanName) {
+//		// TODO Auto-generated constructor stub
+//		this.name = lanName;
+//	}
+
+
+
 	private int languagesId;
 
 	private String name;

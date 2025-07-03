@@ -10,4 +10,8 @@ public interface LessonsDao {
 
 	 void addLessons(Lessons lessons);
 
+	void updateLessons(Lessons less);
+
+	void deleteLessons(int lessonsId);
+
 }

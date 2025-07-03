@@ -35,9 +35,9 @@ public class Lessons {
 		super();
 	}
 	
-	public Lessons(LessonsDto dto) {
-		// TODO Auto-generated constructor stub
-	}
+//	public Lessons(LessonsDto dto) {
+//		// TODO Auto-generated constructor stub
+//	}
 
 	public int getLessonsId() {
 		return lessonsId;

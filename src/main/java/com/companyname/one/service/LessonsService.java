@@ -10,4 +10,8 @@ public interface LessonsService {
 
 	LessonsDto addLessons(LessonsDto dto);
 
+	LessonsDto updateLessons(LessonsDto dto);
+
+	int deleteLessons(int lessonsId);
+
 }

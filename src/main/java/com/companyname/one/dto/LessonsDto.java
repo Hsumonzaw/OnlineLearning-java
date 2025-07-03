@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Lessons;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +28,6 @@ public class LessonsDto {
 		// TODO Auto-generated constructor stub
 		this.lessonsId = less.getLanguagesId();
 		this.youtube = less.getYoutube();
-		this.date = new Date();
-		this.modifiedDate = new Date();
 		
 	}
 
@@ -35,9 +35,10 @@ public class LessonsDto {
 		// TODO Auto-generated constructor stub
 		this.lessonsId = lessonsId;
 		this.userAccount = new UserAccountDto(userName);
-//		this.languages = new LanguagesDto(lanName,amount);
+		//this.languagesDto = new LanguagesDto(lanName,amount);
 		this.youtube = youtube;
 		this.pdf = pdf;
+
 //		this.date = new Date();
 //		this.modifiedDate = new Date();
 	}
@@ -49,8 +50,8 @@ public class LessonsDto {
 	private int lessonsId;
 
 	private UserAccountDto userAccount;
-
-	private LanguagesDto languages;
+	
+	private LanguagesDto languagesDto;
 
 	private String youtube;
 
@@ -58,5 +59,8 @@ public class LessonsDto {
 
 	private Date date;
 	private Date modifiedDate;
+	
+	
+	
 	
 }

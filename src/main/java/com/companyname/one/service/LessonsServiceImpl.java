@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.companyname.one.dao.LessonsDao;
+import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.dto.LessonsDto;
+import com.companyname.one.util.User;
 
 @Service
 public class LessonsServiceImpl implements LessonsService{
@@ -50,11 +52,40 @@ public class LessonsServiceImpl implements LessonsService{
 	@Override
 	public LessonsDto addLessons(LessonsDto dto) {
 		// TODO Auto-generated method stub
-		Lessons lessons =new Lessons(dto);
-		lessons.setDate(new Date());      
-		lessons.setModifiedDate(new Date()); 
-		lessDao.addLessons(lessons);
-		dto.setLessonsId(lessons.getLessonsId());
-		return dto;	}
+		Lessons less =new Lessons();
+		less.setUserAccountId(User.getUserId());
+        less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
+        less.setYoutube(dto.getYoutube());
+        less.setPdf(dto.getPdf());
+		less.setDate(new Date());      
+		less.setModifiedDate(new Date()); 
+		less.setFreeVideo("Free");		
+		lessDao.addLessons(less);
+		return dto;
+		}
+	@Transactional(readOnly=false)
+	@Override
+	public LessonsDto updateLessons(LessonsDto dto) {
+		// TODO Auto-generated method stub
+		Lessons less =new Lessons();
+		less.setLessonsId(dto.getLessonsId());
+		less.setUserAccountId(User.getUserId());
+        less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
+        less.setYoutube(dto.getYoutube());
+        less.setPdf(dto.getPdf());
+		less.setDate(new Date());      
+		less.setModifiedDate(new Date()); 
+		less.setFreeVideo("Free");		
+		lessDao.updateLessons(less);
+		return dto;
+		}
+	@Override
+	@Transactional(readOnly=false)
+	public int deleteLessons(int lessonsId) {
+		// TODO Auto-generated method stub
+		lessDao.deleteLessons(lessonsId);
+		return lessonsId;
+	}
+	
 
 }

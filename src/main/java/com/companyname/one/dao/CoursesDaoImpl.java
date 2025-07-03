@@ -77,13 +77,30 @@ public class CoursesDaoImpl implements CoursesDao{
 		Session session = sessionFactory.getCurrentSession();
 		session.update(c);
 	}
-
 	@Override
 	public void deleteCourse(int coursesId) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.createNativeQuery("Delete FROM courses WHERE coursesId=:coursesId")
-		.setParameter("coursesId", coursesId).executeUpdate();
+	    Session session = sessionFactory.getCurrentSession();
+
+	    
+
+	    
+
+	    session.createNativeQuery(
+	        "DELETE FROM examAns WHERE coursesId = :coursesId"
+	    ).setParameter("coursesId", coursesId).executeUpdate();
+
+	    session.createNativeQuery(
+	        "DELETE FROM courses WHERE coursesId = :coursesId"
+	    ).setParameter("coursesId", coursesId).executeUpdate();
 	}
+
+
+//	@Override
+//	public void deleteCourse(int coursesId) {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		session.createNativeQuery("Delete FROM courses WHERE coursesId=:coursesId")
+//		.setParameter("coursesId", coursesId).executeUpdate();
+//	}
 
 }

@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
@@ -34,6 +35,33 @@ public class LessonsDaoImpl implements LessonsDao{
 		Session session = sessionFactory.getCurrentSession();
 		session.save(lessons);
 	}
+	@Override
+	public void updateLessons( Lessons lessons) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.update(lessons);
+	}
+	@Override
+	public void deleteLessons(int lessonsId) {
+	    Session session = sessionFactory.getCurrentSession();
+
+	    session.createNativeQuery(
+	        "DELETE FROM comments WHERE lessonsId = :lessonsId"
+	    ).setParameter("lessonsId", lessonsId).executeUpdate();
+
+	    session.createNativeQuery(
+	        "DELETE FROM lessons WHERE lessonsId = :lessonsId"
+	    ).setParameter("lessonsId", lessonsId).executeUpdate();
+	}
+
+//	@Override
+//	public void deleteLessons(int lessonsId) {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		session.createNativeQuery("Delete FROM lessons WHERE lessonsId=:lessonsId")
+//		.setParameter("lessonsId", lessonsId).executeUpdate();
+//		
+//	}
 
 
 }
