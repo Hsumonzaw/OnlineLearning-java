@@ -35,14 +35,18 @@ public class LessonsServiceImpl implements LessonsService{
 		for(Object[] obj:objList) {
 			int lessonsId = Integer.parseInt(obj[0].toString());
 			String userName = (String)obj[1];
-			String lanName = (String)obj[2];
-			String youtube = (String)obj[3];
-			String pdf = (String)obj[4];
-			Date date = (Date)obj[5];
+			int languageId = Integer.parseInt(obj[2].toString());
+			String lanName = (String)obj[3];
+			String youtube = (String)obj[4];
+			String pdf = (String)obj[5];
+			Date date = (Date)obj[6];
 			int amount = 0;
-			if(obj[6]!=null)
-					amount = Integer.parseInt(obj[6].toString());
-			LessonsDto dto = new LessonsDto(lessonsId,userName,lanName,youtube,pdf,amount);
+			if(obj[7]!=null)
+					amount = Integer.parseInt(obj[7].toString());
+			String ffreeVideo = (String)obj[8];
+
+			LessonsDto dto = new LessonsDto(lessonsId,userName,languageId,lanName,youtube,pdf,date,amount,ffreeVideo);
+			
 			
 			dtoList.add(dto);
 		}

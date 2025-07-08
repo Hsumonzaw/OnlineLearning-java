@@ -10,7 +10,7 @@ public class User {
 	      return data;
 	    }
 	    public static int getUserId(){
-	    	//TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
-	      return 1;//Integer.parseInt(data.getUserId());
+	    	TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
+	      return Integer.parseInt(data.getUserId());
 	    }
 }

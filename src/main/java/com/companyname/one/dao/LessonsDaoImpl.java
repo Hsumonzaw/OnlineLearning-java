@@ -21,11 +21,10 @@ public class LessonsDaoImpl implements LessonsDao{
 	public List<Object[]> getLessons(String freeVideo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> lessList = session.createNativeQuery("SELECT l.lessonsId,ua.name AS userName,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount\r\n"
+		List<Object[]> lessList = session.createNativeQuery("SELECT l.lessonsId,ua.name AS userName, lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount, l.freeVideo\r\n"
 				+ " FROM lessons l\r\n"
 				+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId\r\n"
-				+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId "
-				+ " WHERE l.freeVideo=:freeVideo ")
+				+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId  WHERE l.freeVideo= :freeVideo\r\n")
 				.setParameter("freeVideo", freeVideo).getResultList();
 		return lessList;
 	}

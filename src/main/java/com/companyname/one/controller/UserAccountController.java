@@ -2,6 +2,8 @@ package com.companyname.one.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ public class UserAccountController {
 UserAccountService userService;
 @Autowired 
 CustomUserDetailsService customUserDetailService;
+	
 	@GetMapping("useraccounts")
 	public List<UserAccountDto> getUserAccounts(@RequestParam(value = "userType",defaultValue = "ALL") String userType){
 		try {

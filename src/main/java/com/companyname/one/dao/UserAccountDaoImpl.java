@@ -26,10 +26,10 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		Session session = sessionFactory.getCurrentSession();
 		List<UserAccount> userList = null;
 		if("ALL".equals(userType)) {
-			userList = session.createQuery("SELECT ua FROM UserAccount ua ORDER BY ua.name ASC ").getResultList();
+			userList = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ").getResultList();
 		}else {
 			userList = session.createQuery("SELECT ua FROM UserAccount ua "
-					+ " Where ua.userType=:userType "
+					+ " Where ua.status=1 AND ua.userType=:userType "
 					+ " ORDER BY ua.name ASC ").setParameter("userType", userType).getResultList();
 		}
 		return userList;

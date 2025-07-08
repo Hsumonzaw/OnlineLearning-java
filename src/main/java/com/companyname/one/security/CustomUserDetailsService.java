@@ -52,12 +52,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     	Authentication authentication = authenticationManager.authenticate(token);
     	SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwtToken = jwtTokenProvider.generateToken(authentication,loginDto.getPassword());// Cryption.encryption(
+		
 		loginDto.setPassword(jwtToken);
 		loginDto.setRole(userAccount.getUserType());
 		loginDto.setUserName(userAccount.getUsername());
 		loginDto.setProfileName(userAccount.getName());
 		loginDto.setUserId(userAccount.getUserAccountId());
 		loginDto.setDomain(staticUi);
+		loginDto.setProfilePhoto(userAccount.getPhoto());
 		return loginDto;
     }
 }

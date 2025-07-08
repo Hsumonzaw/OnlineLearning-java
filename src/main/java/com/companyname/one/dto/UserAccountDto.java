@@ -80,6 +80,7 @@ public class UserAccountDto{
 		this.degree = user.getDegree();
 		this.file = user.getFile();
 		this.userName = user.getUserName();
+		this.startDate = user.getStartDate();
 	}
 
 

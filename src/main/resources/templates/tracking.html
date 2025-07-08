@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sunny Express</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" type="image/png" href="/static/info/favicon.ico">
+</head>
+<body>
+<div class="md:ml-3 ml-3 ">
+Order  Date - <label th:text="*{date}" ></label>
+</div>
+</form>
+<div class="min-w-full mt-2 overflow-x-auto">
+<table class="w-full">
+	<thead>
+	<tr>
+	<th class="border border-gray-300 pb-2 text-center md:pl-0 md:pr-0 pl-2 pr-2 bg-indigo-950 text-white">No</th>
+	<th class="border border-gray-300 text-center bg-indigo-950 text-white">Parcel No</th>
+	<th class="border border-gray-300 text-center bg-indigo-950 text-white">Status</th>
+		<th class="border border-gray-300 text-center md:pl-1 md:pr-0 pl-2 pr-2 bg-indigo-950 text-white">From</th>
+			<th class="border border-gray-300 text-center md:pl-1 md:pr-0 pl-2 pr-2 bg-indigo-950 text-white">To</th>
+	<th class="border border-gray-300 text-center md:pl-1 md:pr-0 pl-2 pr-2 bg-indigo-950 text-white">Receiver</th>
+	<th class="border border-gray-300 text-center bg-indigo-950 text-white">Phone</th>
+	<th class="border border-gray-300 text-center bg-indigo-950 text-white">Township</th>
+	<th class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-1 pl-2 pr-2 bg-indigo-950 text-white">COD</th>
+	<th class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-1 pl-2 pr-2 bg-indigo-950 text-white">Deli Fee</th>
+	<th class="border border-gray-300 text-center md:pl-0 md:pr-1 pl-2 pr-2 break-keep bg-indigo-950 text-white">Deli Status</th>
+	<th class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-1 pl-2 pr-2 bg-indigo-950 text-white">Pickup Fee</th>
+	<th class="border border-gray-300 text-center md:pl-0 md:pr-1 pl-2 pr-2 break-keep bg-indigo-950 text-white">Pickup</th>
+	<th class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-1 pl-2 pr-2 bg-indigo-950 text-white">Premium Fee</th>
+	<th class="border border-gray-300 text-center md:pl-0 md:pr-1 pl-2 pr-2 break-keep bg-indigo-950 text-white">Premium Type</th>
+	<th class="border border-gray-300 text-center md:pl-0 md:pr-1 pl-2 pr-2 break-keep bg-indigo-950 text-white">Total</th>
+	
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="item : ${orderlist}">
+	<td class="border border-gray-300 pb-2 text-center md:pl-0 md:pr-0 pl-2 pr-2" th:text="${item.name}"></td>
+	<td class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-0 pl-2 pr-2" th:text="${item.userName}"></td>
+	<td class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-0 pl-2 pr-2" th:text="${item.phonenum}"></td>
+	<td class="border border-gray-300 text-center whitespace-nowrap md:pl-1 md:pr-0 pl-2 pr-2" th:text="${item.email}"></td>
+	<td class="border border-gray-300 text-center whitespace-nowrap md:pl-0 md:pr-0 pl-2 pr-2" th:text="${item.address}"></td>
+	<td class="border border-gray-300 text-left whitespace-nowrap md:pl-1 md:pr-0 pl-2 pr-2" th:text="${item.userType}"></td>
+	
+	</tr>
+	</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

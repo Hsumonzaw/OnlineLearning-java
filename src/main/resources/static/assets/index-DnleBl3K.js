@@ -1,0 +1,1 @@
+import{_ as o,c as e,o as t}from"./index-SAbcWIof.js";const n={data:()=>({}),props:{},mounted:function(){},methods:{},watch:{},components:{}};function c(s,a,r,p,_,d){return t(),e("h1",null,"Hello")}const f=o(n,[["render",c]]);export{f as default};
