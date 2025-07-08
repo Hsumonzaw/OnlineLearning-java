@@ -37,7 +37,7 @@ public class CoursesServiceImpl implements CoursesService{
         c.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
         c.setType(dto.getType());
         c.setAmount(dto.getAmount());
-        c.setReceivedDate(new Date());
+        c.setReceivedDate(dto.getReceivedDate());
         c.setDate(new Date());
         c.setModifiedDate(new Date());
         courDao.addCourses(c);
