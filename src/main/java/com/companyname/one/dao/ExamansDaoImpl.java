@@ -25,8 +25,9 @@ public class ExamansDaoImpl implements ExamansDao {
 	@Override
 	public List<ExamansDto> getExamans() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> examList = session.createNativeQuery("SELECT ex.examId, ua.name, c.languagesId, ex.pdf,ex.examMark, ex.date, ex.status FROM examans ex\r\n"
+		List<Object[]> examList = session.createNativeQuery("SELECT ex.examId, ua.name, c.languagesId,l.name AS languagesName, ex.pdf,ex.examMark, ex.date, ex.status FROM examans ex\r\n"
 				+ "LEFT JOIN useraccount ua ON ex.userAccountId = ua.userAccountId\r\n"
+				+ "LEFT JOIN languages l ON l.languagesId = c.languagesId\r\n"
 				+ "LEFT JOIN courses c ON ex.coursesId = c.coursesId").getResultList();
 		List<ExamansDto> dtoList = new ArrayList<ExamansDto>();
 		
