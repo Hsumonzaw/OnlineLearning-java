@@ -14,4 +14,6 @@ public interface LessonsDao {
 
 	void deleteLessons(int lessonsId);
 
+	Lessons getLessonsId(int lessonsId);
+
 }
