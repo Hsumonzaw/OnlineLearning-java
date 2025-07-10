@@ -30,19 +30,21 @@ import lombok.NoArgsConstructor;
 public class LessonsDto {
 	public LessonsDto(Lessons less) {
 		// TODO Auto-generated constructor stub
-		this.lessonsId = less.getLanguagesId();
+		this.lessonsId = less.getLessonsId();
 		this.youtube = less.getYoutube();
 		
 	}
 
-	public LessonsDto(int lessonsId, String userName, int languageId, String lanName, String youtube, String pdf, Date date, int amount, String ffreeVideo) {
+	public LessonsDto(int lessonsId, String userName, int languageId, String lanName, String youtube, String pdf, Date date,Date modifiedDate, int amount, String ffreeVideo) {
+
 		// TODO Auto-generated constructor stub
 		this.lessonsId = lessonsId;
-		this.userAccount = new UserAccountDto(userName);
+		this.userAccount = new UserAccountDto(userName);//for save and update error
 		//this.languagesDto = new LanguagesDto(lanName,amount);
 		this.youtube = youtube;
 		this.pdf = pdf;
 		this.date = date;
+		this.modifiedDate = modifiedDate;
 		this.freeVideo = ffreeVideo;
 		this.languagesDto = new LanguagesDto(languageId,lanName);
 //		this.date = new Date();

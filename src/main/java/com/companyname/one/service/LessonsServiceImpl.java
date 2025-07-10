@@ -1,5 +1,7 @@
 package com.companyname.one.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,12 +9,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dao.LessonsDao;
 import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
+import com.companyname.one.domain.UserAccount;
+import com.companyname.one.dto.LanguagesDto;
 import com.companyname.one.dto.LessonsDto;
+import com.companyname.one.dto.UserAccountDto;
+import com.companyname.one.util.ConvertDate;
 import com.companyname.one.util.User;
 
 @Service
@@ -34,19 +41,41 @@ public class LessonsServiceImpl implements LessonsService{
 		List<LessonsDto> dtoList = new ArrayList<LessonsDto>();
 		for(Object[] obj:objList) {
 			int lessonsId = Integer.parseInt(obj[0].toString());
-			String userName = (String)obj[1];
+			String userName = (String)obj[1];//for save and update error 
 			int languageId = Integer.parseInt(obj[2].toString());
 			String lanName = (String)obj[3];
 			String youtube = (String)obj[4];
 			String pdf = (String)obj[5];
 			Date date = (Date)obj[6];
+			Date modifiedDate = new Date();
 			int amount = 0;
 			if(obj[7]!=null)
 					amount = Integer.parseInt(obj[7].toString());
 			String ffreeVideo = (String)obj[8];
 
-			LessonsDto dto = new LessonsDto(lessonsId,userName,languageId,lanName,youtube,pdf,date,amount,ffreeVideo);
+//			LessonsDto dto = new LessonsDto(lessonsId,userName,languageId,lanName,youtube,pdf,date,modifiedDate,amount,ffreeVideo);
 			
+			LessonsDto dto = new LessonsDto();
+			dto.setLessonsId(lessonsId);
+			
+			UserAccountDto userDto = new UserAccountDto();
+			userDto.setUserName(userName);//for save and update error 
+			dto.setUserAccount(userDto); 
+			//dto.setUserAccount(userName);
+			dto.setYoutube(youtube);
+			dto.setPdf(pdf);
+			dto.setDate(date);
+			dto.setModifiedDate(modifiedDate);
+			dto.setFreeVideo(ffreeVideo);
+
+			// 🔑 Create and assign nested LanguagesDto
+			LanguagesDto langDto = new LanguagesDto();
+			langDto.setLanguagesId(languageId);
+			langDto.setName(lanName);
+			langDto.setAmount(amount);
+
+			dto.setLanguagesDto(langDto);
+
 			
 			dtoList.add(dto);
 		}
@@ -57,13 +86,13 @@ public class LessonsServiceImpl implements LessonsService{
 	public LessonsDto addLessons(LessonsDto dto) {
 		// TODO Auto-generated method stub
 		Lessons less =new Lessons();
-		less.setUserAccountId(User.getUserId());
+		less.setUserAccountId(User.getUserId());//for save and update error 
         less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
         less.setYoutube(dto.getYoutube());
         less.setPdf(dto.getPdf());
 		less.setDate(new Date());      
 		less.setModifiedDate(new Date()); 
-		less.setFreeVideo("Free");		
+		less.setFreeVideo(dto.getFreeVideo());		
 		lessDao.addLessons(less);
 		return dto;
 		}
@@ -73,13 +102,13 @@ public class LessonsServiceImpl implements LessonsService{
 		// TODO Auto-generated method stub
 		Lessons less =new Lessons();
 		less.setLessonsId(dto.getLessonsId());
-		less.setUserAccountId(User.getUserId());
+		less.setUserAccountId(User.getUserId());//for save and update error 
         less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
         less.setYoutube(dto.getYoutube());
         less.setPdf(dto.getPdf());
 		less.setDate(new Date());      
 		less.setModifiedDate(new Date()); 
-		less.setFreeVideo("Free");		
+		less.setFreeVideo(dto.getFreeVideo());		
 		lessDao.updateLessons(less);
 		return dto;
 		}
@@ -89,6 +118,41 @@ public class LessonsServiceImpl implements LessonsService{
 		// TODO Auto-generated method stub
 		lessDao.deleteLessons(lessonsId);
 		return lessonsId;
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public int updateFile(int lessonsId, MultipartFile file) {
+		// TODO Auto-generated method stub
+		String oldFile = "";
+		Lessons less = lessDao.getLessonsId(lessonsId);
+		oldFile = less.getPdf();
+		String pdf = ConvertDate.convertyymmddhhmmss(new Date());
+		less.setPdf(pdf);
+		
+		String pwd=new File("").getAbsolutePath();
+		if(oldFile!=null) {
+			File deleteFile=new File(pwd+"/lessonPdf/"+oldFile+".pdf");
+			deleteFile.delete();
+		}
+		
+		
+		File dir=new File(pwd+"/lessonPdf/");
+		String outPath=pwd+"/lessonPdf/"+pdf+".pdf";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return lessonsId;
+
 	}
 	
 

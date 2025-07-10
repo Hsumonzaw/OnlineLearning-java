@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dto.CoursesDto;
 import com.companyname.one.dto.LanguagesDto;
@@ -25,7 +26,7 @@ public class LessonsController {
 	@Autowired
 	LessonsService lessService;
 	@GetMapping("lessons")
-	public List<LessonsDto> getLessons(@RequestParam(value = "freeVideo",defaultValue = "FREE") String freeVideo){
+	public List<LessonsDto> getLessons(@RequestParam(value = "freeVideo", required = false) String freeVideo){
 		try {
 			return lessService.getLessons(freeVideo);
 		}catch (Exception e) {
@@ -40,6 +41,7 @@ public class LessonsController {
 		try 
 		{
 			return lessService.addLessons(dto);
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -73,4 +75,17 @@ public class LessonsController {
 			throw new RuntimeException("Delete Error!", e);
 		}
 	}
+	
+	@PutMapping("lessons/{lessonsId}/pdf")
+	public int updateFile(@PathVariable("lessonsId")int lessonsId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+			return lessService.updateFile(lessonsId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
+	}
+
 }

@@ -60,7 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers("/static/**","/api/v1/useraccounts/login",
 				"/api/v1/free/**","/api/v1/userphoto/**")//,"/*"
-		.permitAll().antMatchers("/api/v1/**").hasAnyRole("ADMIN","STAFF","STUDENT","TEACHER");
+		.permitAll()
+		.antMatchers("/api/v1/free/**").hasAnyRole("ADMIN","STAFF","STUDENT","TEACHER");
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 	}
