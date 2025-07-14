@@ -60,7 +60,7 @@ public class WebMVCConfiguration
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());//one month
 		Path currentRelativePath = Paths.get("");
 		String s = currentRelativePath.toAbsolutePath().toString();
-		
+		registry.addResourceHandler("/api/v1/coursephoto/**").addResourceLocations("file:" + s+ "/coursephoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 		registry.addResourceHandler("/api/v1/userphoto/**").addResourceLocations("file:" + s+ "/userphoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 	}
 	

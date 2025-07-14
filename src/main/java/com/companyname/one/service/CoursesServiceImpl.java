@@ -1,15 +1,20 @@
 package com.companyname.one.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dao.CoursesDao;
 import com.companyname.one.domain.Courses;
+import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.CoursesDto;
+import com.companyname.one.util.ConvertDate;
 import com.companyname.one.util.User;
 
 
@@ -37,6 +42,8 @@ public class CoursesServiceImpl implements CoursesService{
         c.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
         c.setType(dto.getType());
         c.setAmount(dto.getAmount());
+        c.setCphoto(dto.getCphoto());
+
         c.setReceivedDate(dto.getReceivedDate());
         c.setDate(new Date());
         c.setModifiedDate(new Date());
@@ -57,6 +64,8 @@ public class CoursesServiceImpl implements CoursesService{
         c.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
         c.setType(dto.getType());
         c.setAmount(dto.getAmount());
+        c.setCphoto(dto.getCphoto());
+        
         c.setReceivedDate(dto.getReceivedDate());
         c.setDate(dto.getDate());
         c.setModifiedDate(new Date());
@@ -72,5 +81,40 @@ public class CoursesServiceImpl implements CoursesService{
 		courDao.deleteCourse(coursesId);
 		return coursesId;
 	}
+	@Transactional(readOnly=false)
+	@Override
+	public int updatePhoto(int coursesId, MultipartFile file) {
+		// TODO Auto-generated method stub
+		System.out.println(" file ");
+		System.out.println(file);
+		String oldPhoto = "";
+		Courses c = courDao.getCoursesId(coursesId);
+		oldPhoto = c.getCphoto();
+		String cphoto = ConvertDate.convertyymmddhhmmss(new Date());
+		c.setCphoto(cphoto);
+		
+		String pwd=new File("").getAbsolutePath();
+		if(oldPhoto!=null) {
+			File deleteFile=new File(pwd+"/coursephoto/"+oldPhoto+".png");
+			deleteFile.delete();
+		}
+		
+		
+		File dir=new File(pwd+"/coursephoto/");
+		String outPath=pwd+"/coursephoto/"+cphoto+".png";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return coursesId;	}
 
 }

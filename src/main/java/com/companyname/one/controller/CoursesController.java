@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dto.CoursesDto;
 
@@ -62,5 +64,17 @@ public class CoursesController {
 			// TODO: handle exception
 			throw new RuntimeException("Delete Error!", e);
 		}
+	}
+	
+	@PutMapping("courses/{coursesId}/cphoto")
+	public int updatePhoto(@PathVariable("coursesId")int coursesId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+			return courService.updatePhoto(coursesId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
 	}
 }

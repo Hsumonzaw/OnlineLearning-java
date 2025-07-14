@@ -29,6 +29,8 @@ public class Courses  {
 	private String type;
 
 	private int amount;
+	
+	private String cphoto;
 
 	private Date receivedDate;
 	
@@ -110,6 +112,14 @@ public class Courses  {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public String getCphoto() {
+		return cphoto;
+	}
+
+	public void setCphoto(String cphoto) {
+		this.cphoto = cphoto;
 	}
 
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.companyname.one.domain.Courses;
+import com.companyname.one.domain.Lessons;
 import com.companyname.one.dto.CoursesDto;
 import com.companyname.one.dto.LanguagesDto;
 import com.companyname.one.dto.UserAccountDto;
@@ -25,7 +26,7 @@ public class CoursesDaoImpl implements CoursesDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT c.coursesId,c.userAccountId,ua.name AS useraccountName,c.studentId,uac.name AS studentName,\r\n"
-				+ "c.languagesId,l.name AS languagesName,c.`type`,c.amount,\r\n"
+				+ "c.languagesId,l.name AS languagesName,c.`type`,c.amount,c.cphoto,\r\n"
 				+ "c.receivedDate,c.date,c.modifiedDate\r\n"
 				+ "FROM courses c\r\n"
 				+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
@@ -47,11 +48,13 @@ public class CoursesDaoImpl implements CoursesDao{
 			String type = (String)obj[7];
 			
 			int amount = Integer.parseInt(obj[8].toString());
-			Date receivedDate = (Date)(obj[9]);
-			Date date = (Date)(obj[10]);
-			Date modifiedDate = (Date)(obj[11]);
+			String cphoto = (String)obj[9];
 
-			CoursesDto dto = new CoursesDto(coursesId,type,amount,receivedDate,date,modifiedDate);
+			Date receivedDate = (Date)(obj[10]);
+			Date date = (Date)(obj[11]);
+			Date modifiedDate = (Date)(obj[12]);
+
+			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,receivedDate,date,modifiedDate);
 			
 			dto.setUserAccountDto(new UserAccountDto(userAccountId,userAccountName));
 			
@@ -93,6 +96,12 @@ public class CoursesDaoImpl implements CoursesDao{
 	        "DELETE FROM courses WHERE coursesId = :coursesId"
 	    ).setParameter("coursesId", coursesId).executeUpdate();
 	}
+
+	@Override
+	public Courses getCoursesId(int coursesId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.find(Courses.class, coursesId);	}
 
 
 //	@Override
