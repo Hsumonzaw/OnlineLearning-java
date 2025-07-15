@@ -31,6 +31,8 @@ public class Courses  {
 	private int amount;
 	
 	private String cphoto;
+	
+	private String description;
 
 	private Date receivedDate;
 	
@@ -120,6 +122,14 @@ public class Courses  {
 
 	public void setCphoto(String cphoto) {
 		this.cphoto = cphoto;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

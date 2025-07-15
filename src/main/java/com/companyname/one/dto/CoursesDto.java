@@ -21,12 +21,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CoursesDto {
 	
-	public CoursesDto(int coursesId, String type, int amount, String cphoto, Date receivedDate, Date date, Date modifiedDate) {
+	public CoursesDto(int coursesId, String type, int amount, String cphoto,String description, Date receivedDate, Date date, Date modifiedDate) {
 	    // TODO Auto-generated constructor stub
 	    this.coursesId = coursesId;
 	    this.type = type;
 	    this.amount = amount;
 	    this.cphoto = cphoto;
+	    this.description = description;
 	    this.receivedDate = receivedDate;
 	    this.date = date;
 	    this.modifiedDate = modifiedDate;
@@ -57,6 +58,8 @@ public class CoursesDto {
 	private int amount;
 	
 	private String cphoto;
+	
+	private String description;
 	
 	@JsonSerialize(using = DateFormatSerializer.class)
 	@JsonDeserialize(using = DateFormatDeserializer.class)
