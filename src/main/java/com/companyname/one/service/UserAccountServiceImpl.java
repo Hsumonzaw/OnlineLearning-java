@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dao.UserAccountDao;
+import com.companyname.one.domain.Lessons;
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.UserAccountDto;
 import com.companyname.one.util.ConvertDate;
@@ -53,6 +54,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 		// TODO Auto-generated method stub
 		
 		UserAccount user = userDao.getUserAccountsById(dto.getUserAccountId());
+		user.setTeacherId(dto.getTeacherId());
 		user.setName(dto.getName());
 		user.setAge(dto.getAge());
 		user.setStatus(1);
@@ -62,6 +64,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 		user.setEmail(dto.getEmail());
 		user.setPhonenum(dto.getPhonenum());
 		user.setDegree(dto.getDegree());
+		user.setFile(dto.getFile());
 		user.setStartDate(dto.getStartDate());
 		user.setModifiedDate(new Date());
 		user.setUserName(dto.getUserName());
@@ -117,6 +120,43 @@ public class UserAccountServiceImpl implements UserAccountService{
 		
 		
 		return userAccountId;
+	}
+	
+	@Transactional(readOnly=false)
+	@Override
+	public int updateFile(int userAccountId, MultipartFile file) {
+		// TODO Auto-generated method stub
+		String oldFile = "";
+		UserAccount ua = userDao.getUserAccountsById(userAccountId);
+		oldFile = ua.getFile();
+		String file1 = ConvertDate.convertyymmddhhmmss(new Date());
+		ua.setFile(file1);
+		
+		String pwd=new File("").getAbsolutePath();
+		if(oldFile!=null) {
+			File deleteFile=new File(pwd+"/userfile/"+oldFile+".pdf");
+			deleteFile.delete();
+		}
+		
+		
+		File dir=new File(pwd+"/userfile/");
+		String outPath=pwd+"/userfile/"+file+".pdf";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file1.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+		return userAccountId;
+
 	}
 
 }

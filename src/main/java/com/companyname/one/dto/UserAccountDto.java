@@ -38,6 +38,7 @@ public class UserAccountDto{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userAccountId;
 	private Integer createId;
+	private Integer teacherId;
 	private String name;
 	private int age;
 	private String photo;
@@ -67,6 +68,7 @@ public class UserAccountDto{
 	public UserAccountDto(UserAccount user) {
 		// TODO Auto-generated constructor stub
 		this.userAccountId = user.getUserAccountId();
+		this.teacherId = user.getTeacherId();
 		this.name = user.getName();
 		this.age = user.getAge();
 		this.photo = user.getPhoto();

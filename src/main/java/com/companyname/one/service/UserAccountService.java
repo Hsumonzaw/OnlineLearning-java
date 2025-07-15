@@ -18,4 +18,6 @@ public interface UserAccountService {
 
 	int updatePhoto(int userAccountId, MultipartFile file);
 
+	int updateFile(int userAccountId, MultipartFile file);
+
 }

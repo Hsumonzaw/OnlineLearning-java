@@ -26,6 +26,7 @@ public class UserAccount implements UserDetails  {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userAccountId;
 	private Integer createId;
+	private Integer teacherId;
 	private String name;
 	private int age;
 	private String photo;
@@ -53,6 +54,7 @@ public class UserAccount implements UserDetails  {
 	public UserAccount(UserAccountDto dto) {
 		// TODO Auto-generated constructor stub
 		this.userAccountId = dto.getUserAccountId();
+		this.teacherId = dto.getTeacherId();
 		this.name = dto.getName();
 		this.age = dto.getAge();
 		this.photo = dto.getPhoto();
@@ -279,6 +281,14 @@ public class UserAccount implements UserDetails  {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return this.getUserName(); 
+	}
+
+	public Integer getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(Integer teacherId) {
+		this.teacherId = teacherId;
 	}
 	
 }

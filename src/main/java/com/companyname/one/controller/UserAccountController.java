@@ -86,6 +86,17 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	@PutMapping("useraccounts/{userAccountId}/file")
+	public int updateFile(@PathVariable("userAccountId")int userAccountId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+			return userService.updateFile(userAccountId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
+	}
 	@GetMapping("useraccounts/login")
 	public LoginDto login(@RequestParam("userName")String userName,@RequestParam("password")String password) {
 
