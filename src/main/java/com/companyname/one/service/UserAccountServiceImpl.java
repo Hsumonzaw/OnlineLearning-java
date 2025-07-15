@@ -129,8 +129,8 @@ public class UserAccountServiceImpl implements UserAccountService{
 		String oldFile = "";
 		UserAccount ua = userDao.getUserAccountsById(userAccountId);
 		oldFile = ua.getFile();
-		String file1 = ConvertDate.convertyymmddhhmmss(new Date());
-		ua.setFile(file1);
+		String fileName = ConvertDate.convertyymmddhhmmss(new Date());
+		ua.setFile(fileName);
 		
 		String pwd=new File("").getAbsolutePath();
 		if(oldFile!=null) {
@@ -140,13 +140,13 @@ public class UserAccountServiceImpl implements UserAccountService{
 		
 		
 		File dir=new File(pwd+"/userfile/");
-		String outPath=pwd+"/userfile/"+file+".pdf";
+		String outPath=pwd+"/userfile/"+fileName+".pdf";
 		File dest=new File(outPath);
 		try {
 			if (!dir.exists()) {
 				dir.mkdir();
 			}
-			file1.transferTo(dest);
+			file.transferTo(dest);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
