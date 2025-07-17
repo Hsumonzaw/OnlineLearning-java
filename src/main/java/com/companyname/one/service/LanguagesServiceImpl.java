@@ -23,13 +23,14 @@ public class LanguagesServiceImpl implements LanguagesService{
 	@Override
 	public List<LanguagesDto> getLanguages() {
 		// TODO Auto-generated method stub
-		List<Languages> lanList = lanDao.getLanguages();
-		List<LanguagesDto> lanDtoList = new ArrayList<>();
-		for(Languages language:lanList) {
-			LanguagesDto dto = new LanguagesDto(language);
-			lanDtoList.add(dto);
-		}
-		return lanDtoList;
+//		List<Languages> lanList = lanDao.getLanguages();
+//		List<LanguagesDto> lanDtoList = new ArrayList<>();
+//		for(Languages language:lanList) {
+//			LanguagesDto dto = new LanguagesDto(language);
+//			lanDtoList.add(dto);
+//		}
+//		return lanDtoList;
+		return lanDao.getLanguages();
 		
 	}
 
@@ -42,6 +43,7 @@ public class LanguagesServiceImpl implements LanguagesService{
 		dto.setLanguagesId(languages.getLanguagesId());
 		return dto;
 	}
+	
 	
 
 	@Transactional(readOnly=false)

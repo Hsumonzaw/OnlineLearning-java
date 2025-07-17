@@ -13,4 +13,9 @@ public class User {
 	    	TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
 	      return Integer.parseInt(data.getUserId());
 	    }
+	    
+	    public static String getUserRole(){
+	    	TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
+	      return data.getRole();
+	    }
 }

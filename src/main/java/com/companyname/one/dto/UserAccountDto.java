@@ -65,7 +65,7 @@ public class UserAccountDto{
 
 
 
-	public UserAccountDto(UserAccount user) {
+	public UserAccountDto(UserAccountDto user) {
 		// TODO Auto-generated constructor stub
 		this.userAccountId = user.getUserAccountId();
 		this.teacherId = user.getTeacherId();
@@ -97,4 +97,23 @@ public class UserAccountDto{
 		this.userAccountId = userAccountId;
 		this.userName = userAccountName;
 	}
+
+
+
+	public UserAccountDto( String studentName, Date startDate,
+			Date modifiedDate) {
+		// TODO Auto-generated constructor stub
+		this.name = studentName;
+		this.startDate = startDate;
+		this.modifiedDate = modifiedDate;
+	}
+	
+	public UserAccountDto(int userAccountId) {
+		// TODO Auto-generated constructor stub
+		this.userAccountId = userAccountId;
+	}
+
+	private UserAccountDto studentDto;
+	private LanguagesDto languagesDto;
+
 }

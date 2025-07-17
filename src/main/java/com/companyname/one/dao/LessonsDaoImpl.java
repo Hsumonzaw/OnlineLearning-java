@@ -12,6 +12,7 @@ import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.util.User;
 
 import lombok.var;
 
@@ -34,9 +35,12 @@ public class LessonsDaoImpl implements LessonsDao{
 	@Override
 	public List<Object[]> getLessons(String freeVideo) {
 	    Session session = sessionFactory.getCurrentSession();
-
+	    
+	    
+	    
+	    
 	    StringBuilder sql = new StringBuilder();
-	    sql.append("SELECT l.lessonsId, ua.name AS userName, lan.languagesId, lan.name AS lanName, ");
+	    sql.append("SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, ");
 	    sql.append("l.youtube, l.pdf, l.date, lan.amount, l.freeVideo ");
 	    sql.append("FROM lessons l ");
 	    sql.append("LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId ");
@@ -45,6 +49,8 @@ public class LessonsDaoImpl implements LessonsDao{
 	    if (freeVideo != null && !freeVideo.trim().isEmpty()) {
 	        sql.append("WHERE l.freeVideo = :freeVideo ");
 	    }
+
+	    
 
 	    // Optional: Add order by
 	    sql.append("ORDER BY l.lessonsId DESC");

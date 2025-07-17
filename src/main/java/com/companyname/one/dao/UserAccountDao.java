@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.dto.UserAccountDto;
 
 public interface UserAccountDao {
 	UserAccount getUserAccountsById(int userId);
 
-	List<UserAccount> getUserAccounts(String userType);
+	List<UserAccountDto> getUserAccounts(String userType);
 
 	void saveUserAccounts(UserAccount user);
 

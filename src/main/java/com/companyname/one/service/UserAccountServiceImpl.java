@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.companyname.one.dao.UserAccountDao;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.dto.LanguagesDto;
 import com.companyname.one.dto.UserAccountDto;
 import com.companyname.one.util.ConvertDate;
 import com.companyname.one.util.Cryption;
@@ -29,13 +30,17 @@ public class UserAccountServiceImpl implements UserAccountService{
 	@Override
 	public List<UserAccountDto> getUserAccounts(String userType) {
 		// TODO Auto-generated method stub
-		List<UserAccount> userList = userDao.getUserAccounts(userType);
-		List<UserAccountDto> dtoList = new ArrayList<>();
-		for(UserAccount user:userList) {
-			UserAccountDto dto = new UserAccountDto(user);
-			dtoList.add(dto);
-		}
-		return dtoList;
+//		List<UserAccountDto> allList1 = userDao.getUserAccounts(userType);
+//		List<UserAccountDto> dtoList = new ArrayList<>();
+//		for(UserAccountDto user:allList1) {
+//			UserAccountDto dto = new UserAccountDto(user);
+//			dtoList.add(dto);
+//		}
+		
+
+		return userDao.getUserAccounts(userType);
+		
+
 	}
 
 	@Transactional(readOnly=false)

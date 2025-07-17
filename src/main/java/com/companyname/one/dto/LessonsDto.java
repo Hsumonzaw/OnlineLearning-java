@@ -35,11 +35,11 @@ public class LessonsDto {
 		
 	}
 
-	public LessonsDto(int lessonsId, String userName, int languageId, String lanName, String youtube, String pdf, Date date,Date modifiedDate, int amount, String ffreeVideo) {
+	public LessonsDto(int lessonsId,int userAccountId, String userName, int languageId, String lanName, String youtube, String pdf, Date date,Date modifiedDate, int amount, String ffreeVideo) {
 
 		// TODO Auto-generated constructor stub
 		this.lessonsId = lessonsId;
-		this.userAccount = new UserAccountDto(userName);//for save and update error
+		this.userAccount = new UserAccountDto(userAccountId,userName);//for save and update error
 		//this.languagesDto = new LanguagesDto(lanName,amount);
 		this.youtube = youtube;
 		this.pdf = pdf;
@@ -56,6 +56,8 @@ public class LessonsDto {
 		
 	}
 	private int lessonsId;
+	
+	
 
 	private UserAccountDto userAccount;
 	

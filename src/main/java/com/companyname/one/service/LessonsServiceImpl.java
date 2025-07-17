@@ -41,17 +41,18 @@ public class LessonsServiceImpl implements LessonsService{
 		List<LessonsDto> dtoList = new ArrayList<LessonsDto>();
 		for(Object[] obj:objList) {
 			int lessonsId = Integer.parseInt(obj[0].toString());
-			String userName = (String)obj[1];//for save and update error 
-			int languageId = Integer.parseInt(obj[2].toString());
-			String lanName = (String)obj[3];
-			String youtube = (String)obj[4];
-			String pdf = (String)obj[5];
-			Date date = (Date)obj[6];
+			int userAccountId = Integer.parseInt(obj[1].toString());
+			String userName = (String)obj[2];//for save and update error 
+			int languageId = Integer.parseInt(obj[3].toString());
+			String lanName = (String)obj[4];
+			String youtube = (String)obj[5];
+			String pdf = (String)obj[6];
+			Date date = (Date)obj[7];
 			Date modifiedDate = new Date();
 			int amount = 0;
-			if(obj[7]!=null)
-					amount = Integer.parseInt(obj[7].toString());
-			String ffreeVideo = (String)obj[8];
+			if(obj[8]!=null)
+					amount = Integer.parseInt(obj[8].toString());
+			String ffreeVideo = (String)obj[9];
 
 //			LessonsDto dto = new LessonsDto(lessonsId,userName,languageId,lanName,youtube,pdf,date,modifiedDate,amount,ffreeVideo);
 			
@@ -59,6 +60,7 @@ public class LessonsServiceImpl implements LessonsService{
 			dto.setLessonsId(lessonsId);
 			
 			UserAccountDto userDto = new UserAccountDto();
+			userDto.setUserAccountId(userAccountId);
 			userDto.setUserName(userName);//for save and update error 
 			dto.setUserAccount(userDto); 
 			//dto.setUserAccount(userName);

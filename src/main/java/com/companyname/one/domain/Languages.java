@@ -18,6 +18,9 @@ public class Languages  {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int languagesId;
+	
+
+	private int userAccountId;
 
 	private String name;
 
@@ -90,6 +93,16 @@ public class Languages  {
 
 	public void setExamFee(int examFee) {
 		this.examFee = examFee;
+	}
+
+
+	public int getUserAccountId() {
+		return userAccountId;
+	}
+
+
+	public void setUserAccountId(int userAccountId) {
+		this.userAccountId = userAccountId;
 	}
 	
 	

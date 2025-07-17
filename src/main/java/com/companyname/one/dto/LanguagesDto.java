@@ -36,6 +36,18 @@ public class LanguagesDto {
 		this.examLink = language.getExamLink();
 		this.examFee = language.getExamFee();
 	}
+	public LanguagesDto(int languagesId, String name, int amount, String examLink,int examFee,int userAccountId) {
+		// TODO Auto-generated constructor stub
+		this.languagesId = languagesId;
+
+		this.name = name;
+		this.amount = amount;
+		this.examLink =examLink;
+		this.examFee = examFee;		
+		this.userAccount = new UserAccountDto(userAccountId);//for save and update error
+		
+	}
+
 
 	public LanguagesDto(int languagesId, String languagesName) {
 		// TODO Auto-generated constructor stub
@@ -52,7 +64,20 @@ public class LanguagesDto {
 
 
 
+	public LanguagesDto(int languagesId, String name, int amount, String examLink, int examFee) {
+		// TODO Auto-generated constructor stub
+		this.languagesId = languagesId;
+		this.name = name;
+		this.amount = amount;
+		this.examLink =examLink;
+		this.examFee = examFee;
+	}
+
+
+
 	private int languagesId;
+	
+	private UserAccountDto userAccount; 
 
 	private String name;
 
