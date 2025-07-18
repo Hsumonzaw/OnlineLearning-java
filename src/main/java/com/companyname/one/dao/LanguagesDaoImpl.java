@@ -26,9 +26,12 @@ public class LanguagesDaoImpl implements LanguagesDao{
 	public List<LanguagesDto> getLanguages() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,ua.userAccountId\r\n"
+//		List<Object[]> userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,ua.userAccountId\r\n"
+//				+ "FROM languages l\r\n"
+//				+ "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId\r\n"
+//				+ "").getResultList();
+		List<Object[]> userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee\r\n"
 				+ "FROM languages l\r\n"
-				+ "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId\r\n"
 				+ "").getResultList();
 		
 		List<LanguagesDto> dtoList = new ArrayList<LanguagesDto>();
@@ -41,16 +44,16 @@ public class LanguagesDaoImpl implements LanguagesDao{
 			int amount = Integer.parseInt(obj[2].toString());
 			String examLink = (String)obj[3];
 			int examFee = Integer.parseInt(obj[4].toString());
-			int userAccountId = 0;
-			if(obj[5] != null) {
-				userAccountId = Integer.parseInt(obj[5].toString());
-			}
+//			int userAccountId = 0;
+//			if(obj[5] != null) {
+//				userAccountId = Integer.parseInt(obj[5].toString());
+//			}
 			
 			
 			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);
 
 			
-			dto.setUserAccount(new UserAccountDto(userAccountId));
+//			dto.setUserAccount(new UserAccountDto(userAccountId));
 			
 			
 			

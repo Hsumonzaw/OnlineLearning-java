@@ -32,6 +32,7 @@ public class LanguagesController {
 	public LanguagesDto addLanguages(@RequestBody LanguagesDto dto) {
 		try 
 		{
+		    System.out.println("Received Language DTO: " + dto);
 			return lanService.addLanguages(dto);
 		}catch (Exception e) {
 			// TODO: handle exception

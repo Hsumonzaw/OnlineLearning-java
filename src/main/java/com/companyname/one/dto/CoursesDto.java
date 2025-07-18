@@ -21,12 +21,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CoursesDto {
 	
-	public CoursesDto(int coursesId, String type, int amount, String cphoto,String description, Date receivedDate, Date date, Date modifiedDate) {
+	public CoursesDto(int coursesId, String type, int amount, String cphoto,String examLink,String pdf, String description, Date receivedDate, Date date, Date modifiedDate) {
 	    // TODO Auto-generated constructor stub
 	    this.coursesId = coursesId;
 	    this.type = type;
 	    this.amount = amount;
 	    this.cphoto = cphoto;
+	    this.examLink = examLink;//new
+	    this.pdf = pdf; // new
 	    this.description = description;
 	    this.receivedDate = receivedDate;
 	    this.date = date;
@@ -58,6 +60,10 @@ public class CoursesDto {
 	private int amount;
 	
 	private String cphoto;
+	
+	private String examLink;//new
+	
+	private String pdf; //new
 	
 	private String description;
 	

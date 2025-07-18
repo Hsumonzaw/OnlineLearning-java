@@ -69,6 +69,9 @@ public class LessonsDaoImpl implements LessonsDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.save(lessons);
+//		session.createNativeQuery(
+//		        "INSERT INTO useraccount VALUES lessonsId = :lessonsId"
+//		    ).setParameter("lessons", lessons).executeUpdate();
 	}
 	@Override
 	public void updateLessons( Lessons lessons) {

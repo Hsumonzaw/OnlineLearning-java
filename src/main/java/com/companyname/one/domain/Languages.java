@@ -20,7 +20,7 @@ public class Languages  {
 	private int languagesId;
 	
 
-	private int userAccountId;
+//	private int userAccountId;
 
 	private String name;
 
@@ -96,14 +96,14 @@ public class Languages  {
 	}
 
 
-	public int getUserAccountId() {
-		return userAccountId;
-	}
-
-
-	public void setUserAccountId(int userAccountId) {
-		this.userAccountId = userAccountId;
-	}
-	
-	
+//	public int getUserAccountId() {
+//		return userAccountId;
+//	}
+//
+//
+//	public void setUserAccountId(int userAccountId) {
+//		this.userAccountId = userAccountId;
+//	}
+//	
+//	
 }

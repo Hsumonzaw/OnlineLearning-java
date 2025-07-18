@@ -30,7 +30,14 @@ public class Courses  {
 
 	private int amount;
 	
+
+
+
 	private String cphoto;
+	
+	private String examLink;//new
+	
+	private String pdf; // new
 	
 	private String description;
 
@@ -131,6 +138,23 @@ public class Courses  {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getExamLink() {//new
+		return examLink;
+	}
+
+
+	public void setExamLink(String examLink) {//new
+		this.examLink = examLink;
+	}
+
+	public String getPdf() {// new
+		return pdf;
+	}
+
+	public void setPdf(String pdf) { //new
+		this.pdf = pdf;
+	}
+	
 
 
 	

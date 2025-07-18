@@ -43,6 +43,8 @@ public class CoursesServiceImpl implements CoursesService{
         c.setType(dto.getType());
         c.setAmount(dto.getAmount());
         c.setCphoto(dto.getCphoto());
+        c.setExamLink(dto.getExamLink());//new
+        c.setPdf(dto.getPdf());//new
         c.setDescription(dto.getDescription());
 
         c.setReceivedDate(dto.getReceivedDate());
@@ -66,6 +68,8 @@ public class CoursesServiceImpl implements CoursesService{
         c.setType(dto.getType());
         c.setAmount(dto.getAmount());
         c.setCphoto(dto.getCphoto());
+        c.setExamLink(dto.getExamLink());//new
+        c.setPdf(dto.getPdf()); //new
         c.setDescription(dto.getDescription());
 
         c.setReceivedDate(dto.getReceivedDate());

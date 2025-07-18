@@ -26,7 +26,7 @@ public class CoursesDaoImpl implements CoursesDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT c.coursesId,c.userAccountId,ua.name AS useraccountName,c.studentId,uac.name AS studentName,\r\n"
-				+ "c.languagesId,l.name AS languagesName,c.`type`,c.amount,c.cphoto,c.description,\r\n"
+				+ "c.languagesId,l.name AS languagesName,c.`type`,c.amount,c.cphoto,c.examLink,c.pdf,c.description,\r\n"
 				+ "c.receivedDate,c.date,c.modifiedDate\r\n"
 				+ "FROM courses c\r\n"
 				+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
@@ -49,14 +49,16 @@ public class CoursesDaoImpl implements CoursesDao{
 			
 			int amount = Integer.parseInt(obj[8].toString());
 			String cphoto = (String)obj[9];
-			String description = (String)obj[10];
+			String examLink = (String)obj[10];//new
+			String pdf = (String)obj[11];
+			String description = (String)obj[12];
 
 
-			Date receivedDate = (Date)(obj[11]);
-			Date date = (Date)(obj[12]);
-			Date modifiedDate = (Date)(obj[13]);
+			Date receivedDate = (Date)(obj[13]);
+			Date date = (Date)(obj[14]);
+			Date modifiedDate = (Date)(obj[15]);
 
-			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,description,receivedDate,date,modifiedDate);
+			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,examLink,pdf,description,receivedDate,date,modifiedDate);
 			
 			dto.setUserAccountDto(new UserAccountDto(userAccountId,userAccountName));
 			

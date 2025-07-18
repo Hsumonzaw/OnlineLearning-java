@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.companyname.one.domain.Languages;
+//import com.companyname.one.domain.UserAccount;
 import com.companyname.one.util.DateFormatDeserializer;
 import com.companyname.one.util.DateTimeFormatDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,25 +29,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LanguagesDto {
 
-	public LanguagesDto(Languages language) {
+	public LanguagesDto(LanguagesDto dto) {
 		// TODO Auto-generated constructor stub
-		this.languagesId = language.getLanguagesId();
-		this.name = language.getName();
-		this.amount = language.getAmount();
-		this.examLink = language.getExamLink();
-		this.examFee = language.getExamFee();
+		this.languagesId = dto.getLanguagesId();
+		this.name = dto.getName();
+		this.amount = dto.getAmount();
+		this.examLink = dto.getExamLink();
+		this.examFee = dto.getExamFee();
+//		 if (dto.getUserAccount() != null) {
+//		        UserAccountDto user = new UserAccountDto(); 
+//		        user.setUserAccountId(dto.getUserAccount().getUserAccountId());
+//		        this.userAccount = user;
+//		    }
 	}
-	public LanguagesDto(int languagesId, String name, int amount, String examLink,int examFee,int userAccountId) {
-		// TODO Auto-generated constructor stub
-		this.languagesId = languagesId;
-
-		this.name = name;
-		this.amount = amount;
-		this.examLink =examLink;
-		this.examFee = examFee;		
-		this.userAccount = new UserAccountDto(userAccountId);//for save and update error
-		
-	}
+//	public LanguagesDto(int languagesId, String name, int amount, String examLink,int examFee,int userAccountId) {
+//		// TODO Auto-generated constructor stub
+//		this.languagesId = languagesId;
+//
+//		this.name = name;
+//		this.amount = amount;
+//		this.examLink =examLink;
+//		this.examFee = examFee;		
+//		this.userAccount = new UserAccountDto(userAccountId);//for save and update error
+//		
+//	}
 
 
 	public LanguagesDto(int languagesId, String languagesName) {
@@ -64,20 +70,20 @@ public class LanguagesDto {
 
 
 
-	public LanguagesDto(int languagesId, String name, int amount, String examLink, int examFee) {
-		// TODO Auto-generated constructor stub
-		this.languagesId = languagesId;
-		this.name = name;
-		this.amount = amount;
-		this.examLink =examLink;
-		this.examFee = examFee;
-	}
+//	public LanguagesDto(int languagesId, String name, int amount, String examLink, int examFee) {
+//		// TODO Auto-generated constructor stub
+//		this.languagesId = languagesId;
+//		this.name = name;
+//		this.amount = amount;
+//		this.examLink =examLink;
+//		this.examFee = examFee;
+//	}
 
 
 
 	private int languagesId;
 	
-	private UserAccountDto userAccount; 
+//	private UserAccountDto userAccount; 
 
 	private String name;
 

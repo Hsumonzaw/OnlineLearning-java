@@ -34,6 +34,8 @@ public class CoursesController {
 	public CoursesDto addCourses(@RequestBody CoursesDto dto) {
 		try 
 		{
+		    System.out.println("Received Language DTO: " + dto);
+
 			return courService.addCourses(dto);
 		}catch (Exception e) {
 			// TODO: handle exception
