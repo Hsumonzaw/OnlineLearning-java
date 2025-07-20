@@ -39,6 +39,18 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	@PostMapping("free/useraccounts")
+	public int saveFreeUserAccounts(@RequestBody UserAccountDto dto){
+		try {
+			dto.setPassword(dto.getPassword().toLowerCase().toString());
+			return userService.saveUserAccounts(dto);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
+	}
 	@PostMapping("useraccounts")
 	public int saveUserAccounts(@RequestBody UserAccountDto dto){
 		try {

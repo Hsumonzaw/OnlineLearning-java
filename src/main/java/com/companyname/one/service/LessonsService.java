@@ -8,7 +8,7 @@ import com.companyname.one.dto.LessonsDto;
 
 public interface LessonsService {
 
-	List<LessonsDto> getLessons(String freeVideo);
+	List<LessonsDto> getLessons(String freeVideo,int languageId);
 
 	LessonsDto addLessons(LessonsDto dto);
 

@@ -65,25 +65,25 @@ public class UserAccountDto{
 
 
 
-	public UserAccountDto(UserAccountDto user) {
-		// TODO Auto-generated constructor stub
-		this.userAccountId = user.getUserAccountId();
-		this.teacherId = user.getTeacherId();
-		this.name = user.getName();
-		this.age = user.getAge();
-		this.photo = user.getPhoto();
-		this.status = user.getStatus();
-		this.userType = user.getUserType();
-		this.date = user.getDate();
-		this.address = user.getAddress();
-		this.nrc = user.getNrc();
-		this.email = user.getEmail();
-		this.phonenum = user.getPhonenum();
-		this.degree = user.getDegree();
-		this.file = user.getFile();
-		this.userName = user.getUserName();
-		this.startDate = user.getStartDate();
-	}
+//	public UserAccountDto(UserAccountDto user) {
+//		// TODO Auto-generated constructor stub
+//		this.userAccountId = user.getUserAccountId();
+//		this.teacherId = user.getTeacherId();
+//		this.name = user.getName();
+//		this.age = user.getAge();
+//		this.photo = user.getPhoto();
+//		this.status = user.getStatus();
+//		this.userType = user.getUserType();
+//		this.date = user.getDate();
+//		this.address = user.getAddress();
+//		this.nrc = user.getNrc();
+//		this.email = user.getEmail();
+//		this.phonenum = user.getPhonenum();
+//		this.degree = user.getDegree();
+//		this.file = user.getFile();
+//		this.userName = user.getUserName();
+//		this.startDate = user.getStartDate();
+//	}
 
 
 
@@ -111,6 +111,26 @@ public class UserAccountDto{
 	public UserAccountDto(int userAccountId) {
 		// TODO Auto-generated constructor stub
 		this.userAccountId = userAccountId;
+	}
+
+	public UserAccountDto(UserAccount user) {
+		// TODO Auto-generated constructor stub
+		this.userAccountId = user.getUserAccountId();
+		this.teacherId = user.getTeacherId();
+		this.name = user.getName();
+		this.age = user.getAge();
+		this.photo = user.getPhoto();
+		this.status = user.getStatus();
+		this.userType = user.getUserType();
+		this.date = user.getDate();
+		this.address = user.getAddress();
+		this.nrc = user.getNrc();
+		this.email = user.getEmail();
+		this.phonenum = user.getPhonenum();
+		this.degree = user.getDegree();
+		this.file = user.getFile();
+		this.userName = user.getUserName();
+		this.startDate = user.getStartDate();
 	}
 
 	private UserAccountDto studentDto;

@@ -84,6 +84,22 @@ public class UserAccount implements UserDetails  {
 		this.userAccountId = userAccountId;
 	}
 
+	public UserAccount(UserAccount ua) {
+		// TODO Auto-generated constructor stub
+		this.userAccountId = ua.getUserAccountId();
+		this.name = ua.getName();
+		this.age = ua.getAge();
+		this.address = ua.getAddress();
+		this.degree = ua.getDegree();
+		this.email = ua.getEmail();
+		this.date = ua.getDate();
+		this.startDate = ua.getStartDate();
+		this.photo = ua.getPhoto();
+		this.phonenum = ua.getPhonenum();
+		this.nrc = ua.getNrc();
+		this.userType = ua.getUserType();
+	}
+
 	public int getUserAccountId() {
 		return userAccountId;
 	}

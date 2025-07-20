@@ -6,7 +6,7 @@ import com.companyname.one.domain.Lessons;
 
 public interface LessonsDao {
 
-	List<Object[]> getLessons(String freeVideo);
+	List<Object[]> getLessons(String freeVideo,int languageId);
 
 	 void addLessons(Lessons lessons);
 

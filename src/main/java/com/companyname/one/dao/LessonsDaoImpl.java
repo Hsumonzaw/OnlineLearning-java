@@ -12,6 +12,7 @@ import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Lessons;
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.security.TokenData;
 import com.companyname.one.util.User;
 
 import lombok.var;
@@ -33,35 +34,47 @@ public class LessonsDaoImpl implements LessonsDao{
 //	}
 	
 	@Override
-	public List<Object[]> getLessons(String freeVideo) {
+	public List<Object[]> getLessons(String freeVideo,int languageId) {
 	    Session session = sessionFactory.getCurrentSession();
-	    
-	    
-	    
-	    
-	    StringBuilder sql = new StringBuilder();
-	    sql.append("SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, ");
-	    sql.append("l.youtube, l.pdf, l.date, lan.amount, l.freeVideo ");
-	    sql.append("FROM lessons l ");
-	    sql.append("LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId ");
-	    sql.append("LEFT JOIN languages lan ON lan.languagesId = l.languagesId ");
+	    String sqlData = "";
+	    if(!"FREE".equals(freeVideo)) {
+	    	TokenData data = User.getTokenData();
 
-	    if (freeVideo != null && !freeVideo.trim().isEmpty()) {
-	        sql.append("WHERE l.freeVideo = :freeVideo ");
+		    if("STUDENT".equals(data.getRole())) {
+		    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
+		    			+ "FROM courses c\r\n"
+		    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
+		    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
+		    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
+		    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' ) ";
+		    }else {
+		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
+		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
+		    			+ " FROM lessons l  "
+		    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
+		    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
+		    	sqlData = sqlData+" WHERE 1=1 ";
+		    }
+	    }else {
+	    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
+	    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
+	    			+ " FROM lessons l  "
+	    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
+	    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
+	    	sqlData = sqlData+" WHERE 1=1 ";
 	    }
 
+	    //if (freeVideo != null && !freeVideo.trim().isEmpty()) {
 	    
-
-	    // Optional: Add order by
-	    sql.append("ORDER BY l.lessonsId DESC");
-
-	    var query = session.createNativeQuery(sql.toString());
-
-	    if (freeVideo != null && !freeVideo.trim().isEmpty()) {
-	        query.setParameter("freeVideo", freeVideo);
+	    if(!"ALL".equals(freeVideo)) {
+	    	sqlData = sqlData+" AND l.freeVideo =  '"+freeVideo+"' ";
 	    }
+	    if(languageId>0) {
+	    	sqlData = sqlData+" AND lan.languagesId =  "+languageId;
+	    }
+	    	sqlData = sqlData+" GROUP BY l.lessonsId ORDER BY l.lessonsId DESC";
 
-	    return query.getResultList();
+	    return session.createNativeQuery(sqlData).getResultList();
 	}
 
 	@Override

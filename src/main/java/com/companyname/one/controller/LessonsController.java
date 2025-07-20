@@ -26,9 +26,21 @@ public class LessonsController {
 	@Autowired
 	LessonsService lessService;
 	@GetMapping("lessons")
-	public List<LessonsDto> getLessons(@RequestParam(value = "freeVideo", required = false) String freeVideo){
+	public List<LessonsDto> getLessons(@RequestParam(value = "freeVideo", defaultValue = "ALL") String freeVideo,
+			@RequestParam(value = "languageId", defaultValue = "0") int languageId){
 		try {
-			return lessService.getLessons(freeVideo);
+			return lessService.getLessons(freeVideo,languageId);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("get,Lessons Error!", e);
+		}
+		
+	}
+	@GetMapping("free/lessons")
+	public List<LessonsDto> getLessons(@RequestParam(value = "languageId", defaultValue = "0") int languageId){
+		try {
+			return lessService.getLessons("FREE",languageId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -29,7 +29,7 @@ public class LessonsServiceImpl implements LessonsService{
 	
 	@Transactional(readOnly=true)
 	@Override
-	public List<LessonsDto> getLessons(String freeVideo) {
+	public List<LessonsDto> getLessons(String freeVideo,int languageId) {
 		// TODO Auto-generated method stub
 //		List<Lessons> lessList = lessDao.getLessons(freeVideo);
 //		List<LessonsDto> dtoList = new ArrayList<LessonsDto>();
@@ -37,13 +37,13 @@ public class LessonsServiceImpl implements LessonsService{
 //			LessonsDto dto = new LessonsDto(less);
 //			dtoList.add(dto);
 //		}
-		List<Object[]> objList = lessDao.getLessons(freeVideo);
+		List<Object[]> objList = lessDao.getLessons(freeVideo,languageId);
 		List<LessonsDto> dtoList = new ArrayList<LessonsDto>();
 		for(Object[] obj:objList) {
 			int lessonsId = Integer.parseInt(obj[0].toString());
 			int userAccountId = Integer.parseInt(obj[1].toString());
 			String userName = (String)obj[2];//for save and update error 
-			int languageId = Integer.parseInt(obj[3].toString());
+			languageId = Integer.parseInt(obj[3].toString());
 			String lanName = (String)obj[4];
 			String youtube = (String)obj[5];
 			String pdf = (String)obj[6];
@@ -53,7 +53,6 @@ public class LessonsServiceImpl implements LessonsService{
 			if(obj[8]!=null)
 					amount = Integer.parseInt(obj[8].toString());
 			String ffreeVideo = (String)obj[9];
-
 //			LessonsDto dto = new LessonsDto(lessonsId,userName,languageId,lanName,youtube,pdf,date,modifiedDate,amount,ffreeVideo);
 			
 			LessonsDto dto = new LessonsDto();

@@ -34,16 +34,16 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		List<Object[]> allList = null;	
 		List<Object[]> userList = null;
 		TokenData data = User.getTokenData();
-		data.getRole();
+		
 
 		List<UserAccountDto> dtoList = new ArrayList<UserAccountDto>();
-		List<UserAccountDto> allList1 = new ArrayList<UserAccountDto>();
+		//List<UserAccountDto> allList1 = new ArrayList<UserAccountDto>();
 			
 			int userId = User.getUserId();
 			String role = User.getUserRole();
 			
 //			if("ADMIN".equals(role))
-		 	if("TEACHER".equals(userType)) {
+		 	if("TEACHER".equals(data.getRole())) {
 
 			userList = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,sua.startDate,sua.modifiedDate\r\n"
 					+ "FROM lessons l\r\n"
@@ -67,19 +67,29 @@ public class UserAccountDaoImpl implements UserAccountDao{
 	            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
 
 	            dtoList.add(dto);
+	            return dtoList;
 	        }
 		}else if("ALL".equals(userType)) {
 				
-				allList1 = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ").getResultList();
-				return allList1;
+			List<UserAccount> userListOne = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ")
+					.getResultList();
+			for(UserAccount ua:userListOne) {
+				UserAccountDto dto = new UserAccountDto(ua);
+				dtoList.add(dto);
+			}
+				return dtoList;
 			}
 		else {
-			allList1 = session.createQuery("SELECT ua FROM UserAccount ua "
+			List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
 					+ " Where ua.status=1 AND ua.userType=:userType "
 					+ " ORDER BY ua.name ASC ").setParameter("userType", userType).getResultList();
-			return allList1;
+			for(UserAccount ua:userListOne) {
+				UserAccountDto dto = new UserAccountDto(ua);
+				dtoList.add(dto);
+			}
+				return dtoList;
 		}
-		 	 return dtoList;
+			return null;
 		
 	}
 
