@@ -72,7 +72,7 @@ public class LessonsDaoImpl implements LessonsDao{
 	    if(languageId>0) {
 	    	sqlData = sqlData+" AND lan.languagesId =  "+languageId;
 	    }
-	    	sqlData = sqlData+" GROUP BY l.lessonsId ORDER BY l.lessonsId DESC";
+//	    	sqlData = sqlData+" GROUP BY l.lessonsId ORDER BY l.lessonsId DESC"; //only for my Hswut device
 
 	    return session.createNativeQuery(sqlData).getResultList();
 	}

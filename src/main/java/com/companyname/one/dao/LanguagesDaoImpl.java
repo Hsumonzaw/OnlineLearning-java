@@ -13,7 +13,10 @@ import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.CoursesDto;
 import com.companyname.one.dto.LanguagesDto;
+import com.companyname.one.dto.LessonsDto;
 import com.companyname.one.dto.UserAccountDto;
+import com.companyname.one.security.TokenData;
+import com.companyname.one.util.User;
 
 
 @Repository
@@ -26,39 +29,53 @@ public class LanguagesDaoImpl implements LanguagesDao{
 	public List<LanguagesDto> getLanguages() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-//		List<Object[]> userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,ua.userAccountId\r\n"
-//				+ "FROM languages l\r\n"
-//				+ "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId\r\n"
-//				+ "").getResultList();
-		List<Object[]> userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee\r\n"
-				+ "FROM languages l\r\n"
-				+ "").getResultList();
 		
+		
+		TokenData data = User.getTokenData();
 		List<LanguagesDto> dtoList = new ArrayList<LanguagesDto>();
+		List<Object[]> userList;
+
+	    if("TEACHER".equals(data.getRole())) {
+	    	userList = session.createNativeQuery(
+	    		    "SELECT lan.languagesId,\r\n"
+	    		    + "COALESCE(MIN(les.lessonsId), 0) AS lessonsId,\r\n"
+	    		    + "lan.name, lan.amount, lan.examLink, lan.examFee,\r\n"
+	    		    + "lan.userAccountId\r\n"
+	    		    + "FROM languages lan\r\n"
+	    		    + "LEFT JOIN lessons les ON les.languagesId = lan.languagesId\r\n"
+	    		    + "WHERE lan.userAccountId = :userId\r\n"
+	    		    + "GROUP BY lan.languagesId, lan.name, lan.amount, lan.examLink, lan.examFee, lan.userAccountId\r\n"
+	    		    + "")
+	    		.setParameter("userId", data.getUserId())
+	    		.getResultList();
+
+			for(Object[] obj:userList) {
+				int languagesId = Integer.parseInt(obj[0].toString());
+				int lessonsId = Integer.parseInt(obj[1].toString());			
+				String name = (String)obj[2];
+				int amount = Integer.parseInt(obj[3].toString());
+				String examLink = (String)obj[4];
+				int examFee = Integer.parseInt(obj[5].toString());
+				int userAccountId = Integer.parseInt(obj[6].toString());
+				LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);
+				dto.setLessonsDto(new LessonsDto(lessonsId,userAccountId));				
+				dtoList.add(dto);
+			}
+			return dtoList;
+	    	
+	    }else {
+	    	userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee\r\n"
+					+ "FROM languages l\r\n"
+					+ "").getResultList();
+	    	}
 		
-		for(Object[] obj:userList) {
-			int languagesId = Integer.parseInt(obj[0].toString());
-			
-			
+		for(Object[] obj: userList) {
+			int languagesId = Integer.parseInt(obj[0].toString());			
 			String name = (String)obj[1];
 			int amount = Integer.parseInt(obj[2].toString());
 			String examLink = (String)obj[3];
 			int examFee = Integer.parseInt(obj[4].toString());
-//			int userAccountId = 0;
-//			if(obj[5] != null) {
-//				userAccountId = Integer.parseInt(obj[5].toString());
-//			}
-			
-			
-			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);
-
-			
-//			dto.setUserAccount(new UserAccountDto(userAccountId));
-			
-			
-			
-			
-			
+			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);			
 			dtoList.add(dto);
 		}
 		return dtoList;

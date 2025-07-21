@@ -67,7 +67,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 	            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
 
 	            dtoList.add(dto);
-	            return dtoList;
+//	            return dtoList;
 	        }
 		}else if("ALL".equals(userType)) {
 				
@@ -77,7 +77,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 				UserAccountDto dto = new UserAccountDto(ua);
 				dtoList.add(dto);
 			}
-				return dtoList;
+				//return dtoList;
 			}
 		else {
 			List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
@@ -87,9 +87,9 @@ public class UserAccountDaoImpl implements UserAccountDao{
 				UserAccountDto dto = new UserAccountDto(ua);
 				dtoList.add(dto);
 			}
-				return dtoList;
+				//return dtoList;
 		}
-			return null;
+			return dtoList;
 		
 	}
 

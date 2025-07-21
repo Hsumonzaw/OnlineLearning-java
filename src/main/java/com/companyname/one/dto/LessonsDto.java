@@ -50,11 +50,13 @@ public class LessonsDto {
 //		this.date = new Date();
 //		this.modifiedDate = new Date();
 	}
-	public LessonsDto(int lessonsId) {
+	public LessonsDto(int lessonsId, int userAccountId) {
 		// TODO Auto-generated constructor stub
 		this.lessonsId = lessonsId;
+		this.userAccount = new UserAccountDto(userAccountId);
 		
 	}
+	
 	private int lessonsId;
 	
 	

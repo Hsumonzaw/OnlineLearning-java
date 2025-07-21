@@ -19,8 +19,9 @@ public class Languages  {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int languagesId;
 	
+	private int lessonsId;
 
-//	private int userAccountId;
+	private int userAccountId;
 
 	private String name;
 
@@ -43,6 +44,8 @@ public class Languages  {
 		this.amount = dto.getAmount();
 		this.examLink = dto.getExamLink();
 		this.examFee = dto.getExamFee();
+		this.lessonsId = dto.getLessonsDto() != null ? dto.getLessonsDto().getLessonsId() : 0;
+	    this.userAccountId = dto.getUserAccount() != null ? dto.getUserAccount().getUserAccountId() : 0;
 	}
 
 
@@ -96,14 +99,24 @@ public class Languages  {
 	}
 
 
-//	public int getUserAccountId() {
-//		return userAccountId;
-//	}
-//
-//
-//	public void setUserAccountId(int userAccountId) {
-//		this.userAccountId = userAccountId;
-//	}
-//	
-//	
+	public int getLessonsId() {
+		return lessonsId;
+	}
+
+
+	public void setLessonsId(int lessonsId) {
+		this.lessonsId = lessonsId;
+	}
+
+
+	public int getUserAccountId() {
+		return userAccountId;
+	}
+
+
+	public void setUserAccountId(int userAccountId) {
+		this.userAccountId = userAccountId;
+	}
+	
+	
 }
