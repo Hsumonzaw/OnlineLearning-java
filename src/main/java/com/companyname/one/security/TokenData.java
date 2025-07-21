@@ -11,7 +11,7 @@ public class TokenData {
 	String userId;
 	String userName;
 	String password;
-	String role;
+	String role="";
 	String profileName;
 	String profilePhoto;
 }

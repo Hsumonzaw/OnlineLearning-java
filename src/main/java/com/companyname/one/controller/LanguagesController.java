@@ -36,6 +36,7 @@ public class LanguagesController {
 			return lanService.addLanguages(dto);
 		}catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			throw new RuntimeException("Add,Languages is Error!", e);
 		}
 	}

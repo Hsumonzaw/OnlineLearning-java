@@ -29,9 +29,14 @@ public class LanguagesDaoImpl implements LanguagesDao{
 	public List<LanguagesDto> getLanguages() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		TokenData data = new TokenData();
+		try {
+			data = User.getTokenData();
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+		}
 		
-		
-		TokenData data = User.getTokenData();
 		List<LanguagesDto> dtoList = new ArrayList<LanguagesDto>();
 		List<Object[]> userList;
 

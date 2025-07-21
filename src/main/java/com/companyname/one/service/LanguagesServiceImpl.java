@@ -44,7 +44,10 @@ public class LanguagesServiceImpl implements LanguagesService{
 		// TODO Auto-generated method stub
 		Languages languages =new Languages(dto);
 //		languages.setLanguagesId(dto.getLanguagesId());
-		languages.setLessonsId(dto.getLessonsDto().getLessonsId());
+		if(dto.getLessonsDto()!=null) {
+			languages.setLessonsId(dto.getLessonsDto().getLessonsId());
+		}
+		
 		languages.setUserAccountId(User.getUserId());
 		languages.setName(dto.getName());
 		languages.setAmount(dto.getAmount());
