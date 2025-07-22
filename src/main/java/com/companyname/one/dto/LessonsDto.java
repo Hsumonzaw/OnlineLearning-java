@@ -57,6 +57,11 @@ public class LessonsDto {
 		
 	}
 	
+	public LessonsDto(int lessonsId) {
+		// TODO Auto-generated constructor stub
+		this.lessonsId = lessonsId;
+	}
+
 	private int lessonsId;
 	
 	

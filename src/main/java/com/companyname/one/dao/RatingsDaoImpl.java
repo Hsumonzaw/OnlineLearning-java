@@ -41,7 +41,7 @@ public class RatingsDaoImpl implements RatingsDao {
       
       dto.setUserAccountDto(new UserAccountDto(name));
       
-      //dto.setLessonsDto(new LessonsDto(lessonsId));
+      dto.setLessonsDto(new LessonsDto(lessonsId));
       
       dtoList.add(dto);
     }

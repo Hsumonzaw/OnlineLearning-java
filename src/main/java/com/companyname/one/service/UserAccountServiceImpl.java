@@ -59,7 +59,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 		// TODO Auto-generated method stub
 		
 		UserAccount user = userDao.getUserAccountsById(dto.getUserAccountId());
-		user.setTeacherId(dto.getTeacherId());
+//		user.setTeacherId(dto.getTeacherId());
 		user.setName(dto.getName());
 		user.setAge(dto.getAge());
 		user.setStatus(1);

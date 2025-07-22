@@ -40,7 +40,7 @@ public class CommentsDaoImpl implements CommentsDao {
 		      
 		      dto.setUserAccountDto(new UserAccountDto(name));
 		      
-		      //dto.setLessonsDto(new LessonsDto(lessonsId));
+		      dto.setLessonsDto(new LessonsDto(lessonsId));
 		      
 		      dtoList.add(dto);
 		    }

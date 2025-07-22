@@ -39,6 +39,11 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	@GetMapping("/teachers")
+	public List<UserAccountDto> getTeachers() {
+	    return userService.getUserAccounts("TEACHER");
+	}
+
 	@PostMapping("free/useraccounts")
 	public int saveFreeUserAccounts(@RequestBody UserAccountDto dto){
 		try {
