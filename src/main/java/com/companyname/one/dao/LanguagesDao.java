@@ -7,7 +7,7 @@ import com.companyname.one.dto.LanguagesDto;
 
 public interface LanguagesDao {
 
-	List<LanguagesDto> getLanguages();
+	List<LanguagesDto> getLanguages(int index);
 
 	void addLanguages(Languages languages);
 

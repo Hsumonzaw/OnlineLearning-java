@@ -13,10 +13,13 @@ import com.companyname.one.dao.ExamansDao;
 import com.companyname.one.dao.UserAccountDao;
 import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Examans;
+import com.companyname.one.domain.Quiz;
 import com.companyname.one.domain.UserAccount;
+import com.companyname.one.dto.AnsDto;
 import com.companyname.one.dto.CoursesDto;
 import com.companyname.one.dto.ExamansDto;
 import com.companyname.one.dto.LessonsDto;
+import com.companyname.one.dto.QuizDto;
 import com.companyname.one.dto.UserAccountDto;
 import com.companyname.one.util.User;
 @Service
@@ -69,6 +72,42 @@ public class ExamansServiceImpl implements ExamansService{
 		// TODO Auto-generated method stub
 		examDao.deleteExamans(examansId);
 		return examansId;
+	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<QuizDto> getQuiz() {
+		// TODO Auto-generated method stub
+		
+		return examDao.getQuiz();
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public int addQuiz(QuizDto dto) {
+		// TODO Auto-generated method stub
+		Quiz q = new Quiz(dto);
+		examDao.addQuiz(q);
+		return q.getQuizId();
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public int updateQuiz(QuizDto dto) {
+		// TODO Auto-generated method stub
+		Quiz q = new Quiz(dto);
+		examDao.updateQuiz(q);
+		return q.getQuizId();
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public int deleteQuiz(int quizId) {
+		// TODO Auto-generated method stub
+		examDao.deleteQuiz(new Quiz(quizId));
+		return quizId;
+	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<AnsDto> getAns() {
+		// TODO Auto-generated method stub
+		return examDao.getAns();
 	}
 	
 	}

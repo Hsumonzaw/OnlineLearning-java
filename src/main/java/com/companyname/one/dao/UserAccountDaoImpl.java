@@ -33,62 +33,74 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> allList = null;	
 		List<Object[]> userList = null;
-		TokenData data = User.getTokenData();
+
 		
 
 		List<UserAccountDto> dtoList = new ArrayList<UserAccountDto>();
 		//List<UserAccountDto> allList1 = new ArrayList<UserAccountDto>();
 			
-			int userId = User.getUserId();
-			String role = User.getUserRole();
+//			int userId = User.getUserId();
+//			String role = User.getUserRole();
 			
 //			if("ADMIN".equals(role))
-		 	if("TEACHER".equals(data.getRole())) {
+			if("TE".equals(userType)) {
+				List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
+						+ " Where ua.status=1 AND ua.userType='TEACHER' "
+						+ " ORDER BY ua.name ASC ").getResultList();
+				for(UserAccount ua:userListOne) {
+					UserAccountDto dto = new UserAccountDto(ua);
+					dtoList.add(dto);
+				}
+			}else {
+				TokenData data = User.getTokenData();
+				if("TEACHER".equals(data.getRole())) {
 
-			userList = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,sua.startDate,sua.modifiedDate\r\n"
-					+ "FROM lessons l\r\n"
-					+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
-					+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
-					+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
-					+ "WHERE l.userAccountId =  :userId\r\n"
-					+ "GROUP BY l.languagesId,c.studentId\r\n"
-					+ "").setParameter("userId", userId)
-					.getResultList();
-			
-	        for (Object[] obj : userList) {
-	            int languagesId = Integer.parseInt(obj[0].toString());
-	            String languageName = (String) obj[1];
-	            String studentName = (String) obj[2];
-	            Date startDate = (Date) obj[3];
-	            Date modifiedDate = (Date) obj[4];
+					userList = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,sua.startDate,sua.modifiedDate\r\n"
+							+ "FROM lessons l\r\n"
+							+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
+							+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
+							+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
+							+ "WHERE l.userAccountId =  :userId\r\n"
+							+ "GROUP BY l.languagesId,c.studentId\r\n"
+							+ "").setParameter("userId", data.getUserId())
+							.getResultList();
+					
+			        for (Object[] obj : userList) {
+			            int languagesId = Integer.parseInt(obj[0].toString());
+			            String languageName = (String) obj[1];
+			            String studentName = (String) obj[2];
+			            Date startDate = (Date) obj[3];
+			            Date modifiedDate = (Date) obj[4];
 
-	            UserAccountDto dto = new UserAccountDto(studentName, startDate, modifiedDate);
-	            dto.setStudentDto(new UserAccountDto(studentName));
-	            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
+			            UserAccountDto dto = new UserAccountDto(studentName, startDate, modifiedDate);
+			            dto.setStudentDto(new UserAccountDto(studentName));
+			            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
 
-	            dtoList.add(dto);
-//	            return dtoList;
-	        }
-		}else if("ALL".equals(userType)) {
-				
-			List<UserAccount> userListOne = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ")
-					.getResultList();
-			for(UserAccount ua:userListOne) {
-				UserAccountDto dto = new UserAccountDto(ua);
-				dtoList.add(dto);
+			            dtoList.add(dto);
+//			            return dtoList;
+			        }
+				}else if("ALL".equals(userType)) {
+						
+					List<UserAccount> userListOne = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ")
+							.getResultList();
+					for(UserAccount ua:userListOne) {
+						UserAccountDto dto = new UserAccountDto(ua);
+						dtoList.add(dto);
+					}
+						//return dtoList;
+					}
+				else {
+					List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
+							+ " Where ua.status=1 AND ua.userType=:userType "
+							+ " ORDER BY ua.name ASC ").setParameter("userType", userType).getResultList();
+					for(UserAccount ua:userListOne) {
+						UserAccountDto dto = new UserAccountDto(ua);
+						dtoList.add(dto);
+					}
+						//return dtoList;
+				}
 			}
-				//return dtoList;
-			}
-		else {
-			List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
-					+ " Where ua.status=1 AND ua.userType=:userType "
-					+ " ORDER BY ua.name ASC ").setParameter("userType", userType).getResultList();
-			for(UserAccount ua:userListOne) {
-				UserAccountDto dto = new UserAccountDto(ua);
-				dtoList.add(dto);
-			}
-				//return dtoList;
-		}
+		 	
 			return dtoList;
 		
 	}

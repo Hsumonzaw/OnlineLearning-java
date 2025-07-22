@@ -25,7 +25,7 @@ public class LanguagesServiceImpl implements LanguagesService{
 	
 	@Transactional(readOnly=true)
 	@Override
-	public List<LanguagesDto> getLanguages() {
+	public List<LanguagesDto> getLanguages(int index) {
 		// TODO Auto-generated method stub
 //		List<Languages> lanList = lanDao.getLanguages();
 //		List<LanguagesDto> lanDtoList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class LanguagesServiceImpl implements LanguagesService{
 //			lanDtoList.add(dto);
 //		}
 //		return lanDtoList;
-		return lanDao.getLanguages();
+		return lanDao.getLanguages(index);
 		
 			}
 

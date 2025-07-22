@@ -39,6 +39,17 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	@GetMapping("free/useraccounts")
+	public List<UserAccountDto> getUserAccountsFree(@RequestParam(value = "userType",defaultValue = "ALL") String userType){
+		try {
+			return userService.getUserAccounts(userType);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("get,News Error!", e);
+		}
+		
+	}
 	@PostMapping("free/useraccounts")
 	public int saveFreeUserAccounts(@RequestBody UserAccountDto dto){
 		try {

@@ -2,11 +2,13 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS ans;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS examAns;
 DROP TABLE IF EXISTS Courses;
 DROP TABLE IF EXISTS ratings;
 DROP TABLE IF EXISTS lessons;
+DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS languages;
 DROP TABLE IF EXISTS useraccount;
 
@@ -14,6 +16,18 @@ DROP TABLE IF EXISTS useraccount;
 
 
 /* Create Tables */
+
+CREATE TABLE ans
+(
+	ansId int NOT NULL AUTO_INCREMENT,
+	userAccountId int NOT NULL,
+	quizId int NOT NULL,
+	coursesId int NOT NULL,
+	ans int DEFAULT 0 NOT NULL,
+	PRIMARY KEY (ansId),
+	UNIQUE (ansId)
+);
+
 
 CREATE TABLE comments
 (
@@ -81,6 +95,22 @@ CREATE TABLE lessons
 );
 
 
+CREATE TABLE quiz
+(
+	quizId int NOT NULL AUTO_INCREMENT,
+	languagesId int NOT NULL,
+	userAccountId int NOT NULL,
+	name varchar(200) NOT NULL,
+	date datetime NOT NULL,
+	modifiedDate datetime NOT NULL,
+	ansone varchar(200),
+	anstwo varchar(200),
+	ansthree varchar(200),
+	correct int DEFAULT 0 NOT NULL,
+	PRIMARY KEY (quizId)
+);
+
+
 CREATE TABLE ratings
 (
 	ratingsId int NOT NULL AUTO_INCREMENT,
@@ -122,6 +152,14 @@ CREATE TABLE useraccount
 
 /* Create Foreign Keys */
 
+ALTER TABLE ans
+	ADD FOREIGN KEY (coursesId)
+	REFERENCES Courses (coursesId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE examAns
 	ADD FOREIGN KEY (coursesId)
 	REFERENCES Courses (coursesId)
@@ -146,6 +184,14 @@ ALTER TABLE lessons
 ;
 
 
+ALTER TABLE quiz
+	ADD FOREIGN KEY (languagesId)
+	REFERENCES languages (languagesId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE comments
 	ADD FOREIGN KEY (lessonsId)
 	REFERENCES lessons (lessonsId)
@@ -157,6 +203,22 @@ ALTER TABLE comments
 ALTER TABLE ratings
 	ADD FOREIGN KEY (lessonsId)
 	REFERENCES lessons (lessonsId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE ans
+	ADD FOREIGN KEY (quizId)
+	REFERENCES quiz (quizId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE ans
+	ADD FOREIGN KEY (userAccountId)
+	REFERENCES useraccount (userAccountId)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -202,6 +264,14 @@ ALTER TABLE lessons
 ;
 
 
+ALTER TABLE quiz
+	ADD FOREIGN KEY (userAccountId)
+	REFERENCES useraccount (userAccountId)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE ratings
 	ADD FOREIGN KEY (userAccountId)
 	REFERENCES useraccount (userAccountId)
@@ -219,7 +289,3 @@ ALTER TABLE useraccount
 
 
 
-<<<<<<< HEAD
-=======
-useraccount
->>>>>>> 881f4bf8362aae8b4c16c599f78965c665d13bd4

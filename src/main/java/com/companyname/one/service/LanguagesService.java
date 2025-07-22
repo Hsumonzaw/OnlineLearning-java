@@ -6,7 +6,7 @@ import com.companyname.one.dto.LanguagesDto;
 
 public interface LanguagesService {
 
-	List<LanguagesDto> getLanguages();
+	List<LanguagesDto> getLanguages(int index);
 
 	LanguagesDto addLanguages(LanguagesDto dto);
 

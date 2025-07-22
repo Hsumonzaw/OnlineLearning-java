@@ -25,7 +25,12 @@ public class LanguagesController {
 	
 	@GetMapping("languages")
 	public List<LanguagesDto> getLanguages(){
-		return lanService.getLanguages();
+		return lanService.getLanguages(1);
+	}
+	
+	@GetMapping("free/languages")
+	public List<LanguagesDto> getLanguagesFree(){
+		return lanService.getLanguages(0);
 	}
 	
 	@PostMapping("languages")
