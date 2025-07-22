@@ -39,6 +39,7 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+<<<<<<< HEAD
 	@GetMapping("free/useraccounts")
 	public List<UserAccountDto> getUserAccountsFree(@RequestParam(value = "userType",defaultValue = "ALL") String userType){
 		try {
@@ -50,6 +51,13 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+=======
+	@GetMapping("/teachers")
+	public List<UserAccountDto> getTeachers() {
+	    return userService.getUserAccounts("TEACHER");
+	}
+
+>>>>>>> e5487e2cbfd381c1515bdfc35105f16cfad21395
 	@PostMapping("free/useraccounts")
 	public int saveFreeUserAccounts(@RequestBody UserAccountDto dto){
 		try {
