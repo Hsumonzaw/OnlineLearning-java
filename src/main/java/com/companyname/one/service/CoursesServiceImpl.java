@@ -121,6 +121,43 @@ public class CoursesServiceImpl implements CoursesService{
 		
 		
 		
+		return coursesId;
+		}
+	
+	@Transactional(readOnly=false)
+	@Override
+	public int updateFile(int coursesId, MultipartFile file) {
+		// TODO Auto-generated method stub
+		System.out.println(" file ");
+		System.out.println(file);
+		String oldFile = "";
+		Courses c = courDao.getCoursesId(coursesId);
+		oldFile = c.getPdf();
+		String pdf = ConvertDate.convertyymmddhhmmss(new Date());
+		c.setPdf(pdf);
+		
+		String pwd=new File("").getAbsolutePath();
+		if(oldFile!=null) {
+			File deleteFile=new File(pwd+"/coursefile/"+oldFile+".pdf");
+			deleteFile.delete();
+		}
+		
+		
+		File dir=new File(pwd+"/coursefile/");
+		String outPath=pwd+"/coursefile/"+pdf+".pdf";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		return coursesId;	}
 
 }

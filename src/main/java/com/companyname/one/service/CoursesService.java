@@ -18,4 +18,6 @@ public interface CoursesService {
 
 	int updatePhoto(int coursesId, MultipartFile file);
 
+	int updateFile(int coursesId, MultipartFile file);
+
 }

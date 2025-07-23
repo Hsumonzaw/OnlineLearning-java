@@ -117,6 +117,13 @@ public class LanguagesDaoImpl implements LanguagesDao{
 	public void deleteLanguage(int languagesId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		session.createNativeQuery(
+		        "DELETE FROM lessons WHERE languagesId = :languagesId"
+		    ).setParameter("languagesId", languagesId).executeUpdate();
+		session.createNativeQuery(
+		        "DELETE FROM courses WHERE languagesId = :languagesId"
+		    ).setParameter("languagesId", languagesId).executeUpdate();
+		
 		session.createNativeQuery("Delete FROM languages WHERE languagesId=:languagesId")
 		.setParameter("languagesId", languagesId).executeUpdate();
 	}
