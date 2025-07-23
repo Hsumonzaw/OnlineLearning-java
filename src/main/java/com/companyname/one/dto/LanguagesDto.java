@@ -94,6 +94,8 @@ public class LanguagesDto {
 	private String examLink;
 
 	private int examFee;
+	private int buy;
+	private int coursesId;
 
 	
 }

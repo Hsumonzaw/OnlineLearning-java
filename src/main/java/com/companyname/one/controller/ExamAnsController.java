@@ -81,6 +81,16 @@ public class ExamAnsController {
 			throw new RuntimeException("get,News Error!", e);
 		}
 	}
+	@GetMapping("quiz/student/{languagesId}")
+	public List<QuizDto> getQuizStudent(@PathVariable("languagesId") int languagesId) {
+		try {
+			return examService.getQuizStudent(languagesId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("get,News Error!", e);
+		}
+	}
 
 	@PostMapping("quiz")
 	public int addQuiz(@RequestBody QuizDto dto) {
@@ -119,6 +129,26 @@ public class ExamAnsController {
 	public List<AnsDto> getAns() {
 		try {
 			return examService.getAns();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("get,News Error!", e);
+		}
+	}
+	@PostMapping("ans/{coursesId}/{minutesCount}")
+	public int saveAns(@PathVariable("coursesId") int coursesId,@RequestBody List<QuizDto> dtoList,@PathVariable("minutesCount") int minutesCount) {
+		try {
+			return examService.saveAns(coursesId,dtoList,minutesCount);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("get,News Error!", e);
+		}
+	}
+	@GetMapping("ans/exammark/{languagesId}")
+	public int getExamMark(@PathVariable("languagesId") int languagesId) {
+		try {
+			return examService.getExamMark(languagesId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

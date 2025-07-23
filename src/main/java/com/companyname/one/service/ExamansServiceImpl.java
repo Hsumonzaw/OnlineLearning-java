@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.companyname.one.dao.ExamansDao;
 import com.companyname.one.dao.UserAccountDao;
+import com.companyname.one.domain.Ans;
 import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Quiz;
@@ -108,6 +109,49 @@ public class ExamansServiceImpl implements ExamansService{
 	public List<AnsDto> getAns() {
 		// TODO Auto-generated method stub
 		return examDao.getAns();
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public List<QuizDto> getQuizStudent(int languagesId) {
+		// TODO Auto-generated method stub
+		return examDao.getQuizStudent(languagesId);
+	}
+	@Transactional(readOnly=false)
+	@Override
+	public int saveAns(int coursesId,List<QuizDto> dtoList,int minutesCount) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		for(QuizDto dto:dtoList) {
+			if(dto.getCorrect()==dto.getAns()) {
+				count+=1;
+			}
+		}
+		double doubleInt = ((double)count /dtoList.size())*100;
+		int examMark = (int) doubleInt;
+		Examans ex = examDao.getExamAnsByCoursesId(coursesId);
+		//Examans ex = new Examans();
+		ex.setUserAccountId(User.getUserId());
+		ex.setCoursesId(coursesId);
+		ex.setExamMark(examMark);
+        ex.setDate(new Date());
+        ex.setStatus("PENDING");
+        ex.setMinutesCount(minutesCount);
+        examDao.addExamans(ex);
+        examDao.deleteExam(ex.getExamId());
+        for(QuizDto dto:dtoList) {
+        	Ans ans = new Ans();
+        	ans.setQuizId(dto.getQuizId());
+        	ans.setExamId(ex.getExamId());
+        	ans.setAns(dto.getAns());
+			examDao.saveAns(ans);
+		}
+		return 1;
+	}
+	@Transactional(readOnly=true)
+	@Override
+	public int getExamMark(int languagesId) {
+		// TODO Auto-generated method stub
+		return examDao.getExamMark(languagesId);
 	}
 	
 	}

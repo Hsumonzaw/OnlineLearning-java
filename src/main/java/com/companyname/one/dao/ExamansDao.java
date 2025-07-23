@@ -2,6 +2,7 @@ package com.companyname.one.dao;
 
 import java.util.List;
 
+import com.companyname.one.domain.Ans;
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Quiz;
 import com.companyname.one.domain.UserAccount;
@@ -30,5 +31,15 @@ public interface ExamansDao {
 	void deleteQuiz(Quiz quiz);
 
 	List<AnsDto> getAns();
+
+	List<QuizDto> getQuizStudent(int languagesId);
+
+	void saveAns(Ans ans);
+
+	int getExamMark(int languagesId);
+
+	Examans getExamAnsByCoursesId(int coursesId);
+
+	void deleteExam(int examId);
 
 }

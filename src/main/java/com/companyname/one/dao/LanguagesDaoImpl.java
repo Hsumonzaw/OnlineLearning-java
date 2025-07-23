@@ -76,8 +76,10 @@ public class LanguagesDaoImpl implements LanguagesDao{
 	    	
 	    	
 	    }else {
-	    	userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee\r\n"
-					+ "FROM languages l\r\n"
+	    	userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,SUM(IF(c.studentId=10,1,0)) AS buy,SUM(IF(c.studentId=10,c.coursesId,0)) AS coursesId\r\n"
+					+ "FROM languages l "
+					+ " LEFT JOIN courses c ON c.languagesId = l.languagesId "
+					+ " GROUP BY l.languagesId \r\n"
 					+ "").getResultList();
 	    	}
 		
@@ -87,7 +89,11 @@ public class LanguagesDaoImpl implements LanguagesDao{
 			int amount = Integer.parseInt(obj[2].toString());
 			String examLink = (String)obj[3];
 			int examFee = Integer.parseInt(obj[4].toString());
-			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);			
+			int buy = Integer.parseInt(obj[5].toString());
+			int coursesId = Integer.parseInt(obj[6].toString());
+			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);	
+			dto.setBuy(buy);
+			dto.setCoursesId(coursesId);
 			dtoList.add(dto);
 		}
 		return dtoList;

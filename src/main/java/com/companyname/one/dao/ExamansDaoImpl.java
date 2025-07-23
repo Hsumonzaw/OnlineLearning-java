@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.companyname.one.domain.Ans;
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.Quiz;
@@ -95,12 +97,28 @@ public class ExamansDaoImpl implements ExamansDao {
 	public List<QuizDto> getQuiz() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> objList = session.createNativeQuery("SELECT q.quizId,l.languagesId,l.name AS lname,ua.name AS uaNmae,"
-				+ "q.name,q.date,q.modifiedDate,q.ansone,q.anstwo,q.ansthree,q.correct\r\n"
-				+ "FROM quiz	 q\r\n"
-				+ "LEFT JOIN languages l ON l.languagesId = q.languagesId\r\n"
-				+ "LEFT JOIN useraccount ua ON ua.userAccountId = q.userAccountId\r\n"
-				+ " ").setParameter("userAccountId", User.getUserId()).getResultList();
+//		List<Object[]> objList = session.createNativeQuery("SELECT q.quizId,l.languagesId,l.name AS lname,ua.name AS uaNmae,"
+//				+ "q.name,q.date,q.modifiedDate,q.ansone,q.anstwo,q.ansthree,q.correct\r\n"
+//				+ "FROM quiz	 q\r\n"
+//				+ "LEFT JOIN languages l ON l.languagesId = q.languagesId\r\n"
+//				+ "LEFT JOIN useraccount ua ON ua.userAccountId = q.userAccountId\r\n"
+//				+ " ").setParameter("userAccountId", User.getUserId()).getResultList();
+		TokenData data = User.getTokenData();
+		String sqlWhere = " WHERE q.userAccountId = "+data.getUserId();
+		if("ADMIN".equals(data.getRole())) {
+			sqlWhere = "";
+		}
+		
+		List<Object[]> objList = session.createNativeQuery(
+			    "SELECT q.quizId, l.languagesId, l.name AS lname, ua.name AS uaName, " +
+			    "q.name, q.date, q.modifiedDate, q.ansone, q.anstwo, q.ansthree, q.correct " +
+			    "FROM quiz q " +
+			    "LEFT JOIN languages l ON l.languagesId = q.languagesId " +
+			    "LEFT JOIN useraccount ua ON ua.userAccountId = q.userAccountId " +
+			    sqlWhere
+			    )
+			    .getResultList();
+		System.out.println(" objList "+objList.size());
 		List<QuizDto> dtoList = new ArrayList<QuizDto>();
 		
 		for(Object[] obj:objList) {
@@ -155,24 +173,22 @@ public class ExamansDaoImpl implements ExamansDao {
 		List<Object[]> objList = new ArrayList<Object[]>();
 		if("STUDENT".equals(data.getUserId())) {
 			objList = session.createNativeQuery(""
-					+ "SELECT a.ansId,a.ans,a.quizId,l.name AS lName,ua.name AS uaName\r\n"
-					+ "q.ansone,q.anstwo,q.ansthree,q.correct,q.name AS qName\r\n"
+					+ "SELECT a.ansId,a.ans,a.quizId,l.name AS lName,ua.name AS uaName,q.ansone,q.anstwo,q.ansthree,q.correct,q.name AS qName\r\n"
 					+ "FROM ans a\r\n"
 					+ "LEFT JOIN examans ex ON ex.examId = a.examId\r\n"
 					+ "LEFT JOIN quiz q ON q.quizId = a.quizId\r\n"
 					+ "LEFT JOIN useraccount ua ON ua.userAccountId = ex.userAccountId\r\n"
 					+ "LEFT JOIN languages l ON l.languagesId = q.languagesId\r\n"
-					+" WHERE ex.userAccountId=:studentId "
+					+ "WHERE ex.userAccountId=:studentId "
 					).setParameter("studentId", data.getUserId()).getResultList();
 		}else {
 			objList = session.createNativeQuery(""
-					+ "SELECT a.ansId,a.ans,a.quizId,l.name AS lName,ua.name AS uaName\r\n"
-					+ "q.ansone,q.anstwo,q.ansthree,q.correct,q.name AS qName\r\n"
+					+ "SELECT a.ansId,a.ans,a.quizId,l.name AS lName,ua.name AS uaName,q.ansone,q.anstwo,q.ansthree,q.correct,q.name AS qName\r\n"
 					+ "FROM ans a\r\n"
 					+ "LEFT JOIN examans ex ON ex.examId = a.examId\r\n"
 					+ "LEFT JOIN quiz q ON q.quizId = a.quizId\r\n"
 					+ "LEFT JOIN useraccount ua ON ua.userAccountId = ex.userAccountId\r\n"
-					+ "LEFT JOIN languages l ON l.languagesId = q.languagesId\r\n"
+					+ "LEFT JOIN languages l ON l.languagesId = q.languagesId"
 					).getResultList();
 		}
 		
@@ -204,6 +220,98 @@ public class ExamansDaoImpl implements ExamansDao {
 		}
 		return dtoList;
 	}
+
+	@Override
+	public List<QuizDto> getQuizStudent(int languagesId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		TokenData data = User.getTokenData();
+		//String sqlWhere = " WHERE q.userAccountId = "+data.getUserId();
+		
+		List<Object[]> objList = session.createNativeQuery(
+			    "SELECT q.quizId, l.languagesId, l.name AS lname, ua.name AS uaName, " +
+			    "q.name, q.date, q.modifiedDate, q.ansone, q.anstwo, q.ansthree, q.correct " +
+			    "FROM quiz q " +
+			    "LEFT JOIN languages l ON l.languagesId = q.languagesId " +
+			    "LEFT JOIN useraccount ua ON ua.userAccountId = q.userAccountId " +
+			    " Where l.languagesId="+languagesId
+			    )
+			    .getResultList();
+		System.out.println(" objList "+objList.size());
+		List<QuizDto> dtoList = new ArrayList<QuizDto>();
+		
+		for(Object[] obj:objList) {
+			int quizId = Integer.parseInt(obj[0].toString());
+			
+			languagesId = Integer.parseInt(obj[1].toString());
+			String lName = (String)obj[2];
+			String uaName = (String)obj[3];
+			String qName = (String)obj[4];
+			Date date = (Date)obj[5];
+			Date modifiedDate = (Date)obj[6];
+			String ansone = (String)obj[7];
+			String anstwo = (String)obj[8];
+			String ansthree = (String)obj[9];
+			int correct = Integer.parseInt(obj[10].toString());
+			
+			QuizDto dto = new QuizDto(quizId,languagesId,lName,uaName,qName,date,modifiedDate,ansone,anstwo,ansthree,correct);
+			dtoList.add(dto);
+			
+			
+		}
+		return dtoList;
+	}
+
+	@Override
+	public void saveAns(Ans ans) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.save(ans);
+	}
+
+	@Override
+	public int getExamMark(int languagesId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> examList = session.createNativeQuery("SELECT ex.examId,ex.examMark\r\n"
+				+ "FROM examans ex\r\n"
+				+ "LEFT JOIN courses c ON c.coursesId = ex.coursesId\r\n"
+				+ "WHERE ex.userAccountId = "+User.getUserId()
+				+ " AND c.languagesId =  "+languagesId).getResultList();
+		if(examList.size()>0) {
+			Object[] obj= examList.get(0);
+			int examMark = Integer.parseInt(obj[1].toString());
+			if(examMark>59) {
+				return 1;
+			}else {
+				return 0;
+			}
+			
+		}else {
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public Examans getExamAnsByCoursesId(int coursesId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Examans> exList = session.createQuery("select e from Examans e where e.coursesId="+coursesId).getResultList();
+		Examans ex = new Examans();
+		if(exList.size()>0) {
+			ex = exList.get(0);
+		}
+		return ex;
+	}
+
+	@Override
+	public void deleteExam(int examId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.createNativeQuery("delete from ans  where examId="+examId).executeUpdate();
+	}
+
 	}
 
 

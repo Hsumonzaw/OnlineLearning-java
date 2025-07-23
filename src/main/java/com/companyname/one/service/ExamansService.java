@@ -33,4 +33,10 @@ public interface ExamansService {
 
 	List<AnsDto> getAns();
 
+	List<QuizDto> getQuizStudent(int languagesId);
+
+	int saveAns(int coursesId,List<QuizDto> dtoList,int minutesCount);
+
+	int getExamMark(int languagesId);
+
 }

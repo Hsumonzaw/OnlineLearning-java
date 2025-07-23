@@ -24,6 +24,7 @@ public class QuizDto {
 		this.quizId = quizId;
 		this.languages = new LanguagesDto(languagesId,lName);
 		this.userAccount = new UserAccountDto(uaName);
+		this.name = qName;
 		this.date = date;
 		this.modifiedDate = modifiedDate;
 		this.ansone = ansone;
@@ -54,6 +55,7 @@ public class QuizDto {
 	private String anstwo;
 	private String ansthree;
 	private int correct;
+	private int ans;
 	
 	
 }
