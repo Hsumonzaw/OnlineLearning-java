@@ -46,7 +46,7 @@ public class LessonsDaoImpl implements LessonsDao{
 		    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
 		    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
 		    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
-		    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' ) ";
+		    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' )  ";
 		    }else {
 		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
 		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
@@ -72,7 +72,7 @@ public class LessonsDaoImpl implements LessonsDao{
 	    if(languageId>0) {
 	    	sqlData = sqlData+" AND lan.languagesId =  "+languageId;
 	    }
-	    	//sqlData = sqlData+" GROUP BY l.lessonsId ORDER BY l.lessonsId DESC"; //only for my Hswut device
+	    sqlData = sqlData+" GROUP BY l.lessonsId ORDER BY l.lessonsId DESC"; //only for my Hswut device
 
 	    return session.createNativeQuery(sqlData).getResultList();
 	}

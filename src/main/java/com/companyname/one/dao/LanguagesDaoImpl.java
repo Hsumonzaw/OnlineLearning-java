@@ -76,11 +76,22 @@ public class LanguagesDaoImpl implements LanguagesDao{
 //	    	
 //	    	
 //	    }else {
-	    	userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,SUM(IF(c.studentId=10,1,0)) AS buy,SUM(IF(c.studentId=10,c.coursesId,0)) AS coursesId\r\n"
+		System.out.println( " index "+index);
+		if(index==0) {
+			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,0 AS buy,0 AS coursesId\r\n"
 					+ "FROM languages l "
 					+ " LEFT JOIN courses c ON c.languagesId = l.languagesId "
 					+ " GROUP BY l.languagesId \r\n"
 					+ "").getResultList();
+		}else {
+			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,"
+					+ "SUM(IF(c.studentId=:userId,1,0)) AS buy,SUM(IF(c.studentId=:userId,c.coursesId,0)) AS coursesId\r\n"
+					+ "FROM languages l "
+					+ " LEFT JOIN courses c ON c.languagesId = l.languagesId "
+					+ " GROUP BY l.languagesId \r\n"
+					+ "").setParameter("userId", data.getUserId()).getResultList();
+		}
+	    	
 //	    	}
 		
 		for(Object[] obj: userList) {

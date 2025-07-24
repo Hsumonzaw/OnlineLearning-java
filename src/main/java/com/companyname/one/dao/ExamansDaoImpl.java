@@ -283,7 +283,7 @@ public class ExamansDaoImpl implements ExamansDao {
 			Object[] obj= examList.get(0);
 			int examMark = Integer.parseInt(obj[1].toString());
 			if(examMark>59) {
-				return 1;
+				return examMark;
 			}else {
 				return 0;
 			}

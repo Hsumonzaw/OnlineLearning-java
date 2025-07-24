@@ -62,6 +62,8 @@ public class WebMVCConfiguration
 		String s = currentRelativePath.toAbsolutePath().toString();
 		registry.addResourceHandler("/api/v1/coursephoto/**").addResourceLocations("file:" + s+ "/coursephoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 		registry.addResourceHandler("/api/v1/userphoto/**").addResourceLocations("file:" + s+ "/userphoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
+		registry.addResourceHandler("/api/v1/coursefile/**").addResourceLocations("file:" + s+ "/coursefile/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
+
 	}
 	
 
