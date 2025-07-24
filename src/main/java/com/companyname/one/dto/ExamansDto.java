@@ -33,9 +33,8 @@ public class ExamansDto implements Serializable {
 
 	private UserAccountDto userAccountDto;
 	private CoursesDto coursesDto;
-	//private LanguagesDto languagesDto;
+	private LanguagesDto languagesDto;
 
-	private String pdf;
 	private int examMark;
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
@@ -49,12 +48,24 @@ public class ExamansDto implements Serializable {
 //		this.date = exam.getDate();
 //		this.status = exam.getStatus();
 //		}
-	public ExamansDto(int examId,String pdf,int examMark, Date date,String status) {
+	public ExamansDto(int examId,int examMark, Date date,String status) {
 		this.examId = examId;
-		this.pdf = pdf;
 		this.examMark =examMark;
 		this.date =date;
 		this.status = status;
+	}
+
+	public ExamansDto(int examId, String name, int languagesId, String languagesName, int examMark, Date date,
+			String status) {
+		// TODO Auto-generated constructor stub
+		this.examId = examId;
+		this.userAccountDto = new UserAccountDto(name);
+		this.languagesDto= new LanguagesDto(languagesId,languagesName);
+		this.examMark =examMark;
+		this.date =date;
+		this.status = status;
+		
+	
 	}
 
 	

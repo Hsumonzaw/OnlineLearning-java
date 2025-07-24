@@ -18,9 +18,9 @@ public class Examans{
 	private int examId;
 	//private String name;
 	private int userAccountId;
-	//private int languagesId;
+
+	private int languagesId;
 	private Integer coursesId;
-	private String pdf;
 	private int examMark;
 	private Date date;
 	private String status;
@@ -54,6 +54,13 @@ public class Examans{
 	public void setUserAccountId(int userAccountId) {
 		this.userAccountId = userAccountId;
 	}
+	public int getLanguagesId() {
+		return languagesId;
+	}
+
+	public void setLanguagesId(int languagesId) {
+		this.languagesId = languagesId;
+	}
 
 
 
@@ -69,15 +76,7 @@ public class Examans{
 
 
 
-	public String getPdf() {
-		return pdf;
-	}
-
-
-
-	public void setPdf(String pdf) {
-		this.pdf = pdf;
-	}
+	
 
 
 

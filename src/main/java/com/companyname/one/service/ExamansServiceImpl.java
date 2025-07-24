@@ -40,9 +40,8 @@ public class ExamansServiceImpl implements ExamansService{
 	public ExamansDto addExamans(ExamansDto dto) {
 		Examans ex = new Examans();
 		ex.setUserAccountId(User.getUserId());
-		//ex.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
+		ex.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
 		ex.setCoursesId(dto.getCoursesDto().getCoursesId());
-		ex.setPdf(dto.getPdf());
 		ex.setExamMark(dto.getExamMark());
         ex.setDate(new Date());
         ex.setStatus(dto.getStatus());
@@ -57,9 +56,8 @@ public class ExamansServiceImpl implements ExamansService{
 		ex.setExamId(dto.getExamId());
 
 		ex.setUserAccountId(User.getUserId());
-		//ex.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
+		ex.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
 		ex.setCoursesId(dto.getCoursesDto().getCoursesId());
-		ex.setPdf(dto.getPdf());
 		ex.setExamMark(dto.getExamMark());
         ex.setDate(new Date());
         ex.setStatus(dto.getStatus());

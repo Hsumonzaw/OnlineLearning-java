@@ -32,10 +32,12 @@ public class ExamansDaoImpl implements ExamansDao {
 	@Override
 	public List<ExamansDto> getExamans() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> examList = session.createNativeQuery("SELECT ex.examId, ua.name, c.languagesId,l.name AS languagesName, ex.pdf,ex.examMark, ex.date, ex.status FROM examans ex\r\n"
+		List<Object[]> examList = session.createNativeQuery("SELECT ex.examId, ua.name, c.languagesId,l.name AS languagesName, ex.pdf,ex.examMark, ex.date, ex.status \r\n"
+				+ "FROM examans ex\r\n"
 				+ "LEFT JOIN useraccount ua ON ex.userAccountId = ua.userAccountId\r\n"
+				+ "LEFT JOIN courses c ON ex.coursesId = c.coursesId\r\n"
 				+ "LEFT JOIN languages l ON l.languagesId = c.languagesId\r\n"
-				+ "LEFT JOIN courses c ON ex.coursesId = c.coursesId").getResultList();
+				+ "").getResultList();
 		List<ExamansDto> dtoList = new ArrayList<ExamansDto>();
 		
 		for(Object[] obj:examList) {
@@ -44,16 +46,15 @@ public class ExamansDaoImpl implements ExamansDao {
 			String name = (String)obj[1];
 			int languagesId = Integer.parseInt(obj[2].toString());
 
-			//String languagesName = (String)obj[3];
-			String pdf = (String)obj[3];
-			int examMark = Integer.parseInt(obj[4].toString());
-			Date date = (Date)(obj[5]);
-			String status = (String)obj[6];
+			String languagesName = (String)obj[3];
+			int examMark = Integer.parseInt(obj[5].toString());
+			Date date = (Date)(obj[6]);
+			String status = (String)obj[7];
 			//String languagesName = (String)obj[];
 			
 
 
-			ExamansDto dto = new ExamansDto(examId,pdf,examMark,date,status);
+			ExamansDto dto = new ExamansDto(examId,name,languagesId,languagesName,examMark,date,status);
 			
 			dto.setUserAccountDto(new UserAccountDto(name));
 			
