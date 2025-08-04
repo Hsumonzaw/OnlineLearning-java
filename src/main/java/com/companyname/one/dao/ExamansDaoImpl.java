@@ -123,8 +123,8 @@ public class ExamansDaoImpl implements ExamansDao {
 		List<QuizDto> dtoList = new ArrayList<QuizDto>();
 		
 		for(Object[] obj:objList) {
-			int quizId = Integer.parseInt(obj[0].toString());
 			
+			int quizId = Integer.parseInt(obj[0].toString());
 			int languagesId = Integer.parseInt(obj[1].toString());
 			String lName = (String)obj[2];
 			String uaName = (String)obj[3];
