@@ -143,7 +143,7 @@ public static String createVoucherCode(Date date,int voucherId) {//voucherId or 
 return strDate+voucherId;
 }
 public static String convertDateToStringDayMonthYear(Date date){//month
-    SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
     String strDate = formatDate.format(date);
     return strDate;
 }

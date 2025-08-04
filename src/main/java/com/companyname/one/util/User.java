@@ -18,4 +18,8 @@ public class User {
 	    	TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
 	      return data.getRole();
 	    }
+	    public static String getUserName(){
+	    	TokenData data = (TokenData)SecurityContextHolder.getContext().getAuthentication().getDetails();
+	      return data.getProfileName();
+	    }
 }
