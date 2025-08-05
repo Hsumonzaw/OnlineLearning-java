@@ -64,7 +64,7 @@ public class WebMVCConfiguration
 		registry.addResourceHandler("/api/v1/userphoto/**").addResourceLocations("file:" + s+ "/userphoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 		registry.addResourceHandler("/api/v1/languagephoto/**").addResourceLocations("file:" + s+ "/languagephoto/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 
-		registry.addResourceHandler("/api/v1/coursefile/**").addResourceLocations("file:" + s+ "/coursefile/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
+		registry.addResourceHandler("/api/v1/languagefile/**").addResourceLocations("file:" + s+ "/languagefile/").setCachePeriod(2592000).resourceChain(true).addResolver(new EncodedResourceResolver());
 
 	}
 	
