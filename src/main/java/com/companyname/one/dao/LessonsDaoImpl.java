@@ -40,29 +40,46 @@ public class LessonsDaoImpl implements LessonsDao{
 	    if(!"FREE".equals(freeVideo)) {
 	    	TokenData data = User.getTokenData();
 
-		    if("STUDENT".equals(data.getRole())) {
-		    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
-		    			+ "FROM courses c\r\n"
-		    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
-		    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
-		    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
-		    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' )  ";
-		    }else if("ADMIN".equals(data.getRole())) {
-		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
-		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
-		    			+ " FROM lessons l  "
-		    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
-		    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
-		    	sqlData = sqlData+" WHERE 1=1 ";
-		    }
-		    else {
-		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
-		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
-		    			+ " FROM lessons l  "
-		    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
-		    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
-		    	sqlData = sqlData+" WHERE l.userAccountId = "+data.getUserId();
-		    }
+//		    if("STUDENT".equals(data.getRole())) {
+//		    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
+//		    			+ "FROM courses c\r\n"
+//		    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
+//		    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
+//		    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
+//		    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' )  ";
+//		    }else if("ADMIN".equals(data.getRole())) {
+//		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
+//		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
+//		    			+ " FROM lessons l  "
+//		    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
+//		    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
+//		    	sqlData = sqlData+" WHERE 1=1 ";
+//		    }
+		   //		    else {
+//		    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
+//		    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
+//		    			+ " FROM lessons l  "
+//		    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
+//		    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
+//		    	sqlData = sqlData+" WHERE l.userAccountId = "+data.getUserId();
+//		    }
+	    	
+	    	 if("ADMIN".equals(data.getRole())) {
+			    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
+			    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
+			    			+ " FROM lessons l  "
+			    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
+			    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
+			    	sqlData = sqlData+" WHERE 1=1 ";
+			    }else {
+			    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
+			    			+ "FROM courses c\r\n"
+			    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
+			    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
+			    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
+			    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' )  ";
+			    }
+
 	    }else {
 	    	sqlData = " SELECT l.lessonsId,ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, "
 	    			+ " l.youtube, l.pdf, l.date, lan.amount, l.freeVideo "
