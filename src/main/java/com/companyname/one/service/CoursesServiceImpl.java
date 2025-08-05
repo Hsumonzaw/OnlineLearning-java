@@ -87,77 +87,77 @@ public class CoursesServiceImpl implements CoursesService{
 		courDao.deleteCourse(coursesId);
 		return coursesId;
 	}
-	@Transactional(readOnly=false)
-	@Override
-	public int updatePhoto(int coursesId, MultipartFile file) {
-		// TODO Auto-generated method stub
-		System.out.println(" file ");
-		System.out.println(file);
-		String oldPhoto = "";
-		Courses c = courDao.getCoursesId(coursesId);
-		oldPhoto = c.getCphoto();
-		String cphoto = ConvertDate.convertyymmddhhmmss(new Date());
-		c.setCphoto(cphoto);
-		
-		String pwd=new File("").getAbsolutePath();
-		if(oldPhoto!=null) {
-			File deleteFile=new File(pwd+"/coursephoto/"+oldPhoto+".png");
-			deleteFile.delete();
-		}
-		
-		
-		File dir=new File(pwd+"/coursephoto/");
-		String outPath=pwd+"/coursephoto/"+cphoto+".png";
-		File dest=new File(outPath);
-		try {
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			file.transferTo(dest);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		return coursesId;
-		}
-	
-	@Transactional(readOnly=false)
-	@Override
-	public int updateFile(int coursesId, MultipartFile file) {
-		// TODO Auto-generated method stub
-		System.out.println(" file ");
-		System.out.println(file);
-		String oldFile = "";
-		Courses c = courDao.getCoursesId(coursesId);
-		oldFile = c.getPdf();
-		String pdf = ConvertDate.convertyymmddhhmmss(new Date());
-		c.setPdf(pdf);
-		
-		String pwd=new File("").getAbsolutePath();
-		if(oldFile!=null) {
-			File deleteFile=new File(pwd+"/coursefile/"+oldFile+".pdf");
-			deleteFile.delete();
-		}
-		
-		
-		File dir=new File(pwd+"/coursefile/");
-		String outPath=pwd+"/coursefile/"+pdf+".pdf";
-		File dest=new File(outPath);
-		try {
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			file.transferTo(dest);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		return coursesId;	}
+//	@Transactional(readOnly=false)
+//	@Override
+//	public int updatePhoto(int coursesId, MultipartFile file) {
+//		// TODO Auto-generated method stub
+//		System.out.println(" file ");
+//		System.out.println(file);
+//		String oldPhoto = "";
+//		Courses c = courDao.getCoursesId(coursesId);
+//		oldPhoto = c.getCphoto();
+//		String cphoto = ConvertDate.convertyymmddhhmmss(new Date());
+//		c.setCphoto(cphoto);
+//		
+//		String pwd=new File("").getAbsolutePath();
+//		if(oldPhoto!=null) {
+//			File deleteFile=new File(pwd+"/coursephoto/"+oldPhoto+".png");
+//			deleteFile.delete();
+//		}
+//		
+//		
+//		File dir=new File(pwd+"/coursephoto/");
+//		String outPath=pwd+"/coursephoto/"+cphoto+".png";
+//		File dest=new File(outPath);
+//		try {
+//			if (!dir.exists()) {
+//				dir.mkdir();
+//			}
+//			file.transferTo(dest);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		return coursesId;
+//		}
+//	
+//	@Transactional(readOnly=false)
+//	@Override
+//	public int updateFile(int coursesId, MultipartFile file) {
+//		// TODO Auto-generated method stub
+//		System.out.println(" file ");
+//		System.out.println(file);
+//		String oldFile = "";
+//		Courses c = courDao.getCoursesId(coursesId);
+//		oldFile = c.getPdf();
+//		String pdf = ConvertDate.convertyymmddhhmmss(new Date());
+//		c.setPdf(pdf);
+//		
+//		String pwd=new File("").getAbsolutePath();
+//		if(oldFile!=null) {
+//			File deleteFile=new File(pwd+"/coursefile/"+oldFile+".pdf");
+//			deleteFile.delete();
+//		}
+//		
+//		
+//		File dir=new File(pwd+"/coursefile/");
+//		String outPath=pwd+"/coursefile/"+pdf+".pdf";
+//		File dest=new File(outPath);
+//		try {
+//			if (!dir.exists()) {
+//				dir.mkdir();
+//			}
+//			file.transferTo(dest);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		return coursesId;	}
 
 }

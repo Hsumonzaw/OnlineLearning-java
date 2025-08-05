@@ -16,8 +16,8 @@ public interface CoursesService {
 
 	int deleteCourse(int coursesId);
 
-	int updatePhoto(int coursesId, MultipartFile file);
-
-	int updateFile(int coursesId, MultipartFile file);
+//	int updatePhoto(int coursesId, MultipartFile file);
+//
+//	int updateFile(int coursesId, MultipartFile file);
 
 }

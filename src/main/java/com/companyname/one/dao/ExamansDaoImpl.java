@@ -123,23 +123,20 @@ public class ExamansDaoImpl implements ExamansDao {
 		List<QuizDto> dtoList = new ArrayList<QuizDto>();
 		
 		for(Object[] obj:objList) {
-			
-			int quizId = Integer.parseInt(obj[0].toString());
-			int languagesId = Integer.parseInt(obj[1].toString());
-			String lName = (String)obj[2];
-			String uaName = (String)obj[3];
-			String qName = (String)obj[4];
-			Date date = (Date)obj[5];
-			Date modifiedDate = (Date)obj[6];
-			String ansone = (String)obj[7];
-			String anstwo = (String)obj[8];
-			String ansthree = (String)obj[9];
-			int correct = Integer.parseInt(obj[10].toString());
-			
-			QuizDto dto = new QuizDto(quizId,languagesId,lName,uaName,qName,date,modifiedDate,ansone,anstwo,ansthree,correct);
-			dtoList.add(dto);
-			
-			
+		    int quizId = obj[0] != null ? Integer.parseInt(obj[0].toString()) : 0;
+		    int languagesId = obj[1] != null ? Integer.parseInt(obj[1].toString()) : 0; // check null
+		    String lName = obj[2] != null ? (String)obj[2] : "";
+		    String uaName = obj[3] != null ? (String)obj[3] : "";
+		    String qName = obj[4] != null ? (String)obj[4] : "";
+		    Date date = (Date)obj[5];  // date may also be null, consider checking
+		    Date modifiedDate = (Date)obj[6];
+		    String ansone = obj[7] != null ? (String)obj[7] : "";
+		    String anstwo = obj[8] != null ? (String)obj[8] : "";
+		    String ansthree = obj[9] != null ? (String)obj[9] : "";
+		    int correct = obj[10] != null ? Integer.parseInt(obj[10].toString()) : 0;
+
+		    QuizDto dto = new QuizDto(quizId,languagesId,lName,uaName,qName,date,modifiedDate,ansone,anstwo,ansthree,correct);
+		    dtoList.add(dto);
 		}
 		return dtoList;
 		}

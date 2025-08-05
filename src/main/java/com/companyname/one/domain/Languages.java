@@ -24,13 +24,16 @@ public class Languages  {
 	private int userAccountId;
 
 	private String name;
+	
+	private String lanPhoto;
 
 	private int amount;
-
-	private String examLink;
-
+	
 	private int examFee;
 
+	private String pdf;
+	
+	private String description;
 	
 	public Languages() {
 		super();
@@ -42,7 +45,7 @@ public class Languages  {
 		this.languagesId = dto.getLanguagesId();
 		this.name = dto.getName();
 		this.amount = dto.getAmount();
-		this.examLink = dto.getExamLink();
+		this.pdf = dto.getPdf();
 		this.examFee = dto.getExamFee();
 		this.lessonsId = dto.getLessonsDto() != null ? dto.getLessonsDto().getLessonsId() : 0;
 	    this.userAccountId = dto.getUserAccount() != null ? dto.getUserAccount().getUserAccountId() : 0;
@@ -64,9 +67,7 @@ public class Languages  {
 	}
 
 
-	public String getExamLink() {
-		return examLink;
-	}
+	
 
 
 	public int getExamFee() {
@@ -89,10 +90,7 @@ public class Languages  {
 	}
 
 
-	public void setExamLink(String examLink) {
-		this.examLink = examLink;
-	}
-
+	
 
 	public void setExamFee(int examFee) {
 		this.examFee = examFee;
@@ -118,5 +116,32 @@ public class Languages  {
 		this.userAccountId = userAccountId;
 	}
 	
-	
+	public String getLanPhoto() {
+		return lanPhoto;
+	}
+
+
+	public void setLanPhoto(String lanPhoto) {
+		this.lanPhoto = lanPhoto;
+	}
+
+
+	public String getPdf() {
+		return pdf;
+	}
+
+
+	public void setPdf(String pdf) {
+		this.pdf = pdf;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
 }

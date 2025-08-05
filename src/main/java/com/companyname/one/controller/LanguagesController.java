@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.companyname.one.dto.LanguagesDto;
 import com.companyname.one.service.LanguagesService;
@@ -67,6 +69,30 @@ public class LanguagesController {
 			// TODO: handle exception
 			throw new RuntimeException("Delete Error!", e);
 		}
+	}
+	
+	@PutMapping("languages/{languagesId}/lanPhoto")
+	public int updatePhoto(@PathVariable("languagesId")int languagesId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+		
+			return lanService.updateLanPhoto(languagesId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
+	}
+	@PutMapping("languages/{languagesId}/pdf")
+	public int updateFile(@PathVariable("languagesId")int languagesId,@RequestParam(value = "file",required=false) MultipartFile file){
+		try {
+			return lanService.updateLanFile(languagesId,file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new RuntimeException("SAVE,News Error!", e);
+		}
+		
 	}
 	
 }

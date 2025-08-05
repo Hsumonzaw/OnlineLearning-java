@@ -33,23 +33,27 @@ public class LanguagesDto {
 		// TODO Auto-generated constructor stub
 		this.languagesId = dto.getLanguagesId();
 		this.name = dto.getName();
+		this.lanPhoto = dto.getLanPhoto();
 		this.amount = dto.getAmount();
-		this.examLink = dto.getExamLink();
 		this.examFee = dto.getExamFee();
+		this.pdf = dto.getPdf();
+		this.description = dto.getDescription();
 //		 if (dto.getUserAccount() != null) {
 //		        UserAccountDto user = new UserAccountDto(); 
 //		        user.setUserAccountId(dto.getUserAccount().getUserAccountId());
 //		        this.userAccount = user;
 //		    }
 	}
-	public LanguagesDto(int languagesId, String name, int amount, String examLink,int examFee) {
+	public LanguagesDto(int languagesId, String name,String lanPhoto, int amount,int examFee, String pdf, String description) {
 		// TODO Auto-generated constructor stub
 		this.languagesId = languagesId;
 
 		this.name = name;
+		this.lanPhoto = lanPhoto;
 		this.amount = amount;
-		this.examLink =examLink;
-		this.examFee = examFee;		
+		this.examFee = examFee;	
+		this.pdf =pdf;
+		this.description = description;
 		//this.userAccount = new UserAccountDto(userAccountId);//for save and update error
 		
 	}
@@ -88,12 +92,17 @@ public class LanguagesDto {
 	private UserAccountDto userAccount; 
 
 	private String name;
+	
+	private String lanPhoto;
+
 
 	private int amount;
 
-	private String examLink;
-
 	private int examFee;
+	
+	private String pdf;
+	
+	private String description;
 	private int buy;
 	private int coursesId;
 

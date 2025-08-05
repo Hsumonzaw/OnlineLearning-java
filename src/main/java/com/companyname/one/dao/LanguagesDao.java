@@ -15,6 +15,8 @@ public interface LanguagesDao {
 
 	void deleteLanguage(int languagesId);
 
+	Languages getLanguagesId(int languagesId);
+
 	
 
 }

@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Languages;
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.CoursesDto;
@@ -78,13 +79,13 @@ public class LanguagesDaoImpl implements LanguagesDao{
 //	    }else {
 		System.out.println( " index "+index);
 		if(index==0) {
-			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,0 AS buy,0 AS coursesId\r\n"
+			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.lanPhoto,l.amount,l.examFee,l.pdf,l.description,0 AS buy,0 AS coursesId\r\n"
 					+ "FROM languages l "
 					+ " LEFT JOIN courses c ON c.languagesId = l.languagesId "
 					+ " GROUP BY l.languagesId \r\n"
 					+ "").getResultList();
 		}else {
-			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.amount,l.examLink,l.examFee,"
+			userList = session.createNativeQuery("SELECT l.languagesId,l.name,l.lanPhoto,l.amount,l.examFee,l.pdf,l.description,"
 					+ "SUM(IF(c.studentId=:userId,1,0)) AS buy,SUM(IF(c.studentId=:userId,c.coursesId,0)) AS coursesId\r\n"
 					+ "FROM languages l "
 					+ " LEFT JOIN courses c ON c.languagesId = l.languagesId "
@@ -97,12 +98,15 @@ public class LanguagesDaoImpl implements LanguagesDao{
 		for(Object[] obj: userList) {
 			int languagesId = Integer.parseInt(obj[0].toString());			
 			String name = (String)obj[1];
-			int amount = Integer.parseInt(obj[2].toString());
-			String examLink = (String)obj[3];
+			String lanPhoto = (String)obj[2];
+			int amount = Integer.parseInt(obj[3].toString());
 			int examFee = Integer.parseInt(obj[4].toString());
-			int buy = Integer.parseInt(obj[5].toString());
-			int coursesId = Integer.parseInt(obj[6].toString());
-			LanguagesDto dto = new LanguagesDto(languagesId,name,amount,examLink,examFee);	
+			String pdf = (String)obj[5];
+			String description = (String)obj[6];
+
+			int buy = Integer.parseInt(obj[7].toString());
+			int coursesId = Integer.parseInt(obj[8].toString());
+			LanguagesDto dto = new LanguagesDto(languagesId,name,lanPhoto,amount,examFee,pdf,description);	
 			dto.setBuy(buy);
 			dto.setCoursesId(coursesId);
 			dtoList.add(dto);
@@ -129,6 +133,12 @@ public class LanguagesDaoImpl implements LanguagesDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.createNativeQuery(
+		        "DELETE ea FROM examans ea " +
+		        "JOIN courses c ON ea.coursesId = c.coursesId " +
+		        "WHERE c.languagesId = :languagesId"
+		    ).setParameter("languagesId", languagesId).executeUpdate();
+
+		session.createNativeQuery(
 		        "DELETE FROM lessons WHERE languagesId = :languagesId"
 		    ).setParameter("languagesId", languagesId).executeUpdate();
 		session.createNativeQuery(
@@ -138,6 +148,12 @@ public class LanguagesDaoImpl implements LanguagesDao{
 		session.createNativeQuery("Delete FROM languages WHERE languagesId=:languagesId")
 		.setParameter("languagesId", languagesId).executeUpdate();
 	}
+
+	@Override
+	public Languages getLanguagesId(int languagesId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.find(Languages.class, languagesId);		}
 	
 	
 }

@@ -68,26 +68,26 @@ public class CoursesController {
 		}
 	}
 	
-	@PutMapping("courses/{coursesId}/cphoto")
-	public int updatePhoto(@PathVariable("coursesId")int coursesId,@RequestParam(value = "file",required=false) MultipartFile file){
-		try {
-			return courService.updatePhoto(coursesId,file);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			throw new RuntimeException("SAVE,News Error!", e);
-		}
-		
-	}
-	@PutMapping("courses/{coursesId}/pdf")
-	public int updateFile(@PathVariable("coursesId")int coursesId,@RequestParam(value = "file",required=false) MultipartFile file){
-		try {
-			return courService.updateFile(coursesId,file);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			throw new RuntimeException("SAVE,News Error!", e);
-		}
-		
-	}
+//	@PutMapping("courses/{coursesId}/cphoto")
+//	public int updatePhoto(@PathVariable("coursesId")int coursesId,@RequestParam(value = "file",required=false) MultipartFile file){
+//		try {
+//			return courService.updatePhoto(coursesId,file);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			throw new RuntimeException("SAVE,News Error!", e);
+//		}
+//		
+//	}
+//	@PutMapping("courses/{coursesId}/pdf")
+//	public int updateFile(@PathVariable("coursesId")int coursesId,@RequestParam(value = "file",required=false) MultipartFile file){
+//		try {
+//			return courService.updateFile(coursesId,file);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			throw new RuntimeException("SAVE,News Error!", e);
+//		}
+//		
+//	}
 }
