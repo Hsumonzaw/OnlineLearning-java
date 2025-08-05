@@ -28,7 +28,7 @@ public class UserAccount implements UserDetails  {
 	private Integer createId;
 //	private Integer teacherId;
 	private String name;
-	private int age;
+	private Date age;
 	private String photo;
 	private int status;
 	private String userType;
@@ -127,11 +127,11 @@ public class UserAccount implements UserDetails  {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Date getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Date age) {
 		this.age = age;
 	}
 

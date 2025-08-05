@@ -40,7 +40,9 @@ public class UserAccountDto{
 	private Integer createId;
 	//private Integer teacherId;
 	private String name;
-	private int age;
+	@JsonSerialize(using = DateFormatSerializer.class)
+	@JsonDeserialize(using = DateFormatDeserializer.class)
+	private Date age;
 	private String photo;
 	private int status;
 	private String userType;
