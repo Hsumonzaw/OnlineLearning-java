@@ -70,6 +70,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 		user.setPhonenum(dto.getPhonenum());
 		user.setDegree(dto.getDegree());
 		user.setFile(dto.getFile());
+		user.setGender(dto.getGender());
 		user.setStartDate(dto.getStartDate());
 		user.setModifiedDate(new Date());
 		user.setUserName(dto.getUserName());

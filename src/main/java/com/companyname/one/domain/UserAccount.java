@@ -44,6 +44,7 @@ public class UserAccount implements UserDetails  {
 	private String phonenum;
 	private String degree;
 	private String file;
+	private String gender;
 
 
 
@@ -72,6 +73,7 @@ public class UserAccount implements UserDetails  {
 		this.phonenum = dto.getPhonenum();
 		this.degree = dto.getDegree();
 		this.file = dto.getFile();
+		this.gender = dto.getGender();
 		this.startDate = dto.getStartDate();
 		this.modifiedDate = new Date(); 
 		this.userName = dto.getUserName();
@@ -98,6 +100,7 @@ public class UserAccount implements UserDetails  {
 		this.phonenum = ua.getPhonenum();
 		this.nrc = ua.getNrc();
 		this.userType = ua.getUserType();
+		this.gender = ua.getGender();
 	}
 
 	public int getUserAccountId() {
@@ -297,6 +300,14 @@ public class UserAccount implements UserDetails  {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return this.getUserName(); 
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 //	public Integer getTeacherId() {

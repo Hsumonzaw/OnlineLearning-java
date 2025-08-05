@@ -62,6 +62,8 @@ public class UserAccountDto{
 	private String phonenum;
 	private String degree;
 	private String file;
+	private String gender;
+	
 
 
 
@@ -131,6 +133,7 @@ public class UserAccountDto{
 		this.file = user.getFile();
 		this.userName = user.getUserName();
 		this.startDate = user.getStartDate();
+		this.gender = user.getGender();
 	}
 
 	private UserAccountDto studentDto;
