@@ -85,7 +85,17 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			        }
 				}else if("ALL".equals(userType)) {
 						
-					List<UserAccount> userListOne = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ")
+					List<UserAccount> userListOne = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,la.userAccountId,sua.name,sua.age,sua.gender,\r\n"
+							+ "sua.photo,sua.userType,sua.userName,sua.address,sua.nrc,sua.email,sua.phonenum,sua.degree,sua.file,e.examMark,sua.startDate,sua.modifiedDate\r\n"
+							+ "FROM lessons l\r\n"
+							+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
+							+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
+							+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
+							+ "LEFT JOIN examans e ON e.userAccountId = l.userAccountId\r\n"
+							+ "WHERE l.userAccountId = :userId AND sua.status =1\r\n"
+							+ "GROUP BY l.languagesId,c.studentId, la.name, sua.name, sua.age, sua.gender,sua.photo, sua.userType, sua.userName, sua.address, sua.nrc,\r\n"
+							+ "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark,sua.startDate, sua.modifiedDate")
+							.setParameter("userId", data.getUserId())
 							.getResultList();
 					for(UserAccount ua:userListOne) {
 						UserAccountDto dto = new UserAccountDto(ua);
