@@ -19,5 +19,7 @@ public interface UserAccountService {
 	int updatePhoto(int userAccountId, MultipartFile file);
 
 	int updateFile(int userAccountId, MultipartFile file);
+	
+	boolean changePassword(int userAccountId, String oldPassword, String newPassword);
 
 }

@@ -2,9 +2,11 @@ package com.companyname.one.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,8 @@ import com.companyname.one.security.LoginDto;
 import com.companyname.one.service.UserAccountService;
 @RestController
 @RequestMapping("/api/v1/")
-public class UserAccountController {
+//@RequestMapping("/api/v1/user")
+public class UserAccountController<ChangePasswordRequest> {
 @Autowired
 UserAccountService userService;
 @Autowired 
@@ -152,4 +155,47 @@ CustomUserDetailsService customUserDetailService;
 			throw new RuntimeException("UserName and Password is wrong!", e);
 		}
 	}
-}
+//	@PutMapping("users/{userAccountId}/changepassword")
+//	public ResponseEntity<String> changePassword(
+//	        @PathVariable int userAccountId,
+//	        @RequestParam String oldPassword,
+//	        @RequestParam String newPassword) {
+//	    try {
+//	        boolean changed = userService.changePassword(userAccountId, oldPassword, newPassword);
+//	        if (changed) {
+//	            return ResponseEntity.ok("Password changed successfully");
+//	        } else {
+//	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Old password is incorrect or user not found");
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//	                .body("Error changing password: " + e.getMessage());
+//	    }
+	
+	@PutMapping("useraccounts/{userAccountId}/changepassword")
+	public ResponseEntity<String> changePassword(
+	    @PathVariable int userAccountId,
+	    @RequestParam String oldPassword,
+	    @RequestParam String newPassword) {
+	    try {
+	        boolean changed = userService.changePassword(userAccountId, oldPassword, newPassword);
+	        if (changed) {
+	            return ResponseEntity.ok("Password changed successfully");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Old password is incorrect or user not found");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("Error changing password: " + e.getMessage());
+	    }
+	}
+
+	}
+//	 @PostMapping("/changepassword") // The specific endpoint for changing the password
+//	    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+//	        // ... logic to change password
+//	        return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
+//	    }
+

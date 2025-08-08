@@ -3,6 +3,10 @@ package com.companyname.one.dao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -140,5 +144,23 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		}
 		return null;
 	}
+	
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Optional<UserAccount> findById(int userAccountId) {
+        return Optional.ofNullable(entityManager.find(UserAccount.class, userAccountId));
+    }
+
+    @Override
+    public void save(UserAccount user) {
+        if (user.getUserAccountId() == 0) {
+            entityManager.persist(user);
+        } else {
+            entityManager.merge(user);
+        }
+    }
+
 
 }

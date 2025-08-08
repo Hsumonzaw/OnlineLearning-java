@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(value = Include.USE_DEFAULTS)
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class UserAccountDto{
 
 	@Id

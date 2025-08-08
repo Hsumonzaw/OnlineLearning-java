@@ -1,6 +1,7 @@
 package com.companyname.one.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.companyname.one.domain.Examans;
 import com.companyname.one.domain.UserAccount;
@@ -18,5 +19,8 @@ public interface UserAccountDao {
 	void deleteUserAccounts(int userAccountId);
 
 	UserAccount getLoginAccount(String userName, String password);
+	Optional<UserAccount> findById(int userAccountId);
+    void save(UserAccount user);
+
 
 }
