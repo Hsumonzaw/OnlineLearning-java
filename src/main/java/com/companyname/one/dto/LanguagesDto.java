@@ -85,6 +85,15 @@ public class LanguagesDto {
 
 
 
+	public LanguagesDto(int languagesId, String languageName, int userAccountId) {
+		// TODO Auto-generated constructor stub
+		this.languagesId = languagesId;
+		this.name = languageName;
+		this.userAccount = new UserAccountDto(userAccountId);
+	}
+
+
+
 	private int languagesId;
 	
 	private LessonsDto lessonsDto;

@@ -141,5 +141,6 @@ public class UserAccountDto{
 
 	private UserAccountDto studentDto;
 	private LanguagesDto languagesDto;
+	private ExamansDto examDto;
 
 }

@@ -68,6 +68,11 @@ public class ExamansDto implements Serializable {
 	
 	}
 
+	public ExamansDto(int examMark) {
+		// TODO Auto-generated constructor stub
+		this.examMark = examMark;
+	}
+
 	
 	
 //	public void setUserAccountDto(UserAccountDto userAccountDto) {
