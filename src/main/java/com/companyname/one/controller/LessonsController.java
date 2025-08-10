@@ -3,6 +3,7 @@ package com.companyname.one.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,20 +49,16 @@ public class LessonsController {
 		}
 		
 	}
-	@PostMapping("lessons")
-	public LessonsDto addLessons(@RequestBody LessonsDto dto) {
-		try 
-		{
-
-			return lessService.addLessons(dto);
-			
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-
-			throw new RuntimeException("Add,Lessons is Error!", e);
-		}
+	@PostMapping("/lessons")
+	public ResponseEntity<?> addLessons(@RequestBody LessonsDto dto) {
+	    try {
+	        LessonsDto result = lessService.addLessons(dto);
+	        return ResponseEntity.ok(result);
+	    } catch (RuntimeException e) {
+	        return ResponseEntity.badRequest().body(e.getMessage());
+	    }
 	}
+
 	@PutMapping("lessons/{lessonsId}")
 	public LessonsDto updateLessons(@PathVariable("lessonsId")int lessonsId ,
 			@RequestBody LessonsDto dto) {

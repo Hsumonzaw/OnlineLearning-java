@@ -2,8 +2,10 @@ package com.companyname.one.dao;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -71,7 +73,16 @@ public class LessonsDaoImpl implements LessonsDao{
 			    			+ " LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId "
 			    			+ " LEFT JOIN languages lan ON lan.languagesId = l.languagesId";
 			    	sqlData = sqlData+" WHERE 1=1 ";
-			    }else {
+			    }else if ("TEACHER".equals(data.getRole())) {
+			        // Teacher sees only their own lessons
+			        sqlData = "SELECT l.lessonsId, ua.userAccountId, ua.name AS userName, lan.languagesId, lan.name AS lanName, " +
+			                  "l.youtube, l.pdf, l.date, lan.amount, l.freeVideo " +
+			                  "FROM lessons l " +
+			                  "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId " +
+			                  "LEFT JOIN languages lan ON lan.languagesId = l.languagesId " +
+			                  "WHERE l.userAccountId = " + data.getUserId() + " ";
+			    } 
+	    	 else {
 			    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
 			    			+ "FROM courses c\r\n"
 			    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
@@ -102,15 +113,36 @@ public class LessonsDaoImpl implements LessonsDao{
 	    return session.createNativeQuery(sqlData).getResultList();
 	}
 
+//	@Override
+//	public void addLessons(Lessons lessons) {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		session.save(lessons);
+////		session.createNativeQuery(
+////		        "INSERT INTO useraccount VALUES lessonsId = :lessonsId"
+////		    ).setParameter("lessons", lessons).executeUpdate();
+//	}
+	
 	@Override
 	public void addLessons(Lessons lessons) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.save(lessons);
-//		session.createNativeQuery(
-//		        "INSERT INTO useraccount VALUES lessonsId = :lessonsId"
-//		    ).setParameter("lessons", lessons).executeUpdate();
+	    Session session = sessionFactory.getCurrentSession();
+
+	    // Check if the language already has a lesson from another teacher
+	    String hql = "SELECT count(l.lessonsId) FROM Lessons l WHERE l.languagesId = :langId AND l.userAccountId != :userId";
+	    Long count = (Long) session.createQuery(hql)
+	            .setParameter("langId", lessons.getLanguagesId())
+	            .setParameter("userId", lessons.getUserAccountId())
+	            .uniqueResult();
+
+	    if (count != null && count > 0) {
+	        throw new RuntimeException("Another teacher has already added a lesson for this language.");
+	    }
+
+	    // If no conflicting lessons, save the lesson
+	    session.save(lessons);
 	}
+
+
 	@Override
 	public void updateLessons( Lessons lessons) {
 		// TODO Auto-generated method stub

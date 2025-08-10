@@ -85,18 +85,22 @@ public class LessonsServiceImpl implements LessonsService{
 	@Transactional(readOnly=false)
 	@Override
 	public LessonsDto addLessons(LessonsDto dto) {
-		// TODO Auto-generated method stub
-		Lessons less =new Lessons();
-		less.setUserAccountId(User.getUserId());//for save and update error 
-        less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
-        less.setYoutube(dto.getYoutube());
-        less.setPdf(dto.getPdf());
-		less.setDate(new Date());      
-		less.setModifiedDate(new Date()); 
-		less.setFreeVideo(dto.getFreeVideo());		
-		lessDao.addLessons(less);
-		return dto;
-		}
+	    Lessons less = new Lessons();
+
+	    int userId = User.getUserId(); // get logged in teacher's ID
+
+	    less.setUserAccountId(userId);
+	    less.setLanguagesId(dto.getLanguagesDto().getLanguagesId());
+	    less.setYoutube(dto.getYoutube());
+	    less.setPdf(dto.getPdf());
+	    less.setDate(new Date());
+	    less.setModifiedDate(new Date());
+	    less.setFreeVideo(dto.getFreeVideo());
+
+	    lessDao.addLessons(less); // will throw if duplicate
+
+	    return dto;
+	}
 	@Transactional(readOnly=false)
 	@Override
 	public LessonsDto updateLessons(LessonsDto dto) {
