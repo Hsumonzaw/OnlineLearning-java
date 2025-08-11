@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import com.companyname.one.domain.UserAccount;
 import com.companyname.one.dto.CoursesDto;
+import com.companyname.one.dto.ExamansDto;
 import com.companyname.one.dto.LanguagesDto;
+import com.companyname.one.dto.LessonsDto;
 import com.companyname.one.dto.UserAccountDto;
 import com.companyname.one.security.TokenData;
 import com.companyname.one.util.Cryption;
@@ -55,7 +57,138 @@ public class UserAccountDaoImpl implements UserAccountDao{
 					UserAccountDto dto = new UserAccountDto(ua);
 					dtoList.add(dto);
 				}
-			}else {
+			}
+			else if ("TEACHAL".equals(userType)) {
+				List <Object[]> userListOne = session.createNativeQuery("SELECT le.lessonsId,l.languagesId,l.name AS languageName,u.name AS TeacherName,u.gender,u.nrc,u.email,u.phonenum,u.address,u.photo,u.degree,u.file,u.startDate\r\n"
+						+ "FROM lessons le\r\n"
+						+ "LEFT JOIN languages l ON  l.languagesId = le.languagesId\r\n"
+						+ "LEFT JOIN useraccount u ON u.userAccountId = le.userAccountId\r\n"
+						+ "WHERE u.status = 1 \r\n"
+						+ "GROUP BY u.userAccountId")
+						.getResultList();
+				 for (Object[] obj : userListOne) {
+			            int lessonsId = Integer.parseInt(obj[0].toString());
+			            int languagesId = Integer.parseInt(obj[1].toString());
+
+			            String languageName = (String) obj[2];
+			            String teacherName = (String) obj[3];
+			            String gender = (String) obj[4];
+			            String nrc = (String) obj[5];				           
+			            String email = (String) obj[6];
+			            String phonenum = (String) obj[7];
+			            String address = (String) obj[8];
+			            String photo = (String) obj[9];
+			            String degree = (String) obj[10];
+			            String file = (String) obj[11];
+			            Date startDate = (Date) obj[12];
+
+			            
+			            UserAccountDto dto = new UserAccountDto(teacherName, gender, nrc,email,phonenum,address,photo,degree,file,startDate);
+			            dto.setLessonsDto(new LessonsDto(lessonsId));
+			            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
+
+			            dtoList.add(dto);
+//			            return dtoList;
+			        }
+
+					//return
+				
+			}
+			else if ("STU".equals(userType)) {
+			    // Run native SQL and return a list of Object[]
+			    List<Object[]> userList1 = session.createNativeQuery(
+			        "SELECT l.languagesId, la.name, sua.userAccountId, sua.name AS studentName, sua.age, sua.gender,\r\n"
+			        + "sua.photo, sua.userName, sua.address, sua.nrc, sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, \r\n"
+			        + "sua.startDate, sua.modifiedDate, c.type \r\n"
+			        + "FROM lessons l \r\n"
+			        + "LEFT JOIN languages la ON la.languagesId = l.languagesId \r\n"
+			        + "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
+			        + "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId \r\n"
+			        + "LEFT JOIN examans e ON e.userAccountId = c.studentId \r\n"
+			        + "WHERE sua.status = 1 \r\n"
+			        + "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
+			        + "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate\r\n"
+			        + ""
+			    ).getResultList();
+
+			    // Loop through the rows and map them to DTOs
+			    for (Object[] obj : userList1) {
+			        UserAccountDto dto = new UserAccountDto();
+			        dto.setUserAccountId(obj[2] != null ? ((Number) obj[2]).intValue() : null);
+			        dto.setName((String) obj[3]);
+			        dto.setAge((Date) obj[4]);
+			        dto.setGender((String) obj[5]);
+			        dto.setPhoto((String) obj[6]);
+			        dto.setUserName((String) obj[7]);
+			        dto.setAddress((String) obj[8]);
+			        dto.setNrc((String) obj[9]);
+			        dto.setEmail((String) obj[10]);
+			        dto.setPhonenum((String) obj[11]);
+			        dto.setDegree((String) obj[12]);
+			        dto.setFile((String) obj[13]);
+
+			        // Language info (obj[0] = languagesId, obj[1] = languageName)
+			        if (obj[0] != null) {
+			            LanguagesDto langDto = new LanguagesDto(((Number) obj[0]).intValue(), (String) obj[1]);
+			            dto.setLanguagesDto(langDto);
+			        }
+
+			        // Exam mark info (obj[14] = examMark)
+			        if (obj[14] != null) {
+			            ExamansDto examDto = new ExamansDto();
+			            examDto.setExamMark(((Number) obj[14]).intValue());
+			            dto.setExamDto(examDto);
+			        }
+
+			        dto.setStartDate((Date) obj[15]);
+			        dto.setModifiedDate((Date) obj[16]);
+			        
+			        CoursesDto coursesDto = new CoursesDto();
+			        coursesDto.setType((String) obj[17]);
+			        dto.setCoursesDto(coursesDto);
+			        
+			        dtoList.add(dto);
+			    }
+			}else if ("TEACHER".equals(userType)) {
+				List <Object[]> userListOne = session.createNativeQuery("SELECT u.userAccountId,l.languagesId,l.name AS languageName,u.name AS TeacherName,u.gender,u.nrc,u.email,u.phonenum,u.address,u.photo,u.degree,u.file,u.startDate\r\n"
+						+ "FROM useraccount u\r\n"
+						+ "LEFT JOIN lessons le ON u.userAccountId = le.userAccountId\r\n"
+						+ "LEFT JOIN languages l ON  l.languagesId = le.languagesId\r\n"
+						+ "WHERE u.status = 1 \r\n"
+						+ "GROUP BY u.userAccountId")
+						.getResultList();
+				for (Object[] obj : userListOne) {
+				    int userAccountId = ((Number) obj[0]).intValue();
+
+				    Integer languagesId = obj[1] != null ? ((Number) obj[1]).intValue() : null;
+
+				    String languageName = obj[2] != null ? (String) obj[2] : null;
+				    String teacherName = obj[3] != null ? (String) obj[3] : null;
+				    String gender = obj[4] != null ? (String) obj[4] : null;
+				    String nrc = obj[5] != null ? (String) obj[5] : null;           
+				    String email = obj[6] != null ? (String) obj[6] : null;
+				    String phonenum = obj[7] != null ? (String) obj[7] : null;
+				    String address = obj[8] != null ? (String) obj[8] : null;
+				    String photo = obj[9] != null ? (String) obj[9] : null;
+				    String degree = obj[10] != null ? (String) obj[10] : null;
+				    String file = obj[11] != null ? (String) obj[11] : null;
+				    Date startDate = obj[12] != null ? (Date) obj[12] : null;
+
+				    UserAccountDto dto = new UserAccountDto(teacherName, gender, nrc, email, phonenum, address, photo, degree, file, startDate);
+
+				    if (languagesId != null) {
+				        dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
+				    }
+
+				    dtoList.add(dto);
+				}
+
+					//return
+				
+			}
+
+
+			else {
 				TokenData data = User.getTokenData();
 				if("TEACHER".equals(data.getRole())) {
 
@@ -64,7 +197,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 							+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
 							+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
 							+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
-							+ "WHERE l.userAccountId =  :userId\r\n"
+							+ "WHERE l.userAccountId =  :userId AND sua.status = 1\r\n"
 							+ "GROUP BY l.languagesId,c.studentId\r\n"
 							+ "").setParameter("userId", data.getUserId())
 							.getResultList();
@@ -93,6 +226,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 					}
 						//return dtoList;
 					}
+				
 				else {
 					List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
 							+ " Where ua.status=1 AND ua.userType=:userType "

@@ -139,8 +139,30 @@ public class UserAccountDto{
 		this.gender = user.getGender();
 	}
 
+	public UserAccountDto(String teacherName, String gender, String nrc, String email, String phonenum,
+			String address, String photo, String degree, String file, Date startDate) {
+		// TODO Auto-generated constructor stub
+		this.name = teacherName;
+		this.gender = gender;
+		this.nrc = nrc;
+		this.email = email;
+		this.phonenum = phonenum;
+		this.address = address;
+		this.photo = photo;
+		this.degree = degree;
+		this.file = file;
+		this.startDate = startDate;
+	}
+
 	private UserAccountDto studentDto;
 	private LanguagesDto languagesDto;
+	private LessonsDto lessonsDto;
 	private ExamansDto examDto;
+	private CoursesDto coursesDto;
+
+
+
+
+	 
 
 }

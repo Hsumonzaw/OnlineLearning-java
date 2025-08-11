@@ -57,6 +57,16 @@ CustomUserDetailsService customUserDetailService;
 	public List<UserAccountDto> getTeachers() {
 	    return userService.getUserAccounts("TEACHER");
 	}
+	@GetMapping("/studentdetail")
+	public List<UserAccountDto> getStudentDetail() {
+	    return userService.getUserAccounts("STUDENT");
+	}
+	@GetMapping("/teachercourse")
+	public List<UserAccountDto> getTeacherCourse() {
+	    return userService.getUserAccounts("TEACHER");
+	}
+
+
 
 
 	@PostMapping("free/useraccounts")

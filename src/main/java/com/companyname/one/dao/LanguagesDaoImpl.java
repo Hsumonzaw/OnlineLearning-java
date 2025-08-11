@@ -7,7 +7,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.companyname.one.domain.Courses;
 import com.companyname.one.domain.Languages;
@@ -128,27 +130,44 @@ public class LanguagesDaoImpl implements LanguagesDao{
 		session.update(languages);
 	}
 
+//	@Override
+//	public void deleteLanguage(int languagesId) {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		session.createNativeQuery(
+//		        "DELETE ea FROM examans ea " +
+//		        "JOIN courses c ON ea.coursesId = c.coursesId " +
+//		        "WHERE c.languagesId = :languagesId"
+//		    ).setParameter("languagesId", languagesId).executeUpdate();
+//
+//		session.createNativeQuery(
+//		        "DELETE FROM lessons WHERE languagesId = :languagesId"
+//		    ).setParameter("languagesId", languagesId).executeUpdate();
+//		session.createNativeQuery(
+//		        "DELETE FROM courses WHERE languagesId = :languagesId"
+//		    ).setParameter("languagesId", languagesId).executeUpdate();
+//		
+//		session.createNativeQuery("Delete FROM languages WHERE languagesId=:languagesId")
+//		.setParameter("languagesId", languagesId).executeUpdate();
+//	}
 	@Override
 	public void deleteLanguage(int languagesId) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.createNativeQuery(
-		        "DELETE ea FROM examans ea " +
-		        "JOIN courses c ON ea.coursesId = c.coursesId " +
-		        "WHERE c.languagesId = :languagesId"
-		    ).setParameter("languagesId", languagesId).executeUpdate();
+	    Session session = sessionFactory.getCurrentSession();
 
-		session.createNativeQuery(
-		        "DELETE FROM lessons WHERE languagesId = :languagesId"
-		    ).setParameter("languagesId", languagesId).executeUpdate();
-		session.createNativeQuery(
-		        "DELETE FROM courses WHERE languagesId = :languagesId"
-		    ).setParameter("languagesId", languagesId).executeUpdate();
-		
-		session.createNativeQuery("Delete FROM languages WHERE languagesId=:languagesId")
-		.setParameter("languagesId", languagesId).executeUpdate();
+	    int rowsDeleted = session.createNativeQuery("""
+	        DELETE FROM languages
+	        WHERE languagesId = :languagesId
+	        AND languagesId NOT IN (SELECT DISTINCT languagesId FROM courses)
+	        AND languagesId NOT IN (SELECT DISTINCT languagesId FROM lessons)
+	    """)
+	    .setParameter("languagesId", languagesId)
+	    .executeUpdate();
+
+	    if (rowsDeleted == 0) {
+	        throw new ResponseStatusException(HttpStatus.CONFLICT,
+	            "You can't delete this language because it is linked to existing courses or lessons.");
+	    }
 	}
-
 	@Override
 	public Languages getLanguagesId(int languagesId) {
 		// TODO Auto-generated method stub
