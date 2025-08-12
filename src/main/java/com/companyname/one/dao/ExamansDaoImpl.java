@@ -141,11 +141,28 @@ public class ExamansDaoImpl implements ExamansDao {
 		return dtoList;
 		}
 
+//	@Override
+//	public void addQuiz(Quiz q) {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		session.save(q);
+//	}
 	@Override
 	public void addQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.save(q);
+	    Session session = sessionFactory.getCurrentSession();
+
+	    String hql = "SELECT COUNT(q.quizId) FROM Quiz q WHERE q.languagesId = :languagesId AND q.userAccountId != :userAccountId";
+
+	    Long count = (Long) session.createQuery(hql)
+	            .setParameter("languagesId", q.getLanguagesId())
+	            .setParameter("userAccountId", q.getUserAccountId())
+	            .uniqueResult();
+
+	    if (count != null && count > 0) {
+	        throw new RuntimeException("Another teacher has already added a quiz for this language.");
+	    }
+
+	    session.save(q);
 	}
 
 	@Override
@@ -311,5 +328,3 @@ public class ExamansDaoImpl implements ExamansDao {
 	}
 
 	}
-
-

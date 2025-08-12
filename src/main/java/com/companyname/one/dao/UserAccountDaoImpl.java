@@ -43,13 +43,113 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 
 		List<UserAccountDto> dtoList = new ArrayList<UserAccountDto>();
+		
+		TokenData data = User.getTokenData();
+		if( "TEACHER".equals(data.getRole())) {
+
+//			userList = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,sua.startDate,sua.modifiedDate\r\n"
+//					+ "FROM lessons l\r\n"
+//					+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
+//					+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
+//					+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
+//					+ "WHERE l.userAccountId =  :userId AND sua.status = 1\r\n"
+////					+ "GROUP BY l.languagesId,c.studentId\r\n"
+//					+ "").setParameter("userId", data.getUserId())
+//					.getResultList();
+		 userList = session.createNativeQuery(
+			        "SELECT l.lessonsId, l.userAccountId AS lessUser,l.languagesId, la.name, sua.userAccountId, sua.name AS studentName, sua.age, sua.gender,\r\n"
+			        + "sua.photo, sua.userName, sua.address, sua.nrc, sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, \r\n"
+			        + "sua.startDate, sua.modifiedDate, c.type \r\n"
+			        + "FROM lessons l \r\n"
+			        + "LEFT JOIN languages la ON la.languagesId = l.languagesId \r\n"
+			        + "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
+			        + "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId \r\n"
+			        + "LEFT JOIN examans e ON e.userAccountId = c.studentId \r\n"
+					+ "WHERE l.userAccountId =  :userId AND sua.status = 1\r\n"
+//			        + "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
+//			        + "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate\r\n"
+//			        + ""
+			    ).setParameter("userId", data.getUserId()).getResultList();
+		 
+				for (Object[] obj : userList) {
+				    UserAccountDto dto = new UserAccountDto();
+				    
+			        LessonsDto lessonsDto = new LessonsDto(((Number)obj[0]).intValue());
+			        dto.setLessonsDto(lessonsDto);
+			        UserAccountDto studentDto = new UserAccountDto(((Number)obj[1]).intValue());
+			        dto.setStudentDto(studentDto);
+
+				    // Language info
+				    if (obj[2] != null) {
+				        LanguagesDto langDto = new LanguagesDto(((Number)obj[2]).intValue(), (String)obj[3]);
+				        dto.setLanguagesDto(langDto);
+				    }
+
+				    dto.setUserAccountId(obj[4] != null ? ((Number)obj[4]).intValue() : null);
+				    dto.setName((String) obj[5]);
+				    dto.setAge((Date) obj[6]);
+				    dto.setGender((String) obj[7]);
+				    dto.setPhoto((String) obj[8]);
+				    dto.setUserName((String) obj[9]);
+				    dto.setAddress((String) obj[10]);
+				    dto.setNrc((String) obj[11]);
+				    dto.setEmail((String) obj[12]);
+				    dto.setPhonenum((String) obj[13]);
+				    dto.setDegree((String) obj[14]);
+				    dto.setFile((String) obj[15]);
+
+				    if (obj[16] != null) {
+				        ExamansDto examDto = new ExamansDto();
+				        examDto.setExamMark(((Number)obj[16]).intValue());
+				        dto.setExamDto(examDto);
+				    }
+
+				    dto.setStartDate((Date) obj[17]);
+				    dto.setModifiedDate((Date) obj[18]);
+
+				    CoursesDto coursesDto = new CoursesDto();
+				    coursesDto.setType((String) obj[19]);
+				    dto.setCoursesDto(coursesDto);
+
+				    dtoList.add(dto);
+				}
+				if("TE".equals(userType)) {
+					List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
+							+ " Where ua.status=1 AND ua.userType='TEACHER' "
+							+ " ORDER BY ua.name ASC ").getResultList();
+					for(UserAccount ua:userListOne) {
+						UserAccountDto dto = new UserAccountDto(ua);
+						dtoList.add(dto);
+					}
+				}
+
+		}
+//	        for (Object[] obj : userList) {
+//	            int languagesId = Integer.parseInt(obj[0].toString());
+//	            String languageName = (String) obj[1];
+//	            String studentName = (String) obj[2];
+//	            Date startDate = (Date) obj[3];
+//	            Date modifiedDate = (Date) obj[4];
+//
+//	            UserAccountDto dto = new UserAccountDto(studentName, startDate, modifiedDate);
+//	            dto.setStudentDto(new UserAccountDto(studentName));
+//	            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
+//
+//	            dtoList.add(dto);
+////	            return dtoList;
+//	        }
+//		}
+		
+	 	
+		
+
 		//List<UserAccountDto> allList1 = new ArrayList<UserAccountDto>();
 			
 //			int userId = User.getUserId();
 //			String role = User.getUserRole();
 			
 //			if("ADMIN".equals(role))
-			if("TE".equals(userType)) {
+		else if("TE".equals(userType)) {
 				List<UserAccount> userListOne  = session.createQuery("SELECT ua FROM UserAccount ua "
 						+ " Where ua.status=1 AND ua.userType='TEACHER' "
 						+ " ORDER BY ua.name ASC ").getResultList();
@@ -57,42 +157,6 @@ public class UserAccountDaoImpl implements UserAccountDao{
 					UserAccountDto dto = new UserAccountDto(ua);
 					dtoList.add(dto);
 				}
-			}
-			else if ("TEACHAL".equals(userType)) {
-				List <Object[]> userListOne = session.createNativeQuery("SELECT le.lessonsId,l.languagesId,l.name AS languageName,u.name AS TeacherName,u.gender,u.nrc,u.email,u.phonenum,u.address,u.photo,u.degree,u.file,u.startDate\r\n"
-						+ "FROM lessons le\r\n"
-						+ "LEFT JOIN languages l ON  l.languagesId = le.languagesId\r\n"
-						+ "LEFT JOIN useraccount u ON u.userAccountId = le.userAccountId\r\n"
-						+ "WHERE u.status = 1 \r\n"
-						+ "GROUP BY u.userAccountId")
-						.getResultList();
-				 for (Object[] obj : userListOne) {
-			            int lessonsId = Integer.parseInt(obj[0].toString());
-			            int languagesId = Integer.parseInt(obj[1].toString());
-
-			            String languageName = (String) obj[2];
-			            String teacherName = (String) obj[3];
-			            String gender = (String) obj[4];
-			            String nrc = (String) obj[5];				           
-			            String email = (String) obj[6];
-			            String phonenum = (String) obj[7];
-			            String address = (String) obj[8];
-			            String photo = (String) obj[9];
-			            String degree = (String) obj[10];
-			            String file = (String) obj[11];
-			            Date startDate = (Date) obj[12];
-
-			            
-			            UserAccountDto dto = new UserAccountDto(teacherName, gender, nrc,email,phonenum,address,photo,degree,file,startDate);
-			            dto.setLessonsDto(new LessonsDto(lessonsId));
-			            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
-
-			            dtoList.add(dto);
-//			            return dtoList;
-			        }
-
-					//return
-				
 			}
 			else if ("STU".equals(userType)) {
 			    // Run native SQL and return a list of Object[]
@@ -106,9 +170,9 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			        + "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId \r\n"
 			        + "LEFT JOIN examans e ON e.userAccountId = c.studentId \r\n"
 			        + "WHERE sua.status = 1 \r\n"
-			        + "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
-			        + "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate\r\n"
-			        + ""
+//			        + "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
+//			        + "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate\r\n"
+//			        + ""
 			    ).getResultList();
 
 			    // Loop through the rows and map them to DTOs
@@ -150,12 +214,14 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			        dtoList.add(dto);
 			    }
 			}else if ("TEACHER".equals(userType)) {
-				List <Object[]> userListOne = session.createNativeQuery("SELECT u.userAccountId,l.languagesId,l.name AS languageName,u.name AS TeacherName,u.gender,u.nrc,u.email,u.phonenum,u.address,u.photo,u.degree,u.file,u.startDate\r\n"
+				List <Object[]> userListOne = session.createNativeQuery("SELECT u.userAccountId,l.languagesId,l.name AS languageName,u.name AS TeacherName,u.gender,u.nrc,\r\n"
+						+ "u.email,u.phonenum,u.address,u.photo,u.degree,u.file,u.startDate\r\n"
 						+ "FROM useraccount u\r\n"
 						+ "LEFT JOIN lessons le ON u.userAccountId = le.userAccountId\r\n"
 						+ "LEFT JOIN languages l ON  l.languagesId = le.languagesId\r\n"
-						+ "WHERE u.status = 1 \r\n"
-						+ "GROUP BY u.userAccountId")
+						+ "WHERE u.status = 1 AND u.userType = \"TEACHER\"\r\n"
+						+ "\r\n")
+//						+ "GROUP BY u.userAccountId")
 						.getResultList();
 				for (Object[] obj : userListOne) {
 				    int userAccountId = ((Number) obj[0]).intValue();
@@ -186,37 +252,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 					//return
 				
 			}
-
-
-			else {
-				TokenData data = User.getTokenData();
-				if("TEACHER".equals(data.getRole())) {
-
-					userList = session.createNativeQuery("SELECT l.languagesId,la.name AS languageName, sua.name AS studentName,sua.startDate,sua.modifiedDate\r\n"
-							+ "FROM lessons l\r\n"
-							+ "LEFT JOIN courses c ON c.languagesId = l.languagesId\r\n"
-							+ "LEFT JOIN languages la ON la.languagesId = l.languagesId\r\n"
-							+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId\r\n"
-							+ "WHERE l.userAccountId =  :userId AND sua.status = 1\r\n"
-							+ "GROUP BY l.languagesId,c.studentId\r\n"
-							+ "").setParameter("userId", data.getUserId())
-							.getResultList();
-					
-			        for (Object[] obj : userList) {
-			            int languagesId = Integer.parseInt(obj[0].toString());
-			            String languageName = (String) obj[1];
-			            String studentName = (String) obj[2];
-			            Date startDate = (Date) obj[3];
-			            Date modifiedDate = (Date) obj[4];
-
-			            UserAccountDto dto = new UserAccountDto(studentName, startDate, modifiedDate);
-			            dto.setStudentDto(new UserAccountDto(studentName));
-			            dto.setLanguagesDto(new LanguagesDto(languagesId, languageName));
-
-			            dtoList.add(dto);
-//			            return dtoList;
-			        }
-				}else if("ALL".equals(userType)) {
+				else if("ALL".equals(userType)) {
 						
 					List<UserAccount> userListOne = session.createQuery("SELECT ua FROM UserAccount ua where ua.status=1 ORDER BY ua.name ASC ")
 							.getResultList();
@@ -237,10 +273,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 					}
 						//return dtoList;
 				}
-			}
-		 	
 			return dtoList;
-		
+					
 	}
 
 	@Override

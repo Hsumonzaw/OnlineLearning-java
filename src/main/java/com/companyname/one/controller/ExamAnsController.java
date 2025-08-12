@@ -91,7 +91,7 @@ public class ExamAnsController {
 			throw new RuntimeException("get,News Error!", e);
 		}
 	}
-
+	
 	@PostMapping("quiz")
 	public int addQuiz(@RequestBody QuizDto dto) {
 		try {
