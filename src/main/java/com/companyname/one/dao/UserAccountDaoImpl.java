@@ -23,6 +23,7 @@ import java.util.Optional;
 @Repository
 public class UserAccountDaoImpl implements UserAccountDao {
 
+
     @PersistenceContext
     private EntityManager entityManager;
 

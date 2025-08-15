@@ -1,11 +1,13 @@
 package com.companyname.one.controller;
 
+import java.util.Date;
 import java.util.List;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,18 +95,47 @@ CustomUserDetailsService customUserDetailService;
 //		}
 //		
 //	}
-	@PostMapping("useraccounts")
-	public int saveUserAccounts(@RequestBody UserAccountDto dto){
-		try {
-			dto.setPassword(dto.getPassword().toLowerCase().toString());
-			return userService.saveUserAccounts(dto);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			throw new RuntimeException("SAVE,News Error!", e);
-		}
-		
+	@PostMapping(value = "useraccounts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public int saveUserAccounts(
+	        @RequestParam("name") String name,
+	        @RequestParam("userName") String userName,
+	        @RequestParam("password") String password,
+	        @RequestParam("email") String email,
+	        @RequestParam(value = "dob", required = false) Date dob,
+	        @RequestParam(value = "gender", required = false) String gender,
+	        @RequestParam(value = "phonenum", required = false) String phonenum,
+	        @RequestParam(value = "nrc", required = false) String nrc,
+	        @RequestParam(value = "address", required = false) String address,
+	        @RequestParam(value = "startDate", required = false) Date startDate,
+	        @RequestParam(value = "photo", required = false) MultipartFile photo
+	) {
+	    try {
+	        UserAccountDto dto = new UserAccountDto();
+	        dto.setName(name);
+	        dto.setUserName(userName);
+	        dto.setPassword(password.toLowerCase());
+	        dto.setEmail(email);
+	        dto.setAge(dob);
+	        dto.setGender(gender);
+	        dto.setPhonenum(phonenum);
+	        dto.setNrc(nrc);
+	        dto.setAddress(address);
+	        dto.setStartDate(startDate);
+
+	        int id = userService.saveUserAccounts(dto);
+
+	        if (photo != null && !photo.isEmpty()) {
+	            userService.updatePhoto(id, photo);
+	        }
+
+	        return id;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("SAVE, User Error!", e);
+	    }
 	}
+
+
 	@PutMapping("useraccounts/{userAccountId}")
 	public int updateUserAccounts(@PathVariable("userAccountId")int userAccountId, @RequestBody UserAccountDto dto){
 		try {
@@ -129,7 +160,7 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
-	@PutMapping("useraccounts/{userAccountId}/photo")
+	@PostMapping("useraccounts/{userAccountId}/photo")
 	public int updatePhoto(@PathVariable("userAccountId")int userAccountId,@RequestParam(value = "file",required=false) MultipartFile file){
 		try {
 			return userService.updatePhoto(userAccountId,file);
@@ -140,7 +171,7 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
-	@PutMapping("useraccounts/{userAccountId}/file")
+	@PostMapping("useraccounts/{userAccountId}/file")
 	public int updateFile(@PathVariable("userAccountId")int userAccountId,@RequestParam(value = "file",required=false) MultipartFile file){
 		try {
 			return userService.updateFile(userAccountId,file);
