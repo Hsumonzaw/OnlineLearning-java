@@ -50,6 +50,7 @@ public class CoursesServiceImpl implements CoursesService{
         c.setReceivedDate(dto.getReceivedDate());
         c.setDate(new Date());
         c.setModifiedDate(new Date());
+        c.setDoneState("PENDING");
         courDao.addCourses(c);
 
        
@@ -75,6 +76,7 @@ public class CoursesServiceImpl implements CoursesService{
         c.setReceivedDate(dto.getReceivedDate());
         c.setDate(dto.getDate());
         c.setModifiedDate(new Date());
+        c.setDoneState("DONE");
         courDao.updateCourse(c);
 
         return dto;

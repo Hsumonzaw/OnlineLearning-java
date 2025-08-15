@@ -57,8 +57,9 @@ public class CoursesDaoImpl implements CoursesDao{
 			Date receivedDate = (Date)(obj[13]);
 			Date date = (Date)(obj[14]);
 			Date modifiedDate = (Date)(obj[15]);
+			String doneState = (String)obj[16];
 
-			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,examLink,pdf,description,receivedDate,date,modifiedDate);
+			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,examLink,pdf,description,receivedDate,date,modifiedDate,doneState);
 			
 			dto.setUserAccountDto(new UserAccountDto(userAccountId,userAccountName));
 			

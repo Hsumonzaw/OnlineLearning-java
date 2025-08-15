@@ -83,12 +83,15 @@ public class LessonsDaoImpl implements LessonsDao{
 			                  "WHERE l.userAccountId = " + data.getUserId() + " ";
 			    } 
 	    	 else {
-			    	sqlData = " SELECT l.lessonsId,ua.userAccountId,ua.name,lan.languagesId,lan.name AS lanName,l.youtube,l.pdf,l.date,lan.amount,l.freeVideo\r\n"
-			    			+ "FROM courses c\r\n"
-			    			+ "LEFT JOIN lessons  l ON l.languagesId = c.languagesId\r\n"
-			    			+ "LEFT JOIN languages lan ON lan.languagesId = c.languagesId\r\n"
-			    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
-			    			+ "WHERE (c.studentId =  "+data.getUserId() + " OR l.freeVideo = 'FREE' )  ";
+			    	sqlData = " SELECT l.lessonsId, ua.userAccountId, ua.name, lan.languagesId, lan.name AS lanName,\r\n"
+			    			+ "l.youtube, l.pdf, l.date, lan.amount, l.freeVideo, c.doneState\r\n"
+			    			+ "FROM lessons l \r\n"
+			    			+ "LEFT JOIN languages lan ON lan.languagesId = l.languagesId \r\n"
+			    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId \r\n"
+			    			+ "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
+			    			+ "AND c.studentId =  "+data.getUserId()+"\r\n"
+			    			+ "AND c.doneState = \"DONE\"\r\n"
+			    			+ "WHERE (l.freeVideo = 'FREE' OR c.coursesId IS NOT NULL) ";
 			    }
 
 	    }else {
