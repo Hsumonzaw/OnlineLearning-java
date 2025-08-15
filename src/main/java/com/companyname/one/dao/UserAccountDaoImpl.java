@@ -68,9 +68,9 @@ public class UserAccountDaoImpl implements UserAccountDao {
             		+ "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
             		+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId \r\n"
             		+ "LEFT JOIN examans e ON e.userAccountId = c.studentId \r\n"
-            		+ "WHERE l.userAccountId = :userId AND sua.status = 1\r\n"
-            		+ "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
-            		+ "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate";
+            		+ "WHERE l.userAccountId = :userId AND sua.status = 1\r\n";
+//            		+ "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
+//            		+ "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate";
             List<Object[]> userList = entityManager.createNativeQuery(nativeQuery)
                     .setParameter("userId", userId)
                     .getResultList();
