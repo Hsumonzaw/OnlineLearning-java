@@ -55,18 +55,18 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
-	@GetMapping("/teachers")
+	@GetMapping("free/teachers")
 	public List<UserAccountDto> getTeachers() {
-	    return userService.getUserAccounts("TEACHER");
+	    return userService.getUserAccounts("TE");
 	}
-	@GetMapping("/studentdetail")
-	public List<UserAccountDto> getStudentDetail() {
-	    return userService.getUserAccounts("STUDENT");
-	}
-	@GetMapping("/teachercourse")
-	public List<UserAccountDto> getTeacherCourse() {
-	    return userService.getUserAccounts("TEACHER");
-	}
+//	@GetMapping("/studentdetail")
+//	public List<UserAccountDto> getStudentDetail() {
+//	    return userService.getUserAccounts("STUDENT");
+//	}
+//	@GetMapping("/teachercourse")
+//	public List<UserAccountDto> getTeacherCourse() {
+//	    return userService.getUserAccounts("TEACHER");
+//	}
 
 
 
