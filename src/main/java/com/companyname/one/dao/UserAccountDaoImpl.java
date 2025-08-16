@@ -77,6 +77,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
                     .getResultList();
 
             for (Object[] obj : userList) {
+                System.out.println("Row length: " + obj.length);
+
                 UserAccountDto dto = new UserAccountDto();
                 dto.setLessonsDto(new LessonsDto(((Number) obj[0]).intValue()));
                 dto.setStudentDto(new UserAccountDto(((Number) obj[1]).intValue()));
@@ -106,6 +108,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
                 coursesDto.setType((String) obj[19]);
                 dto.setCoursesDto(coursesDto);
                 dtoList.add(dto);
+
             }
             return dtoList;
         }
@@ -124,6 +127,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
             List<Object[]> userList = entityManager.createNativeQuery(nativeQuery).getResultList();
 
             for (Object[] obj : userList) {
+                System.out.println("Row length: " + obj.length);
+
                 UserAccountDto dto = new UserAccountDto();
                 dto.setUserAccountId(obj[2] != null ? ((Number) obj[2]).intValue() : null);
                 dto.setName((String) obj[3]);
