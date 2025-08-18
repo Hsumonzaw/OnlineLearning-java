@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CoursesDto {
 	
-	public CoursesDto(int coursesId, String type, int amount, String cphoto,String examLink,String pdf, String description, Date receivedDate, Date date, Date modifiedDate) {
+	public CoursesDto(int coursesId, String type, int amount, String cphoto,String examLink,String pdf, String description, Date receivedDate, Date date, Date modifiedDate, String doneState) {
 	    // TODO Auto-generated constructor stub
 	    this.coursesId = coursesId;
 	    this.type = type;
@@ -33,7 +33,7 @@ public class CoursesDto {
 	    this.receivedDate = receivedDate;
 	    this.date = date;
 	    this.modifiedDate = modifiedDate;
-	    
+	    this.doneState = doneState;
 	  }
 	
 
@@ -76,4 +76,5 @@ public class CoursesDto {
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
 	private Date modifiedDate;
+	private String doneState;
 }

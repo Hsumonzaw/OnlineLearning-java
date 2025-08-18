@@ -47,6 +47,8 @@ public class Courses  {
 	
 	private Date modifiedDate;
 	
+	private String doneState;
+	
 	public Courses() {
 		super();
 	}
@@ -153,6 +155,14 @@ public class Courses  {
 
 	public void setPdf(String pdf) { //new
 		this.pdf = pdf;
+	}
+
+	public String getDoneState() {
+		return doneState;
+	}
+
+	public void setDoneState(String doneState) {
+		this.doneState = doneState;
 	}
 	
 

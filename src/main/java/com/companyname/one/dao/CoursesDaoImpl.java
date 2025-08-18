@@ -27,12 +27,13 @@ public class CoursesDaoImpl implements CoursesDao{
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT c.coursesId,c.userAccountId,ua.name AS useraccountName,c.studentId,uac.name AS studentName,\r\n"
 				+ "c.languagesId,l.name AS languagesName,c.`type`,c.amount,c.cphoto,c.examLink,c.pdf,c.description,\r\n"
-				+ "c.receivedDate,c.date,c.modifiedDate\r\n"
+				+ "c.receivedDate,c.date,c.modifiedDate,c.doneState\r\n"
 				+ "FROM courses c\r\n"
 				+ "LEFT JOIN useraccount ua ON ua.userAccountId = c.userAccountId\r\n"
 				+ "LEFT JOIN useraccount uac ON uac.userAccountId = c.studentId\r\n"
 				+ "LEFT JOIN languages l ON l.languagesId = c.languagesId\r\n"
-				+ "ORDER BY c.receivedDate").getResultList();
+				+ "ORDER BY c.receivedDate\r\n"
+				+ "").getResultList();
 		List<CoursesDto> dtoList = new ArrayList<CoursesDto>();
 		
 		for(Object[] obj:objList) {
@@ -57,8 +58,9 @@ public class CoursesDaoImpl implements CoursesDao{
 			Date receivedDate = (Date)(obj[13]);
 			Date date = (Date)(obj[14]);
 			Date modifiedDate = (Date)(obj[15]);
+			String doneState = (String)obj[16];
 
-			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,examLink,pdf,description,receivedDate,date,modifiedDate);
+			CoursesDto dto = new CoursesDto(coursesId,type,amount,cphoto,examLink,pdf,description,receivedDate,date,modifiedDate,doneState);
 			
 			dto.setUserAccountDto(new UserAccountDto(userAccountId,userAccountName));
 			
