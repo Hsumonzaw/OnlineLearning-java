@@ -149,6 +149,8 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	
+	
 	@DeleteMapping("useraccounts/{userAccountId}")
 	public int deleteUserAccounts(@PathVariable("userAccountId")int userAccountId){
 		try {
@@ -160,6 +162,7 @@ CustomUserDetailsService customUserDetailService;
 		}
 		
 	}
+	
 	@PostMapping("useraccounts/{userAccountId}/photo")
 	public int updatePhoto(@PathVariable("userAccountId")int userAccountId,@RequestParam(value = "file",required=false) MultipartFile file){
 		try {

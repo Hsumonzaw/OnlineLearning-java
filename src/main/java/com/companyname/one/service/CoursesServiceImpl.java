@@ -76,7 +76,7 @@ public class CoursesServiceImpl implements CoursesService{
         c.setReceivedDate(dto.getReceivedDate());
         c.setDate(dto.getDate());
         c.setModifiedDate(new Date());
-        c.setDoneState("DONE");
+        c.setDoneState("APPROVED");
         courDao.updateCourse(c);
 
         return dto;

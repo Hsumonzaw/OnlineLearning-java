@@ -90,7 +90,7 @@ public class LessonsDaoImpl implements LessonsDao{
 			    			+ "LEFT JOIN useraccount ua ON ua.userAccountId = l.userAccountId \r\n"
 			    			+ "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
 			    			+ "AND c.studentId =  "+data.getUserId()+"\r\n"
-			    			+ "AND c.doneState = \"DONE\"\r\n"
+			    			+ "AND c.doneState = \"APPROVED\"\r\n"
 			    			+ "WHERE (l.freeVideo = 'FREE' OR c.coursesId IS NOT NULL) ";
 			    }
 

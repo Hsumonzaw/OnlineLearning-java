@@ -62,16 +62,16 @@ public class UserAccountDaoImpl implements UserAccountDao {
         if ("TEACHER".equals(userRole)) {
             // A teacher only sees their students, regardless of the userType parameter.
             String nativeQuery = "SELECT l.lessonsId, l.userAccountId AS lessUser,l.languagesId, la.name, sua.userAccountId, sua.name AS studentName, sua.age, sua.gender,\r\n"
-            		+ "sua.photo, sua.userName, sua.address, sua.nrc, sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, \r\n"
+            		+ "sua.photo, sua.userName, sua.address, sua.nrc, sua.email, sua.phonenum, sua.degree, sua.file, e.examMark,\r\n"
             		+ "sua.startDate, sua.modifiedDate, c.type \r\n"
             		+ "FROM lessons l \r\n"
             		+ "LEFT JOIN languages la ON la.languagesId = l.languagesId \r\n"
             		+ "LEFT JOIN courses c ON c.languagesId = l.languagesId \r\n"
             		+ "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId \r\n"
-            		+ "LEFT JOIN examans e ON e.userAccountId = c.studentId \r\n"
+            		+ "LEFT JOIN examans e ON e.coursesId = c.coursesId\r\n"
             		+ "WHERE l.userAccountId = :userId AND sua.status = 1\r\n"
-            		+ "GROUP BY l.languagesId, la.name, sua.userAccountId, sua.name, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, \r\n"
-            		+ "sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate";
+            		+ "GROUP BY l.languagesId\r\n"
+            		+ "";
             List<Object[]> userList = entityManager.createNativeQuery(nativeQuery)
                     .setParameter("userId", userId)
                     .getResultList();
@@ -117,13 +117,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
         // The admin can use userType to filter for specific user types.
         if ("STU".equals(userType)) {
              // Logic for getting all students
-            String nativeQuery = "SELECT l.languagesId, la.name, sua.userAccountId, sua.name AS studentName, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, sua.email, sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate, c.type " +
-                                 "FROM lessons l " +
-                                 "LEFT JOIN languages la ON la.languagesId = l.languagesId " +
-                                 "LEFT JOIN courses c ON c.languagesId = l.languagesId " +
-                                 "LEFT JOIN useraccount sua ON sua.userAccountId = c.studentId " +
-                                 "LEFT JOIN examans e ON e.userAccountId = c.studentId " +
-                                 "WHERE sua.status = 1";
+            String nativeQuery = "SELECT la.languagesId, la.name, sua.userAccountId, sua.name AS studentName, sua.age, sua.gender, sua.photo, sua.userName, sua.address, sua.nrc, sua.email,\r\n"
+            		+ "sua.phonenum, sua.degree, sua.file, e.examMark, sua.startDate, sua.modifiedDate, c.type\r\n"
+            		+ "FROM courses c\r\n"
+            		+ "LEFT JOIN useraccount sua ON c.studentId = sua.userAccountId\r\n"
+            		+ "LEFT JOIN languages la ON la.languagesId = c.languagesId\r\n"
+            		+ "LEFT JOIN examans e ON e.coursesId = c.coursesId\r\n"
+            		+ "            ";
             List<Object[]> userList = entityManager.createNativeQuery(nativeQuery).getResultList();
 
             for (Object[] obj : userList) {
