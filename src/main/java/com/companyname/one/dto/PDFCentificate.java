@@ -164,9 +164,9 @@ public class PDFCentificate {
 		cell.setPadding(3);
 		tableFive.addCell(cell);
 		
-		font = FontFactory.getFont(FontFactory.HELVETICA);
-		font.setSize(13);
-		font.setColor(Color.black);
+//		font = FontFactory.getFont(FontFactory.HELVETICA);
+//		font.setSize(13);
+//		font.setColor(Color.black);
 		
 //		cell = new PdfPCell();
 //		cell.setBorder(PdfPCell.NO_BORDER);
@@ -176,59 +176,63 @@ public class PDFCentificate {
 //		cell.setPadding(15);
 //		cell.setPaddingTop(20);
 //		tableFive.addCell(cell);
-		PdfPTable tableFiveOne = new PdfPTable(4);
-		tableFiveOne.setWidthPercentage(widthSize);
-		tableFiveOne.setWidths(new float[] {20f,6f, 14f,7f});
+		PdfPTable tableFiveOne = new PdfPTable(1);
+//		tableFiveOne.setWidthPercentage(widthSize);
+		tableFiveOne.setWidthPercentage(100);
 		
 		
 		
-		cell = new PdfPCell();
+		
+		cell = new PdfPCell(new Phrase("For successfully completing " + languagesName + " Exam", font));
 		cell.setBorder(PdfPCell.NO_BORDER);
-		cell.setPhrase(new Phrase(" For successfully completing ", font));
-		//cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    	cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		//cell.setPadding(3);
 		cell.setPaddingTop(20);
 		tableFiveOne.addCell(cell);
+//		
+//		font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+//		font.setSize(16);
+//		font.setColor(Color.black);
+//		cell = new PdfPCell();
+//		cell.setBorder(PdfPCell.NO_BORDER);
+//		cell.setPhrase(new Phrase(languagesName, font));
+//		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//		//cell.setPadding(3);
+//		cell.setPaddingTop(20);
+//		tableFiveOne.addCell(cell);
 		
-		font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-		font.setSize(16);
-		font.setColor(Color.black);
-		cell = new PdfPCell();
-		cell.setBorder(PdfPCell.NO_BORDER);
-		cell.setPhrase(new Phrase(languagesName, font));
-		//cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		//cell.setPadding(3);
-		cell.setPaddingTop(20);
-		tableFiveOne.addCell(cell);
+//		font = FontFactory.getFont(FontFactory.HELVETICA);
+//		font.setSize(13);
+//		font.setColor(Color.black);
+//		cell = new PdfPCell();
+//		cell.setBorder(PdfPCell.NO_BORDER);
+//		cell.setPhrase(new Phrase(" quiz with a score of ", font));
+//		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//		//cell.setPadding(3);
+//		cell.setPaddingTop(20);
+//		tableFiveOne.addCell(cell);
 		
-		font = FontFactory.getFont(FontFactory.HELVETICA);
-		font.setSize(13);
-		font.setColor(Color.black);
-		cell = new PdfPCell();
-		cell.setBorder(PdfPCell.NO_BORDER);
-		cell.setPhrase(new Phrase(" quiz with a score of ", font));
-		//cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//		font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+//		font.setSize(15);
+//		font.setColor(Color.black);
+//		cell = new PdfPCell();
+//		cell.setBorder(PdfPCell.NO_BORDER);
+//		cell.setPhrase(new Phrase("Exam ", font));
+//		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		//cell.setPadding(3);
-		cell.setPaddingTop(20);
-		tableFiveOne.addCell(cell);
-		
-		font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-		font.setSize(15);
-		font.setColor(Color.black);
-		cell = new PdfPCell();
-		cell.setBorder(PdfPCell.NO_BORDER);
-		cell.setPhrase(new Phrase(score+"/100 ", font));
-		//cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		//cell.setPadding(3);
-		cell.setPaddingTop(19);
-		tableFiveOne.addCell(cell);
-		tableFive.addCell(tableFiveOne);
+//		cell.setPaddingTop(19);
+//		tableFiveOne.addCell(cell);
+//		tableFive.addCell(tableFiveOne);
+		PdfPCell innerCell = new PdfPCell(tableFiveOne);
+		innerCell.setBorder(PdfPCell.NO_BORDER);
+		innerCell.setColspan(1);
+		tableFive.addCell(innerCell);
 
 		cell = new PdfPCell();
 		cell.setBorder(PdfPCell.NO_BORDER);
 		cell.setPhrase(new Phrase("  ", font));
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		cell.setPadding(3);
+		cell.setPadding(2);
 		tableFive.addCell(cell);
 		document.add(tableFive);
 		
